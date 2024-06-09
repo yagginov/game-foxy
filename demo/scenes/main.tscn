@@ -124,7 +124,8 @@ layer_0/tile_data = PackedInt32Array(0, 131073, 2, 65536, 131073, 2, 131072, 131
 
 [node name="CustomCharacterBody2D" parent="." instance=ExtResource("1_duo2i")]
 speed = 300.0
-position = Vector2(128.5, 125.5)
+position = Vector2(140, 131)
+motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="CustomCharacterBody2D"]
 zoom = Vector2(3, 3)

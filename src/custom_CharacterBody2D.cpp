@@ -33,6 +33,18 @@ void CustomCharacterBody2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_max_mp", "p_max_mp"), &CustomCharacterBody2D::set_max_mp);
 	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "max_mp"), "set_max_mp", "get_max_mp");
 
+	ClassDB::bind_method(D_METHOD("get_rs_hp"), &CustomCharacterBody2D::get_rs_hp);
+	ClassDB::bind_method(D_METHOD("set_rs_hp", "p_rs_hp"), &CustomCharacterBody2D::set_rs_hp);
+	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "rs_hp"), "set_rs_hp", "get_rs_hp");
+
+	ClassDB::bind_method(D_METHOD("get_rs_stamina"), &CustomCharacterBody2D::get_rs_stamina);
+	ClassDB::bind_method(D_METHOD("set_rs_stamina", "p_rs_stamina"), &CustomCharacterBody2D::set_rs_stamina);
+	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "rs_stamina"), "set_rs_stamina", "get_rs_stamina");
+
+	ClassDB::bind_method(D_METHOD("get_rs_mp"), &CustomCharacterBody2D::get_rs_mp);
+	ClassDB::bind_method(D_METHOD("set_rs_mp", "p_rs_mp"), &CustomCharacterBody2D::set_rs_mp);
+	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "rs_mp"), "set_rs_mp", "get_rs_mp");
+
 }
 
 
@@ -41,15 +53,11 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	speed = 400.0;
 	i = Input::get_singleton();
 	
-	hp = 100;
-	stamina = 100;
-	mp = 100;
+	hp = 100.0; stamina = 100.0; mp = 100.0;
+	max_hp = 100.0; max_stamina = 100.0; max_mp = 100.0;
+	rs_hp = 1.0; rs_stamina = 1.0; rs_mp = 1.0;
 
-	max_hp = 100;
-	max_stamina = 100;
-	max_mp = 100;
-
-	hp_helper = 0.0f;
+	sprint_helper = false;
 }
 
 CustomCharacterBody2D::~CustomCharacterBody2D() {
@@ -57,13 +65,25 @@ CustomCharacterBody2D::~CustomCharacterBody2D() {
 }
 
 void CustomCharacterBody2D::_process(double delta) {
-
+	
 }
 
 void CustomCharacterBody2D::_physics_process(double delta) {	
-	hp_recovery();
-	stamina_recovery();
-	mp_recovery();
+	if (!Engine::get_singleton()->is_editor_hint() && i->is_action_just_pressed("sprint")){
+		if (sprint_helper) { speed /= 2.0; sprint_helper = false; }
+		else { speed *= 2.0; sprint_helper = true; }
+	}
+
+	if (sprint_helper){
+		stamina -= delta * 2.0;
+		if (stamina < 0.0) { stamina = 0.0; sprint_helper = false; }
+	}
+	else {
+		stamina_recovery(delta);
+	}
+
+	hp_recovery(delta);
+	mp_recovery(delta);
 
 	Vector2 input_direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
 	set_velocity(input_direction * speed);
@@ -71,39 +91,27 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	move_and_slide();
 }
 
-inline void CustomCharacterBody2D::hp_recovery() {
+inline void CustomCharacterBody2D::hp_recovery(double delta) {
 	if (hp < max_hp)
 	{
-		hp_helper += 0.017;
-		if (hp_helper > 1.0f)
-		{
-			++hp;
-			hp_helper = 0.0f;
-		}
+		hp += rs_hp * delta;
+		if (hp > max_hp) { hp = max_hp; }
 	}
 }
 
-inline void CustomCharacterBody2D::stamina_recovery() {
+inline void CustomCharacterBody2D::stamina_recovery(double delta) {
 	if (stamina < max_stamina)
 	{
-		stamina_helper += 0.017;
-		if (stamina_helper > 1.0f)
-		{
-			++stamina;
-			stamina_helper = 0.0f;
-		}
+		stamina += rs_stamina * delta;
+		if (stamina > max_stamina) { stamina = max_stamina; }
 	}
 }
 
-inline void CustomCharacterBody2D::mp_recovery() {
+inline void CustomCharacterBody2D::mp_recovery(double delta) {
 	if (mp < max_mp)
 	{
-		mp_helper += 0.017;
-		if (mp_helper > 1.0f)
-		{
-			++mp;
-			mp_helper = 0.0f;
-		}
+		mp += rs_mp * delta;
+		if (mp > max_mp) { mp = max_mp; }
 	}
 }
 
@@ -117,52 +125,92 @@ double CustomCharacterBody2D::get_speed() const {
 }
 
 
-void CustomCharacterBody2D::set_hp(const int p_hp) {
+void CustomCharacterBody2D::set_hp(const double p_hp) {
+	if (p_hp > max_hp)
+	{
+		return;
+	}
 	hp = p_hp;
 }
 
-int CustomCharacterBody2D::get_hp() const {
+double CustomCharacterBody2D::get_hp() const {
 	return hp;
 }
 
-void CustomCharacterBody2D::set_stamina(const int p_stamina) {
+void CustomCharacterBody2D::set_stamina(const double p_stamina) {
+	if (p_stamina > max_stamina)
+	{
+		return;
+	}
 	stamina = p_stamina;
 }
 
-int CustomCharacterBody2D::get_stamina() const {
+double CustomCharacterBody2D::get_stamina() const {
 	return stamina;
 }
 
-void CustomCharacterBody2D::set_mp(const int p_mp) {
+void CustomCharacterBody2D::set_mp(const double p_mp) {
+	if (p_mp > max_mp)
+	{
+		return;
+	}
 	mp = p_mp;
 }
 
-int CustomCharacterBody2D::get_mp() const {
+double CustomCharacterBody2D::get_mp() const {
 	return mp;
 }
 
 
 
-void CustomCharacterBody2D::set_max_hp(const int p_max_hp) {
+void CustomCharacterBody2D::set_max_hp(const double p_max_hp) {
 	max_hp = p_max_hp;
+	hp = max_hp;
 }
 
-int CustomCharacterBody2D::get_max_hp() const {
+double CustomCharacterBody2D::get_max_hp() const {
 	return max_hp;
 }
 
-void CustomCharacterBody2D::set_max_stamina(const int p_max_stamina) {
+void CustomCharacterBody2D::set_max_stamina(const double p_max_stamina) {
 	max_stamina = p_max_stamina;
+	stamina = max_stamina;
 }
 
-int CustomCharacterBody2D::get_max_stamina() const {
+double CustomCharacterBody2D::get_max_stamina() const {
 	return max_stamina;
 }
 
-void CustomCharacterBody2D::set_max_mp(const int p_max_mp) {
+void CustomCharacterBody2D::set_max_mp(const double p_max_mp) {
 	max_mp = p_max_mp;
+	mp = max_mp;
 }
 
-int CustomCharacterBody2D::get_max_mp() const {
+double CustomCharacterBody2D::get_max_mp() const {
 	return max_mp;
+}
+
+
+void CustomCharacterBody2D::set_rs_hp(const double p_rs_hp) {
+	rs_hp = p_rs_hp;
+}
+
+double CustomCharacterBody2D::get_rs_hp() const {
+	return rs_hp;
+}
+
+void CustomCharacterBody2D::set_rs_stamina(const double p_rs_stamina) {
+	rs_stamina = p_rs_stamina;
+}
+
+double CustomCharacterBody2D::get_rs_stamina() const {
+	return rs_stamina;
+}
+
+void CustomCharacterBody2D::set_rs_mp(const double p_rs_mp) {
+	rs_mp = p_rs_mp;
+}
+
+double CustomCharacterBody2D::get_rs_mp() const {
+	return rs_mp;
 }
