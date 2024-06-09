@@ -76,7 +76,7 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 
 	if (sprint_helper){
 		stamina -= delta * 2.0;
-		if (stamina < 0.0) { stamina = 0.0; sprint_helper = false; }
+		if (stamina < 0.0) { stamina = 0.0; sprint_helper = false; speed /= 2.0;}
 	}
 	else {
 		stamina_recovery(delta);
