@@ -13,7 +13,8 @@ private:
 	Input* i;
 
 public:
-	double speed;
+	double speed;   // meters in second
+	double pixels_in_meter; // count pixels in one meter
 
 protected:
 	static void _bind_methods();
@@ -27,6 +28,9 @@ public:
 	
 	void set_speed(const double p_speed);
 	double get_speed() const;
+
+	void set_pixels_in_meter(const double p_pixels_in_meter);
+	double get_pixels_in_meter() const;
 };
 
 }
