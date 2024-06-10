@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6hncwrlagptc"]
+
+[ext_resource type="Texture2D" uid="uid://dvnc4cc6v83dh" path="res://assets/sprites/DummyEnemy.png" id="1_ghfgh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e8x1y"]
+radius = 4.0
+height = 28.0
+
+[node name="DummyEnemy" type="DummyEnemy"]
+
+[node name="Colider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_e8x1y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ghfgh")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -14.0
+offset_top = -22.0
+offset_right = 74.0
+offset_bottom = 1.0
+scale = Vector2(0.327736, 0.314401)
+text = "100"

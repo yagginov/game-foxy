@@ -1,8 +1,11 @@
-#ifndef CUSTOM_CHARACTER_BODY2D_H_H
-#define CUSTOM_CHARACTER_BODY2D_H_H
+#ifndef CUSTOM_CHARACTER_BODY2D_H
+#define CUSTOM_CHARACTER_BODY2D_H
 
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/classes/input.hpp>
+#include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/collision_shape2d.hpp>
+#include <godot_cpp/classes/label.hpp>
 
 namespace godot {
 
@@ -14,6 +17,10 @@ private:
 	Vector2 dodge_helper;
 	double dodge_time;
 	bool in_dodge;
+	Vector2 direction;
+	Area2D* attack_area;
+    CollisionShape2D* attack_shape;
+	Label* label;
 
 public:
 	double speed;   // meters in second; default 2 m/s
@@ -21,6 +28,7 @@ public:
 	double length_dodge_line; // default 2 meters
 	double dodge_execution_time; // default 0.5 seconds
 	double hp, max_hp; // default 4 hp
+	double attack_radius; // default 3 meters
 
 protected:
 	static void _bind_methods();
@@ -29,10 +37,12 @@ public:
 	CustomCharacterBody2D();
 	~CustomCharacterBody2D();
 
+    void _ready() override;
 	void _process(double delta) override;
 	void _physics_process(double delta) override;
 
 	bool dodge_method(double delta);
+	void sword_attack();
 	
 	void set_speed(const double p_speed);
 	double get_speed() const;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqekfjyfjhvfi"]
+[gd_scene load_steps=6 format=3 uid="uid://bqekfjyfjhvfi"]
 
 [ext_resource type="Texture2D" uid="uid://duvkn4whnrcby" path="res://assets/sprites/main_character.png" id="1_c2q3i"]
 
@@ -21,7 +21,13 @@ animations = [{
 radius = 4.0
 height = 14.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2sks3"]
+radius = 40.0125
+
 [node name="CustomCharacterBody2D" type="CustomCharacterBody2D"]
+position = Vector2(-5.33333, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8o7it")
@@ -31,3 +37,9 @@ offset = Vector2(0, -16)
 position = Vector2(0, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cjo3x")
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-0.666665, -13)
+shape = SubResource("CircleShape2D_2sks3")

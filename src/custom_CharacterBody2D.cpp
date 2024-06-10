@@ -1,10 +1,19 @@
 #include "custom_CharacterBody2D.h"
+
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/collision_shape2d.hpp>
+#include <godot_cpp/classes/physics_direct_space_state2d.hpp>
+#include <godot_cpp/classes/physics_shape_query_parameters2d.hpp>
+#include <godot_cpp/classes/circle_shape2d.hpp>
+#include <godot_cpp/classes/world2d.hpp>
 
 using namespace godot;
 
 
 void CustomCharacterBody2D::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("sword_attack"), &CustomCharacterBody2D::sword_attack);
+	
 	ClassDB::bind_method(D_METHOD("get_speed"), &CustomCharacterBody2D::get_speed);
 	ClassDB::bind_method(D_METHOD("set_speed", "p_speed"), &CustomCharacterBody2D::set_speed);
 	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "speed"), "set_speed", "get_speed");
@@ -45,6 +54,11 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	dodge_execution_time = 0.5;
 
 	max_hp = 4.0; hp = 4.0;
+	attack_radius = 3.0;
+
+	direction = Vector2(1.0, 0.0);
+	attack_area = nullptr;
+    attack_shape = nullptr;
 
 }
 
@@ -52,17 +66,36 @@ CustomCharacterBody2D::~CustomCharacterBody2D() {
 	// Add your cleanup here.
 }
 
+void CustomCharacterBody2D::_ready() {
+    // Get the attack area and shape
+    attack_area = get_node<Area2D>("AttackArea");
+    if (attack_area) {
+        attack_shape = attack_area->get_node<CollisionShape2D>("CollisionShape2D");
+		printf("Vrode uspeshno\n");
+    }
+}
+
 void CustomCharacterBody2D::_process(double delta) {
 
 }
 
 void CustomCharacterBody2D::_physics_process(double delta) {
-	
+	// Check sword attack
+	if (i->is_action_just_pressed("attack"))
+	{
+		printf("Vse norm poka\n");
+		sword_attack();
+	}
+
 	// Check dodge
 	if (dodge_method(delta)) { return; }
 
 	// Movement logic--------------
 	Vector2 input_direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
+	if (input_direction.x != 0.0 || input_direction.y != 0.0)
+	{
+		direction = input_direction.normalized();
+	}
 	set_velocity(input_direction * speed * pixels_in_meter);
 	move_and_slide();
 }
@@ -95,6 +128,42 @@ bool CustomCharacterBody2D::dodge_method(double delta)
 		dodge_time = 0.0;
 	}
 	return true;
+}
+
+void CustomCharacterBody2D::sword_attack() {
+    if (!attack_area || !attack_shape) {
+		printf("nu vsyo pizda\n");
+        return;
+    }
+
+    // Get the current space state to perform collision checks
+    PhysicsDirectSpaceState2D* space_state = get_world_2d()->get_direct_space_state();
+    
+    // Set up the shape query parameters
+    PhysicsShapeQueryParameters2D* params = new PhysicsShapeQueryParameters2D;
+    params->set_shape(attack_shape->get_shape());
+    params->set_transform(attack_area->get_global_transform());
+
+    // Perform the shape query
+    TypedArray<Dictionary> results = space_state->intersect_shape(params);
+
+    for (int i = 0; i < results.size(); ++i) {
+        Dictionary result = results[i];
+        Node2D *collider = Object::cast_to<Node2D>(result["collider"]);
+
+        if (!collider) {
+            continue;
+        }
+
+        // Check if the collider is in the forward half circle
+        Vector2 relative_position = collider->get_global_position() - get_global_position();
+        if (relative_position.dot(direction) > 0) {
+            // Inflict damage on the collider
+            if (collider->has_method("take_damage")) {
+                collider->call("take_damage", 1);
+            }
+        }
+    }
 }
 
 void CustomCharacterBody2D::set_speed(const double p_speed) {
