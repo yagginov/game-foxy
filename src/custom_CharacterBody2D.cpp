@@ -20,13 +20,21 @@ void CustomCharacterBody2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_length_dodge_line"), &CustomCharacterBody2D::get_length_dodge_line);
 	ClassDB::bind_method(D_METHOD("set_length_dodge_line", "p_length_dodge_line"), &CustomCharacterBody2D::set_length_dodge_line);
 	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "length_dodge_line"), "set_length_dodge_line", "get_length_dodge_line");
+
+	ClassDB::bind_method(D_METHOD("get_hp"), &CustomCharacterBody2D::get_hp);
+	ClassDB::bind_method(D_METHOD("set_hp", "p_hp"), &CustomCharacterBody2D::set_hp);
+	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "hp"), "set_hp", "get_hp");
+
+	ClassDB::bind_method(D_METHOD("get_max_hp"), &CustomCharacterBody2D::get_max_hp);
+	ClassDB::bind_method(D_METHOD("set_max_hp", "p_max_hp"), &CustomCharacterBody2D::set_max_hp);
+	ClassDB::add_property("CustomCharacterBody2D", PropertyInfo(Variant::FLOAT, "max_hp"), "set_max_hp", "get_max_hp");
 }
 
 
 CustomCharacterBody2D::CustomCharacterBody2D() {
 	// Initialize any variables here.
 	speed = 2.0; // 2 m/s
-	pixels_in_meter = 32.0; // 32 pixels/m
+	pixels_in_meter = 32.0; // 32 px/m
 	i = Input::get_singleton();
 
 	dodge_helper = Vector2(0.0, 0.0);
@@ -35,6 +43,8 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 
 	length_dodge_line = 2;
 	dodge_execution_time = 0.5;
+
+	max_hp = 4.0; hp = 4.0;
 
 }
 
@@ -117,4 +127,25 @@ void CustomCharacterBody2D::set_length_dodge_line(const double p_length_dodge_li
 
 double CustomCharacterBody2D::get_length_dodge_line() const {
 	return length_dodge_line;
+}
+
+void CustomCharacterBody2D::set_hp(const double p_hp) {
+	if (p_hp > max_hp) { hp = max_hp; return; }
+	if (p_hp < 0.0) { hp = 0.0; return; }
+
+	hp = p_hp;
+}
+
+double CustomCharacterBody2D::get_hp() const {
+	return hp;
+}
+
+void CustomCharacterBody2D::set_max_hp(const double p_max_hp) {
+	if (p_max_hp < 0.0) { max_hp = 0.0; return; }
+
+	max_hp = p_max_hp;
+}
+
+double CustomCharacterBody2D::get_max_hp() const {
+	return max_hp;
 }

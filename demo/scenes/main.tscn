@@ -129,3 +129,7 @@ position = Vector2(92.7648, 125.5)
 [node name="Camera2D" type="Camera2D" parent="CustomCharacterBody2D"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
+
+[node name="CustomCharacterBody2D2" parent="." instance=ExtResource("1_duo2i")]
+dodge_execution_time = 0.1
+position = Vector2(68, 131)
