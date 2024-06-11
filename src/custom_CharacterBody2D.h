@@ -7,6 +7,8 @@
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/label.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/animated_sprite2d.hpp>
+#include <godot_cpp/templates/vector.hpp>
 
 namespace godot {
 
@@ -25,6 +27,9 @@ private:
 	Sprite2D* sword;
 	bool anim_sword_attack;
 	double time_sword_attack;
+	AnimatedSprite2D* animatedSprite;
+	Vector<String> idleVariantAnim;
+	int idleVariant;
 
 public:
 	double speed;   // meters in second; default 2 m/s

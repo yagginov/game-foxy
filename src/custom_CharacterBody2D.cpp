@@ -8,6 +8,7 @@
 #include <godot_cpp/classes/circle_shape2d.hpp>
 #include <godot_cpp/classes/world2d.hpp>
 #include <godot_cpp/classes/label.hpp>
+#include <godot_cpp/classes/animated_sprite2d.hpp>
 
 using namespace godot;
 
@@ -64,6 +65,8 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 
 	anim_sword_attack = false;
 	time_sword_attack = 0.0;
+	idleVariant = 0;
+	idleVariantAnim = {String("idleRight"), String("idleLeft"), String("idleUp"), String("idleDown")};
 
 }
 
@@ -75,6 +78,7 @@ void CustomCharacterBody2D::_ready() {
 
 	label = get_node<Label>("Label");
 	sword = get_node<Sprite2D>("Sword");
+	animatedSprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
 
     // Get the attack area and shape
     attack_area = get_node<Area2D>("AttackArea");
@@ -112,10 +116,15 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 
 	// Movement logic--------------
 	Vector2 input_direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
-	if (input_direction.x != 0.0 || input_direction.y != 0.0)
-	{
-		direction = input_direction.normalized();
-	}
+	
+	if (input_direction.y < 0.0) { animatedSprite->play("runUp"); idleVariant = 2; }
+	else if (input_direction.y > 0.0) { animatedSprite->play("runDown"); idleVariant = 3; }
+	else if (input_direction.x > 0.0) { animatedSprite->play("runRight"); idleVariant = 0; }
+	else if (input_direction.x < 0.0) { animatedSprite->play("runLeft"); idleVariant = 1; }
+	else { animatedSprite->play(idleVariantAnim[idleVariant]); }
+
+	if (input_direction.x != 0.0 || input_direction.y != 0.0) { direction = input_direction.normalized(); }
+
 	set_velocity(input_direction * speed * pixels_in_meter);
 	move_and_slide();
 }
@@ -151,6 +160,7 @@ bool CustomCharacterBody2D::dodge_method(double delta)
 }
 
 void CustomCharacterBody2D::sword_attack() {
+	if (anim_sword_attack) { return; }
 
 	sword->set_rotation(Vector2(0.0, 1.0).angle_to(direction) + 1.5708);
 	sword->set_visible(true);
