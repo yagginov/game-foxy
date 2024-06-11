@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqekfjyfjhvfi"]
+[gd_scene load_steps=8 format=3 uid="uid://bqekfjyfjhvfi"]
 
 [ext_resource type="Texture2D" uid="uid://duvkn4whnrcby" path="res://assets/sprites/main_character.png" id="1_c2q3i"]
+[ext_resource type="Texture2D" uid="uid://bsjsny01rs1vi" path="res://assets/sprites/Sword.png" id="1_osord"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6kbv"]
+size = Vector2(11, 73)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2mxtj"]
 atlas = ExtResource("1_c2q3i")
@@ -27,6 +31,16 @@ radius = 66.0
 [node name="CustomCharacterBody2D" type="CustomCharacterBody2D"]
 position = Vector2(-5.33333, 0)
 
+[node name="Sword" type="Sprite2D" parent="."]
+position = Vector2(0.763, -10)
+rotation = 6.28319
+texture = ExtResource("1_osord")
+offset = Vector2(0.047, -48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(0.0703301, -55.5)
+shape = SubResource("RectangleShape2D_u6kbv")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -39,7 +53,9 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cjo3x")
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+visible = false
 position = Vector2(0.33333, -12)
 shape = SubResource("CircleShape2D_2sks3")
