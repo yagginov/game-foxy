@@ -7,6 +7,7 @@
 #include <godot_cpp/classes/physics_shape_query_parameters2d.hpp>
 #include <godot_cpp/classes/circle_shape2d.hpp>
 #include <godot_cpp/classes/world2d.hpp>
+#include <godot_cpp/classes/label.hpp>
 
 using namespace godot;
 
@@ -51,7 +52,7 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	in_dodge = false;
 
 	length_dodge_line = 2;
-	dodge_execution_time = 0.5;
+	dodge_execution_time = 0.1;
 
 	max_hp = 4.0; hp = 4.0;
 	attack_radius = 3.0;
@@ -71,7 +72,6 @@ void CustomCharacterBody2D::_ready() {
     attack_area = get_node<Area2D>("AttackArea");
     if (attack_area) {
         attack_shape = attack_area->get_node<CollisionShape2D>("CollisionShape2D");
-		printf("Vrode uspeshno\n");
     }
 }
 
@@ -83,7 +83,6 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	// Check sword attack
 	if (i->is_action_just_pressed("attack"))
 	{
-		printf("Vse norm poka\n");
 		sword_attack();
 	}
 
@@ -132,7 +131,6 @@ bool CustomCharacterBody2D::dodge_method(double delta)
 
 void CustomCharacterBody2D::sword_attack() {
     if (!attack_area || !attack_shape) {
-		printf("nu vsyo pizda\n");
         return;
     }
 
@@ -145,7 +143,10 @@ void CustomCharacterBody2D::sword_attack() {
     params->set_transform(attack_area->get_global_transform());
 
     // Perform the shape query
-    TypedArray<Dictionary> results = space_state->intersect_shape(params);
+    TypedArray<Dictionary> results = space_state->intersect_shape(params, 32);
+
+	String collider_name = String("");
+		
 
     for (int i = 0; i < results.size(); ++i) {
         Dictionary result = results[i];
@@ -154,16 +155,17 @@ void CustomCharacterBody2D::sword_attack() {
         if (!collider) {
             continue;
         }
-
+		
         // Check if the collider is in the forward half circle
         Vector2 relative_position = collider->get_global_position() - get_global_position();
-        if (relative_position.dot(direction) > 0) {
+		double angle = relative_position.angle_to(direction);
+		if (angle < 1.5708 || angle > 4.71239) {
             // Inflict damage on the collider
             if (collider->has_method("take_damage")) {
                 collider->call("take_damage", 1);
             }
-        }
-    }
+    	}
+	}
 }
 
 void CustomCharacterBody2D::set_speed(const double p_speed) {

@@ -1,13 +1,13 @@
 #ifndef DUMMY_ENEMY_H
 #define DUMMY_ENEMY_H
 
-#include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/animatable_body2d.hpp>
 #include <godot_cpp/classes/label.hpp>
 
 namespace godot {
 
-class DummyEnemy : public Area2D {
-    GDCLASS(DummyEnemy, Area2D)
+class DummyEnemy : public AnimatableBody2D {
+    GDCLASS(DummyEnemy, AnimatableBody2D)
 
 private:
     Label* health_label;

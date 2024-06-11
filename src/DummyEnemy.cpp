@@ -19,10 +19,6 @@ DummyEnemy::~DummyEnemy() {
 void DummyEnemy::_ready() {
     // Використовуємо шаблонний метод get_node для отримання вузла з явним вказанням типу
     health_label = get_node<Label>("HealthLabel");
-    set_physics_process(true);
-
-    // Додаємо до групи "enemies"
-    add_to_group("enemies");
 }
 
 void DummyEnemy::_process(double delta) {

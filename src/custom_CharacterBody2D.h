@@ -5,7 +5,6 @@
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>
-#include <godot_cpp/classes/label.hpp>
 
 namespace godot {
 
@@ -20,13 +19,12 @@ private:
 	Vector2 direction;
 	Area2D* attack_area;
     CollisionShape2D* attack_shape;
-	Label* label;
 
 public:
 	double speed;   // meters in second; default 2 m/s
 	double pixels_in_meter; // count pixels in one meter; default 32 px/m
 	double length_dodge_line; // default 2 meters
-	double dodge_execution_time; // default 0.5 seconds
+	double dodge_execution_time; // default 0.1 seconds
 	double hp, max_hp; // default 4 hp
 	double attack_radius; // default 3 meters
 
