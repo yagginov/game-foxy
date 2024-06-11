@@ -174,14 +174,12 @@ void CustomCharacterBody2D::sword_attack() {
     // Perform the shape query
     TypedArray<Dictionary> results = space_state->intersect_shape(params, 32);
 
-	String collider_name = String("");
-		
-
     for (int i = 0; i < results.size(); ++i) {
         Dictionary result = results[i];
-        Node2D *collider = Object::cast_to<Node2D>(Object::cast_to<Node2D>(result["collider"])->get_parent());
+        Node2D *collider = Object::cast_to<Node2D>(result["collider"]);
+		Node2D *collider_parent = Object::cast_to<Node2D>(collider->get_parent());
 
-        if (!collider) {
+        if (!collider_parent) {
             continue;
         }
 		
@@ -190,10 +188,10 @@ void CustomCharacterBody2D::sword_attack() {
 		double angle = relative_position.angle_to(direction);
 		if (angle < 0.0) { angle = -angle; }
 
-		if (angle < 1.5708 || angle > 4.71239) {
+		if (angle < 1.7 || angle > 4.5) {
             // Inflict damage on the collider
-            if (collider->has_method("take_damage")) {
-                collider->call("take_damage", 1);
+            if (collider_parent->has_method("take_damage")) {
+                collider_parent->call("take_damage", 1);
             }
     	}
 	}
