@@ -5,6 +5,8 @@
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>
+#include <godot_cpp/classes/label.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
 
 namespace godot {
 
@@ -19,6 +21,10 @@ private:
 	Vector2 direction;
 	Area2D* attack_area;
     CollisionShape2D* attack_shape;
+	Label* label;
+	Sprite2D* sword;
+	bool anim_sword_attack;
+	double time_sword_attack;
 
 public:
 	double speed;   // meters in second; default 2 m/s

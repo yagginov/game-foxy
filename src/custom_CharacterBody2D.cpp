@@ -60,6 +60,10 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	direction = Vector2(1.0, 0.0);
 	attack_area = nullptr;
     attack_shape = nullptr;
+	label = nullptr;
+
+	anim_sword_attack = false;
+	time_sword_attack = 0.0;
 
 }
 
@@ -68,6 +72,10 @@ CustomCharacterBody2D::~CustomCharacterBody2D() {
 }
 
 void CustomCharacterBody2D::_ready() {
+
+	label = get_node<Label>("Label");
+	sword = get_node<Sprite2D>("Sword");
+
     // Get the attack area and shape
     attack_area = get_node<Area2D>("AttackArea");
     if (attack_area) {
@@ -84,6 +92,19 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	if (i->is_action_just_pressed("attack"))
 	{
 		sword_attack();
+	}
+
+	if (anim_sword_attack)
+	{
+		time_sword_attack += delta;
+		sword->rotate(3.14159 * (delta / 0.2));
+
+		if (time_sword_attack > 0.2)
+		{
+			anim_sword_attack = false;
+			sword->set_visible(false);
+			time_sword_attack = 0.0;
+		}
 	}
 
 	// Check dodge
@@ -130,6 +151,12 @@ bool CustomCharacterBody2D::dodge_method(double delta)
 }
 
 void CustomCharacterBody2D::sword_attack() {
+
+	sword->set_rotation(Vector2(0.0, 1.0).angle_to(direction) + 1.5708);
+	sword->set_visible(true);
+	anim_sword_attack = true;
+	time_sword_attack = 0.0;
+
     if (!attack_area || !attack_shape) {
         return;
     }
@@ -141,6 +168,8 @@ void CustomCharacterBody2D::sword_attack() {
     PhysicsShapeQueryParameters2D* params = new PhysicsShapeQueryParameters2D;
     params->set_shape(attack_shape->get_shape());
     params->set_transform(attack_area->get_global_transform());
+	params->set_collide_with_bodies(false);
+	params->set_collide_with_areas(true);
 
     // Perform the shape query
     TypedArray<Dictionary> results = space_state->intersect_shape(params, 32);
@@ -150,15 +179,17 @@ void CustomCharacterBody2D::sword_attack() {
 
     for (int i = 0; i < results.size(); ++i) {
         Dictionary result = results[i];
-        Node2D *collider = Object::cast_to<Node2D>(result["collider"]);
+        Node2D *collider = Object::cast_to<Node2D>(Object::cast_to<Node2D>(result["collider"])->get_parent());
 
         if (!collider) {
             continue;
         }
 		
         // Check if the collider is in the forward half circle
-        Vector2 relative_position = collider->get_global_position() - get_global_position();
+        Vector2 relative_position = collider->get_global_position() - attack_shape->get_global_position();
 		double angle = relative_position.angle_to(direction);
+		if (angle < 0.0) { angle = -angle; }
+
 		if (angle < 1.5708 || angle > 4.71239) {
             // Inflict damage on the collider
             if (collider->has_method("take_damage")) {

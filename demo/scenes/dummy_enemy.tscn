@@ -1,24 +1,84 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6hncwrlagptc"]
+[gd_scene load_steps=10 format=3 uid="uid://b6hncwrlagptc"]
 
 [ext_resource type="Texture2D" uid="uid://dvnc4cc6v83dh" path="res://assets/sprites/DummyEnemy.png" id="1_ghfgh"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e8x1y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sslu"]
+atlas = ExtResource("1_ghfgh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ycj8"]
+atlas = ExtResource("1_ghfgh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8l2k"]
+atlas = ExtResource("1_ghfgh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a248"]
+atlas = ExtResource("1_ghfgh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1adb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sslu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ycj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8l2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a248")
+}],
+"loop": false,
+"name": &"take_damage",
+"speed": 24.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n42w3"]
+font_color = Color(1, 0.0431373, 0.0431373, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chgd5"]
+size = Vector2(10, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmcht"]
 radius = 5.0
-height = 16.0
+height = 14.0
 
 [node name="DummyEnemy" type="DummyEnemy"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ghfgh")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_t1adb")
+animation = &"idle"
+frame_progress = 0.924956
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = -14.0
-offset_top = -22.0
-offset_right = 74.0
-offset_bottom = 1.0
+offset_left = -15.0
+offset_top = -39.0
+offset_right = 73.0
+offset_bottom = -16.0
 scale = Vector2(0.327736, 0.314401)
 text = "100"
+label_settings = SubResource("LabelSettings_n42w3")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("CapsuleShape2D_e8x1y")
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -7)
+
+[node name="Collider" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9.53674e-07, -10)
+shape = SubResource("RectangleShape2D_chgd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_nmcht")
