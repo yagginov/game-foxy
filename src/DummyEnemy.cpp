@@ -11,20 +11,19 @@ void DummyEnemy::_bind_methods() {
 }
 
 DummyEnemy::DummyEnemy() {
-    hp = 100; // базове значення здоров'я (можна налаштувати як завгодно)
+    hp = 100;
 }
 
 DummyEnemy::~DummyEnemy() {
 }
 
 void DummyEnemy::_ready() {
-    // Використовуємо шаблонний метод get_node для отримання вузла з явним вказанням типу
+    add_to_group("Enemy");
     health_label = get_node<Label>("HealthLabel");
     animatedSprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
 }
 
 void DummyEnemy::_process(double delta) {
-    // Оновлюємо текст ярлика здоров'я
     if (health_label) {
         health_label->set_text(String::num(hp));
     }
@@ -35,11 +34,10 @@ void DummyEnemy::_process(double delta) {
 }
 
 void DummyEnemy::take_damage(int amount) {
-    // Логіка обробки пошкодження
+    // keep damage logic
     hp -= amount;
     if (hp <= 0) {
         hp = 0;
-        // Логіка смерті або інші дії
     }
     animatedSprite->play("take_damage");
 }

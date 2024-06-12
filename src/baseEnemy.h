@@ -21,7 +21,7 @@ public:
     BaseEnemy();
 	~BaseEnemy();
 
-    void take_damage(int amount);
+    virtual void take_damage(int amount);
 
     void set_speed(const double p_speed);
 	double get_speed() const;

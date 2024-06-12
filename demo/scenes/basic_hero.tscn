@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bqekfjyfjhvfi"]
+[gd_scene load_steps=53 format=3 uid="uid://bqekfjyfjhvfi"]
 
 [ext_resource type="Texture2D" uid="uid://duvkn4whnrcby" path="res://assets/sprites/main_character.png" id="1_c2q3i"]
 [ext_resource type="Texture2D" uid="uid://8aoi20p5knvq" path="res://assets/sprites/Sword.png" id="1_fcybp"]
@@ -383,6 +383,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn0rf"]
+size = Vector2(24, 13)
+
 [node name="CustomCharacterBody2D" type="CustomCharacterBody2D"]
 position = Vector2(-5.33333, 0)
 
@@ -398,10 +401,14 @@ position = Vector2(0.33333, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cjo3x")
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
 position = Vector2(0.33333, -13)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-1.49012e-07, 0)
 shape = SubResource("CircleShape2D_2sks3")
 
@@ -417,5 +424,16 @@ text = "test"
 position = Vector2(0.33333, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idleRight"
-frame_progress = 0.243802
+frame_progress = 0.0435727
 offset = Vector2(0.66667, -16)
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0.33333, -4)
+rotation = 1.5708
+collision_layer = 7
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-11, -0.49996)
+shape = SubResource("RectangleShape2D_rn0rf")

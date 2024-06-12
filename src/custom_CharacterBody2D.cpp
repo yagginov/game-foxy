@@ -75,13 +75,13 @@ CustomCharacterBody2D::~CustomCharacterBody2D() {
 }
 
 void CustomCharacterBody2D::_ready() {
-
+	add_to_group("Player");
 	label = get_node<Label>("Label");
 	sword = get_node<Sprite2D>("Sword");
 	animatedSprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
 
     // Get the attack area and shape
-    attack_area = get_node<Area2D>("AttackArea");
+    attack_area = get_node<Area2D>("HitBox");
     if (attack_area) {
         attack_shape = attack_area->get_node<CollisionShape2D>("CollisionShape2D");
     }

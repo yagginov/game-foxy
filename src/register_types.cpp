@@ -7,8 +7,10 @@
 #include <godot_cpp/godot.hpp>
 
 #include "custom_CharacterBody2D.h"
-#include "DummyEnemy.h"
 #include "baseEnemy.h"
+
+#include "DummyEnemy.h"
+#include "LittleBoar.h"
 
 using namespace godot;
 
@@ -19,7 +21,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 
 	GDREGISTER_CLASS(CustomCharacterBody2D);
 	GDREGISTER_CLASS(DummyEnemy);
-		GDREGISTER_CLASS(BaseEnemy);
+	GDREGISTER_CLASS(BaseEnemy);
+	GDREGISTER_CLASS(LittleBoar);
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {

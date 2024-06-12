@@ -1,6 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://mjysodwpb5rl"]
+[gd_scene load_steps=7 format=3 uid="uid://mjysodwpb5rl"]
 
 [ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l3x6"]
+size = Vector2(31, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
+radius = 5.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
+radius = 150.003
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e5ol"]
 atlas = ExtResource("1_0vw8j")
@@ -17,26 +27,49 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l3x6"]
-size = Vector2(40, 23)
+[node name="little_boar" type="LittleBoar"]
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
-radius = 8.0
-height = 36.0
-
-[node name="little_boar" type="BaseEnemy"]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -22)
-sprite_frames = SubResource("SpriteFrames_fgjkc")
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(2, -25)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-2.5, 5)
 shape = SubResource("RectangleShape2D_1l3x6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, -8)
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(3, -5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qlech")
+
+[node name="SearchArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
+position = Vector2(4, -8)
+shape = SubResource("CircleShape2D_csl4e")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -16)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_fgjkc")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -28.0
+offset_top = -67.0
+offset_right = 12.0
+offset_bottom = -44.0
+text = "2"

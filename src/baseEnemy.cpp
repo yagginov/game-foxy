@@ -27,7 +27,7 @@ void BaseEnemy::_bind_methods() {
 
 BaseEnemy::BaseEnemy() {
     hp = 0.0;
-	pixels_in_meter = 0.0;
+	pixels_in_meter = 32.0;
 	attack = 0.0;
 	speed = 0.0;
 }
