@@ -9,6 +9,8 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/animated_sprite2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
+#include <godot_cpp/classes/ray_cast2d.hpp>
+#include <godot_cpp/templates/hash_set.hpp>
 
 namespace godot {
 
@@ -23,12 +25,15 @@ private:
 	bool in_dodge;
 
 	// Vars for sword attack
+	HashSet<Node2D*> object_set;
+
 	Vector2 direction;
 	Area2D* attack_area;
     CollisionShape2D* attack_shape;
 	Sprite2D* sword;
 	bool anim_sword_attack;
 	double time_sword_attack;
+	RayCast2D *ray_cast;
 
 	// Label for print debug info
 	Label* label;
@@ -58,6 +63,9 @@ public:
     void _ready() override;
 	void _process(double delta) override;
 	void _physics_process(double delta) override;
+
+	void _on_detection_area_entered(Node2D *area);
+    void _on_detection_area_exited(Node2D *area);
 
 	bool dodge_method(double delta);
 	void sword_attack();

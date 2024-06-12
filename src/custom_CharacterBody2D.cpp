@@ -9,12 +9,14 @@
 #include <godot_cpp/classes/world2d.hpp>
 #include <godot_cpp/classes/label.hpp>
 #include <godot_cpp/classes/animated_sprite2d.hpp>
+#include <godot_cpp/classes/ray_cast2d.hpp>
 
 using namespace godot;
 
 
 void CustomCharacterBody2D::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("sword_attack"), &CustomCharacterBody2D::sword_attack);
+	ClassDB::bind_method(D_METHOD("_on_detection_area_entered", "area"), &CustomCharacterBody2D::_on_detection_area_entered);
+    ClassDB::bind_method(D_METHOD("_on_detection_area_exited", "area"), &CustomCharacterBody2D::_on_detection_area_exited);
 	
 	ClassDB::bind_method(D_METHOD("get_speed"), &CustomCharacterBody2D::get_speed);
 	ClassDB::bind_method(D_METHOD("set_speed", "p_speed"), &CustomCharacterBody2D::set_speed);
@@ -62,6 +64,7 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	label = nullptr;
 	anim_sword_attack = false;
 	time_sword_attack = 0.0;
+	ray_cast = nullptr;
 
 	animationVariant = 0;
 	animmationVector = {String("idleRight"), String("idleLeft"), String("idleUp"), String("idleDown"), 
@@ -79,12 +82,21 @@ void CustomCharacterBody2D::_ready() {
 	label = get_node<Label>("Label");
 	sword = get_node<Sprite2D>("Sword");
 	animatedSprite = get_node<AnimatedSprite2D>("AnimatedSprite2D");
+	ray_cast = get_node<RayCast2D>("RayCast2D");
+	if (ray_cast)
+    {
+        ray_cast->set_collide_with_bodies(true);
+        ray_cast->set_collide_with_areas(true);
+    }
 
     // Get the attack area and shape
     attack_area = get_node<Area2D>("HitBox");
     if (attack_area) {
         attack_shape = attack_area->get_node<CollisionShape2D>("CollisionShape2D");
     }
+
+	attack_area->connect("area_entered", Callable(this, "_on_detection_area_entered"));
+    attack_area->connect("area_exited", Callable(this, "_on_detection_area_exited"));
 }
 
 void CustomCharacterBody2D::_process(double delta) {
@@ -171,41 +183,47 @@ void CustomCharacterBody2D::sword_attack() {
         return;
     }
 
-    // Get the current space state to perform collision checks
-    PhysicsDirectSpaceState2D* space_state = get_world_2d()->get_direct_space_state();
-    
-    // Set up the shape query parameters
-    PhysicsShapeQueryParameters2D* params = new PhysicsShapeQueryParameters2D;
-    params->set_shape(attack_shape->get_shape());
-    params->set_transform(attack_area->get_global_transform());
-	params->set_collide_with_bodies(false);
-	params->set_collide_with_areas(true);
-
-    // Perform the shape query
-    TypedArray<Dictionary> results = space_state->intersect_shape(params, 32);
-
-    for (int i = 0; i < results.size(); ++i) {
-        Dictionary result = results[i];
-        Node2D *collider = Object::cast_to<Node2D>(result["collider"]);
-		Node2D *collider_parent = Object::cast_to<Node2D>(collider->get_parent());
-
-        if (!collider_parent) {
-            continue;
-        }
-		
+    for (auto& it : object_set) {
         // Check if the collider is in the forward half circle
-        Vector2 relative_position = collider->get_global_position() - attack_shape->get_global_position();
+        Vector2 relative_position = it->get_global_position() - attack_shape->get_global_position();
+
+		ray_cast->set_target_position(relative_position);
+		ray_cast->force_raycast_update();
+		if (ray_cast->is_colliding())
+		{
+			Node *coll = Object::cast_to<Node2D>(ray_cast->get_collider());  
+            coll = Object::cast_to<Node2D>(coll->get_parent());
+			if (!coll->is_in_group("Enemy") && !coll->is_in_group("HitItems"))
+			{
+				continue;
+			}
+		}
+
 		double angle = relative_position.angle_to(direction);
 		if (angle < 0.0) { angle = -angle; }
 
 		if (angle < 1.7 || angle > 4.5) {
-            // Inflict damage on the collider
-            if (collider_parent->has_method("take_damage")) {
-                collider_parent->call("take_damage", 1);
-            }
+			it->call("take_damage", 1);
     	}
 	}
 }
+
+
+void CustomCharacterBody2D::_on_detection_area_entered(Node2D *area) {
+    area = Object::cast_to<Node2D>(area->get_parent());
+
+    if (area->is_in_group("Enemy") || area->is_in_group("HitItems")) {
+		object_set.insert(area);
+    }
+}
+
+void CustomCharacterBody2D::_on_detection_area_exited(Node2D *area) {
+    area = Object::cast_to<Node2D>(area->get_parent());
+    if (object_set.has(area)) {
+		object_set.erase(area);
+    }
+}
+
 
 void CustomCharacterBody2D::set_speed(const double p_speed) {
 	speed = p_speed;
