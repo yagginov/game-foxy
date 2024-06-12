@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://mjysodwpb5rl"]
+
+[ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e5ol"]
+atlas = ExtResource("1_0vw8j")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgjkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e5ol")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l3x6"]
+size = Vector2(40, 23)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
+radius = 8.0
+height = 36.0
+
+[node name="little_boar" type="BaseEnemy"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -22)
+sprite_frames = SubResource("SpriteFrames_fgjkc")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(2, -25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1l3x6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qlech")

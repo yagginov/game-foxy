@@ -416,5 +416,6 @@ text = "test"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.33333, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
-animation = &"dodgeUp"
+animation = &"idleRight"
+frame_progress = 0.243802
 offset = Vector2(0.66667, -16)

@@ -59,7 +59,7 @@ height = 14.0
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_t1adb")
 animation = &"idle"
-frame_progress = 0.984813
+frame_progress = 0.402889
 
 [node name="HealthLabel" type="Label" parent="."]
 offset_left = -15.0

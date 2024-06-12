@@ -136,11 +136,6 @@ bool CustomCharacterBody2D::dodge_method(double delta)
 	// Dodge logic--------------
 	if (!in_dodge && i->is_action_just_pressed("dodge"))
 	{
-		direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction.x == 0 && direction.y == 0)
-		{
-			return false;
-		}
 		in_dodge = true;
 		animatedSprite->play(animmationVector[animationVariant + 4]);
 		animHelper = true;
