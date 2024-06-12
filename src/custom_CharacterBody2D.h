@@ -17,7 +17,6 @@ class CustomCharacterBody2D : public CharacterBody2D {
 
 private:
 	Input* i;
-	Vector2 dodge_helper;
 	double dodge_time;
 	bool in_dodge;
 	Vector2 direction;
@@ -28,8 +27,9 @@ private:
 	bool anim_sword_attack;
 	double time_sword_attack;
 	AnimatedSprite2D* animatedSprite;
-	Vector<String> idleVariantAnim;
-	int idleVariant;
+	Vector<String> animmationVector;
+	int animationVariant;
+	bool animHelper;
 
 public:
 	double speed;   // meters in second; default 2 m/s

@@ -48,7 +48,6 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	pixels_in_meter = 32.0; // 32 px/m
 	i = Input::get_singleton();
 
-	dodge_helper = Vector2(0.0, 0.0);
 	dodge_time = 0.0f;
 	in_dodge = false;
 
@@ -65,8 +64,10 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 
 	anim_sword_attack = false;
 	time_sword_attack = 0.0;
-	idleVariant = 0;
-	idleVariantAnim = {String("idleRight"), String("idleLeft"), String("idleUp"), String("idleDown")};
+	animationVariant = 0;
+	animmationVector = {String("idleRight"), String("idleLeft"), String("idleUp"), String("idleDown"), 
+	String("dodgeRight"), String("dodgeLeft"), String("dodgeUp"), String("dodgeDown")};
+	animHelper = true;
 
 }
 
@@ -117,11 +118,11 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	// Movement logic--------------
 	Vector2 input_direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
 	
-	if (input_direction.y < 0.0) { animatedSprite->play("runUp"); idleVariant = 2; }
-	else if (input_direction.y > 0.0) { animatedSprite->play("runDown"); idleVariant = 3; }
-	else if (input_direction.x > 0.0) { animatedSprite->play("runRight"); idleVariant = 0; }
-	else if (input_direction.x < 0.0) { animatedSprite->play("runLeft"); idleVariant = 1; }
-	else { animatedSprite->play(idleVariantAnim[idleVariant]); }
+	if (input_direction.y < 0.0) { animatedSprite->play("runUp"); animationVariant = 2; animHelper = true; }
+	else if (input_direction.y > 0.0) { animatedSprite->play("runDown"); animationVariant = 3; animHelper = true; }
+	else if (input_direction.x > 0.0) { animatedSprite->play("runRight"); animationVariant = 0; animHelper = true; }
+	else if (input_direction.x < 0.0) { animatedSprite->play("runLeft"); animationVariant = 1; animHelper = true; }
+	else if (animHelper){ animatedSprite->play(animmationVector[animationVariant]); animHelper = false; }
 
 	if (input_direction.x != 0.0 || input_direction.y != 0.0) { direction = input_direction.normalized(); }
 
@@ -133,21 +134,23 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 bool CustomCharacterBody2D::dodge_method(double delta)
 {
 	// Dodge logic--------------
-	if (i->is_action_just_pressed("dodge"))
+	if (!in_dodge && i->is_action_just_pressed("dodge"))
 	{
-		dodge_helper = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (dodge_helper.x == 0 && dodge_helper.y == 0)
+		direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
+		if (direction.x == 0 && direction.y == 0)
 		{
 			return false;
 		}
 		in_dodge = true;
+		animatedSprite->play(animmationVector[animationVariant + 4]);
+		animHelper = true;
 	}
 	else if (!in_dodge)
 	{
 		return false;
 	}
 
-	set_velocity(dodge_helper * (length_dodge_line / dodge_execution_time) * pixels_in_meter);
+	set_velocity(direction * (length_dodge_line / dodge_execution_time) * pixels_in_meter);
 	move_and_slide();
 	dodge_time += delta;
 	

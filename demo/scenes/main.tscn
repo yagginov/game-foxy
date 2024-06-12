@@ -135,6 +135,7 @@ position = Vector2(-7, -18)
 position = Vector2(78, -18)
 
 [node name="CustomCharacterBody2D" parent="." instance=ExtResource("1_duo2i")]
+dodge_execution_time = 0.2
 position = Vector2(89, 95)
 
 [node name="Camera2D" type="Camera2D" parent="CustomCharacterBody2D"]
