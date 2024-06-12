@@ -12,6 +12,7 @@ public:
 	double speed;
 	double pixels_in_meter;
 	double hp;
+	double attack;
 
 protected:
 	static void _bind_methods();
@@ -19,9 +20,6 @@ protected:
 public:
     BaseEnemy();
 	~BaseEnemy();
-
-    void _ready() override;
-	void _process(double delta) override;
 
     void take_damage(int amount);
 
@@ -33,6 +31,9 @@ public:
 
     void set_hp(const double p_hp);
 	double get_hp() const;
+
+	void set_attack(const double p_attack);
+	double get_attack() const;
 
 };
 

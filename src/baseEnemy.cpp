@@ -19,26 +19,26 @@ void BaseEnemy::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_hp", "p_hp"), &BaseEnemy::set_hp);
 	ClassDB::add_property("BaseEnemy", PropertyInfo(Variant::FLOAT, "hp"), "set_hp", "get_hp");
 
+	ClassDB::bind_method(D_METHOD("get_attack"), &BaseEnemy::get_attack);
+	ClassDB::bind_method(D_METHOD("set_attack", "p_attack"), &BaseEnemy::set_attack);
+	ClassDB::add_property("BaseEnemy", PropertyInfo(Variant::FLOAT, "attack"), "set_attack", "get_attack");
+
 }
 
 BaseEnemy::BaseEnemy() {
-    hp = 2;
+    hp = 0.0;
+	pixels_in_meter = 0.0;
+	attack = 0.0;
+	speed = 0.0;
 }
 
 BaseEnemy::~BaseEnemy() {
-}
-
-void BaseEnemy::_ready() {
-}
-
-void BaseEnemy::_process(double delta) {
 }
 
 void BaseEnemy::take_damage(int amount) {
     hp -= amount;
     if (hp <= 0) {
         hp = 0;
-        set_visible(false);
     }
 }
 
@@ -66,4 +66,12 @@ void BaseEnemy::set_hp(const double p_hp) {
 
 double BaseEnemy::get_hp() const {
 	return hp;
+}
+
+void BaseEnemy::set_attack(const double p_attack) {
+	attack = p_attack;
+}
+
+double BaseEnemy::get_attack() const {
+	return attack;
 }

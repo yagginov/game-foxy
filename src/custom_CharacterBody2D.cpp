@@ -44,26 +44,25 @@ void CustomCharacterBody2D::_bind_methods() {
 
 CustomCharacterBody2D::CustomCharacterBody2D() {
 	// Initialize any variables here.
-	speed = 2.0; // 2 m/s
-	pixels_in_meter = 32.0; // 32 px/m
+	max_hp = 4.0; hp = 4.0;
+	
+	speed = 2.0;
+	pixels_in_meter = 32.0;
+	
 	i = Input::get_singleton();
 
-	dodge_time = 0.0f;
+	dodge_time = 0.0;
 	in_dodge = false;
-
 	length_dodge_line = 2;
 	dodge_execution_time = 0.1;
-
-	max_hp = 4.0; hp = 4.0;
-	attack_radius = 3.0;
 
 	direction = Vector2(1.0, 0.0);
 	attack_area = nullptr;
     attack_shape = nullptr;
 	label = nullptr;
-
 	anim_sword_attack = false;
 	time_sword_attack = 0.0;
+
 	animationVariant = 0;
 	animmationVector = {String("idleRight"), String("idleLeft"), String("idleUp"), String("idleDown"), 
 	String("dodgeRight"), String("dodgeLeft"), String("dodgeUp"), String("dodgeDown")};
@@ -99,6 +98,7 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 		sword_attack();
 	}
 
+	// Draw animation sword attack
 	if (anim_sword_attack)
 	{
 		time_sword_attack += delta;
@@ -118,14 +118,16 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	// Movement logic--------------
 	Vector2 input_direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down");
 	
+	// Animation main character logic
 	if (input_direction.y < 0.0) { animatedSprite->play("runUp"); animationVariant = 2; animHelper = true; }
 	else if (input_direction.y > 0.0) { animatedSprite->play("runDown"); animationVariant = 3; animHelper = true; }
 	else if (input_direction.x > 0.0) { animatedSprite->play("runRight"); animationVariant = 0; animHelper = true; }
 	else if (input_direction.x < 0.0) { animatedSprite->play("runLeft"); animationVariant = 1; animHelper = true; }
 	else if (animHelper){ animatedSprite->play(animmationVector[animationVariant]); animHelper = false; }
-
+	
 	if (input_direction.x != 0.0 || input_direction.y != 0.0) { direction = input_direction.normalized(); }
 
+	// Base movement
 	set_velocity(input_direction * speed * pixels_in_meter);
 	move_and_slide();
 }

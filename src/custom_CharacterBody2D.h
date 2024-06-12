@@ -17,27 +17,36 @@ class CustomCharacterBody2D : public CharacterBody2D {
 
 private:
 	Input* i;
+
+	// Vars for dodge
 	double dodge_time;
 	bool in_dodge;
+
+	// Vars for sword attack
 	Vector2 direction;
 	Area2D* attack_area;
     CollisionShape2D* attack_shape;
-	Label* label;
 	Sprite2D* sword;
 	bool anim_sword_attack;
 	double time_sword_attack;
+
+	// Label for print debug info
+	Label* label;
+
+	// Vars for animated main character
 	AnimatedSprite2D* animatedSprite;
 	Vector<String> animmationVector;
 	int animationVariant;
 	bool animHelper;
 
 public:
+	double hp, max_hp; // default 4 hp
+	
 	double speed;   // meters in second; default 2 m/s
 	double pixels_in_meter; // count pixels in one meter; default 32 px/m
+
 	double length_dodge_line; // default 2 meters
 	double dodge_execution_time; // default 0.1 seconds
-	double hp, max_hp; // default 4 hp
-	double attack_radius; // default 3 meters
 
 protected:
 	static void _bind_methods();
