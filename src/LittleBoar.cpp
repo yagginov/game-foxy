@@ -12,6 +12,9 @@ using namespace godot;
 void LittleBoar::_bind_methods() {
     ClassDB::bind_method(D_METHOD("_on_detection_area_entered", "area"), &LittleBoar::_on_detection_area_entered);
     ClassDB::bind_method(D_METHOD("_on_detection_area_exited", "area"), &LittleBoar::_on_detection_area_exited);
+        
+    ClassDB::bind_method(D_METHOD("_give_damage", "area"), &LittleBoar::_give_damage);
+
 }
 
 LittleBoar::LittleBoar() {
@@ -27,6 +30,8 @@ LittleBoar::LittleBoar() {
 
     stun_time = 0.0;
     run_time = 0.0;
+    direction = Vector2(0.0, 0.0);
+    knockback_time = 0.0;
 }
 
 LittleBoar::~LittleBoar() {
@@ -44,9 +49,13 @@ void LittleBoar::_ready() {
     }
     
     healthLabel = get_node<Label>("HealthLabel");
+
+    hit_box = get_node<Area2D>("HitBox");
     
     detection_area->connect("area_entered", Callable(this, "_on_detection_area_entered"));
     detection_area->connect("area_exited", Callable(this, "_on_detection_area_exited"));
+
+    hit_box->connect("area_entered", Callable(this, "_give_damage"));
 }
 
 void LittleBoar::_physics_process(double delta) {
@@ -73,6 +82,16 @@ void LittleBoar::_physics_process(double delta) {
     {
         healthLabel->set_text(String::num(hp));
     }    
+
+    if (knockback_time > 0.0)
+    {
+        knockback = -direction * pixels_in_meter * speed * 1.5 * (knockback_time / 0.4);
+        set_velocity(knockback);
+        move_and_slide();
+
+        knockback_time -= delta;
+        if (knockback_time < 0.0) { knockback_time = 0.0; }
+    }
 }
 
 void LittleBoar::idle(double delta)
@@ -88,15 +107,12 @@ void LittleBoar::run(double delta)
 
     if (is_collided_player())
     {
-        Vector2 direction = (target->get_global_position() - get_global_position()).normalized();
+        direction = (target->get_global_position() - get_global_position()).normalized();
         // movement
         set_velocity(direction * speed * pixels_in_meter);
         move_and_slide();
     }
-    else
-    {
-        state = States::idle;
-    }
+    else { state = States::idle; }
 }
 
 void LittleBoar::stun(double delta)
@@ -114,7 +130,7 @@ bool LittleBoar::is_collided_player()
 {
     if (target)
     {
-        ray_cast->set_target_position(target->get_global_position() - get_global_position());
+        ray_cast->set_target_position(target->get_node<Area2D>("HurtBox")->get_global_position() - get_global_position());
         if (ray_cast->is_colliding())
         {
             Node *collider = Object::cast_to<Node>(ray_cast->get_collider());  
@@ -143,8 +159,18 @@ void LittleBoar::_on_detection_area_exited(Node *area) {
     }
 }
 
+void LittleBoar::_give_damage(Node2D *area)
+{
+    area = Object::cast_to<Node2D>(area->get_parent());
+    if (area->is_in_group("Player")) {
+        area->call("take_damage", 2, direction);
+        state = States::stun; stun_time = 3.0;
+    }
+}
+
 void LittleBoar::take_damage(int amount) {
     hp -= amount;
+    knockback_time = 0.4;
     if (hp <= 0) {
         hp = 0;
         state = States::dead;

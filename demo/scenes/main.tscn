@@ -150,5 +150,6 @@ dodge_execution_time = 0.2
 position = Vector2(814, 261.918)
 
 [node name="Camera2D" type="Camera2D" parent="CustomCharacterBody2D"]
-zoom = Vector2(2, 2)
+position = Vector2(0, 0.0820007)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true

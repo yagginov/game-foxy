@@ -24,6 +24,7 @@ class LittleBoar : public BaseEnemy {
 
 private:
     Area2D *detection_area;
+    Area2D *hit_box;
     RayCast2D *ray_cast;
     Node2D *target;
     Label *healthLabel;
@@ -32,6 +33,8 @@ private:
 
     double stun_time;
     double run_time;
+
+    Vector2 direction;
 protected:
     static void _bind_methods();
 
@@ -45,6 +48,8 @@ public:
     void _physics_process(double delta) override;
     void _on_detection_area_entered(Node *area);
     void _on_detection_area_exited(Node *area);
+
+    void _give_damage(Node2D *area);
 
     void idle(double delta);
     void run(double delta);

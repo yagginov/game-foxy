@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mjysodwpb5rl"]
+[gd_scene load_steps=8 format=3 uid="uid://mjysodwpb5rl"]
 
 [ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
 
@@ -27,20 +27,22 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rehlp"]
+size = Vector2(31, 21)
+
 [node name="little_boar" type="LittleBoar"]
 motion_mode = 1
 
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(2, -25)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-2.5, 5)
+position = Vector2(1, -18)
 shape = SubResource("RectangleShape2D_1l3x6")
 
-[node name="HitBox" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(3, -5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qlech")
@@ -55,7 +57,6 @@ position = Vector2(4, -8)
 shape = SubResource("CircleShape2D_csl4e")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, -24)
 collision_mask = 12
 collide_with_areas = true
 
@@ -70,3 +71,13 @@ offset_top = -67.0
 offset_right = 12.0
 offset_bottom = -44.0
 text = "2"
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(6, -16)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-5.5, 0.5)
+shape = SubResource("RectangleShape2D_rehlp")

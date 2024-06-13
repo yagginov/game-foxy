@@ -26,7 +26,6 @@ private:
 
 	// Vars for sword attack
 	HashSet<Node2D*> object_set;
-
 	Vector2 direction;
 	Area2D* attack_area;
     CollisionShape2D* attack_shape;
@@ -43,6 +42,10 @@ private:
 	Vector<String> animmationVector;
 	int animationVariant;
 	bool animHelper;
+
+	CollisionShape2D* hurt_box;
+	double break_time;
+	Vector2 knockback;
 
 public:
 	double hp, max_hp; // default 4 hp
@@ -66,6 +69,8 @@ public:
 
 	void _on_detection_area_entered(Node2D *area);
     void _on_detection_area_exited(Node2D *area);
+
+	void take_damage(int amount, Vector2 direction);
 
 	bool dodge_method(double delta);
 	void sword_attack();

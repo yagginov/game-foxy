@@ -61,7 +61,7 @@ collision_mask = 5
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_t1adb")
 animation = &"idle"
-frame_progress = 0.272355
+frame_progress = 0.0805054
 
 [node name="HealthLabel" type="Label" parent="."]
 offset_left = -15.0
@@ -75,7 +75,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, -10)
 collision_layer = 2
 collision_mask = 0
 monitoring = false

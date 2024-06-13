@@ -14,6 +14,9 @@ public:
 	double hp;
 	double attack;
 
+	double knockback_time;
+	Vector2 knockback;
+
 protected:
 	static void _bind_methods();
 

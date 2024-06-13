@@ -30,6 +30,8 @@ BaseEnemy::BaseEnemy() {
 	pixels_in_meter = 32.0;
 	attack = 0.0;
 	speed = 0.0;
+	knockback = Vector2(0.0, 0.0);
+	knockback_time = 0.0;
 }
 
 BaseEnemy::~BaseEnemy() {

@@ -15,6 +15,8 @@ using namespace godot;
 
 
 void CustomCharacterBody2D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("take_damage", "amount", "direction"), &CustomCharacterBody2D::take_damage);
+
 	ClassDB::bind_method(D_METHOD("_on_detection_area_entered", "area"), &CustomCharacterBody2D::_on_detection_area_entered);
     ClassDB::bind_method(D_METHOD("_on_detection_area_exited", "area"), &CustomCharacterBody2D::_on_detection_area_exited);
 	
@@ -71,6 +73,11 @@ CustomCharacterBody2D::CustomCharacterBody2D() {
 	String("dodgeRight"), String("dodgeLeft"), String("dodgeUp"), String("dodgeDown")};
 	animHelper = true;
 
+	hurt_box = nullptr;
+	break_time = 0.0;
+
+	knockback = Vector2(0.0, 0.0);
+
 }
 
 CustomCharacterBody2D::~CustomCharacterBody2D() {
@@ -97,6 +104,8 @@ void CustomCharacterBody2D::_ready() {
 
 	attack_area->connect("area_entered", Callable(this, "_on_detection_area_entered"));
     attack_area->connect("area_exited", Callable(this, "_on_detection_area_exited"));
+
+	hurt_box = get_node<Area2D>("HurtBox")->get_node<CollisionShape2D>("hurtbox_shape");
 }
 
 void CustomCharacterBody2D::_process(double delta) {
@@ -142,6 +151,31 @@ void CustomCharacterBody2D::_physics_process(double delta) {
 	// Base movement
 	set_velocity(input_direction * speed * pixels_in_meter);
 	move_and_slide();
+
+	break_time -= delta;
+	if (break_time < 0.0)
+	{
+		break_time = 0.0;
+		hurt_box->set_deferred("disabled", false);
+	}
+	else if (break_time > 0.7)
+	{
+        set_velocity(knockback - knockback * ((1.0 - break_time) / 0.3));
+        move_and_slide();
+	}
+
+	if (label)
+	{
+		if(hp == 0.0)
+		{
+			label->set_text("You are dead!!!");
+		}
+		else
+		{
+			label->set_text(String("HP: ") + String::num(hp));
+		}
+		
+	}
 }
 
 
@@ -222,6 +256,16 @@ void CustomCharacterBody2D::_on_detection_area_exited(Node2D *area) {
     if (object_set.has(area)) {
 		object_set.erase(area);
 		ray_cast->remove_exception(area->get_node<Area2D>("HurtBox"));
+    }
+}
+
+void CustomCharacterBody2D::take_damage(int amount, Vector2 direction) {
+    hp -= amount;
+	break_time = 1.0;
+	knockback = direction * pixels_in_meter * 6;
+	hurt_box->set_deferred("disabled", true);
+    if (hp <= 0) {
+        hp = 0;
     }
 }
 
