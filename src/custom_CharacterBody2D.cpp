@@ -185,26 +185,25 @@ void CustomCharacterBody2D::sword_attack() {
 
     for (auto& it : object_set) {
         // Check if the collider is in the forward half circle
-        Vector2 relative_position = it->get_global_position() - attack_shape->get_global_position();
+
+        Vector2 relative_position = it->get_node<Area2D>("HurtBox")->get_global_position() 
+		- attack_shape->get_global_position();
 
 		ray_cast->set_target_position(relative_position);
 		ray_cast->force_raycast_update();
 		if (ray_cast->is_colliding())
 		{
-			Node *coll = Object::cast_to<Node2D>(ray_cast->get_collider());  
-            coll = Object::cast_to<Node2D>(coll->get_parent());
-			if (!coll->is_in_group("Enemy") && !coll->is_in_group("HitItems"))
-			{
-				continue;
-			}
+			continue;
 		}
 
 		double angle = relative_position.angle_to(direction);
 		if (angle < 0.0) { angle = -angle; }
 
-		if (angle < 1.7 || angle > 4.5) {
+		if (angle < 1.7 || angle > 4.5) 
+		{
 			it->call("take_damage", 1);
     	}
+		
 	}
 }
 
@@ -214,6 +213,7 @@ void CustomCharacterBody2D::_on_detection_area_entered(Node2D *area) {
 
     if (area->is_in_group("Enemy") || area->is_in_group("HitItems")) {
 		object_set.insert(area);
+		ray_cast->add_exception(area->get_node<Area2D>("HurtBox"));
     }
 }
 
@@ -221,6 +221,7 @@ void CustomCharacterBody2D::_on_detection_area_exited(Node2D *area) {
     area = Object::cast_to<Node2D>(area->get_parent());
     if (object_set.has(area)) {
 		object_set.erase(area);
+		ray_cast->remove_exception(area->get_node<Area2D>("HurtBox"));
     }
 }
 

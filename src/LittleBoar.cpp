@@ -24,6 +24,9 @@ LittleBoar::LittleBoar() {
     set_attack(2.0);
 
     state = States::idle;
+
+    stun_time = 0.0;
+    run_time = 0.0;
 }
 
 LittleBoar::~LittleBoar() {
@@ -54,10 +57,13 @@ void LittleBoar::_physics_process(double delta) {
         break;
     case States::run:
         run(delta);
+        break;
     case States::stun:
         stun(delta);
+        break;
     case States::dead:
         dead(delta);
+        break;
 
     default:
         break;
@@ -71,11 +77,15 @@ void LittleBoar::_physics_process(double delta) {
 
 void LittleBoar::idle(double delta)
 {
-    if (is_collided_player()) { state = States::run; } 
+    if (is_collided_player()) { state = States::run; run_time = 20.0 / 6.0; } 
 }
 
 void LittleBoar::run(double delta)
 {
+    run_time -= delta;
+
+    if (run_time < 0.0) { state = States::stun; stun_time = 3.0; }
+
     if (is_collided_player())
     {
         Vector2 direction = (target->get_global_position() - get_global_position()).normalized();
@@ -91,12 +101,13 @@ void LittleBoar::run(double delta)
 
 void LittleBoar::stun(double delta)
 {
-    
+    stun_time -= delta;
+    if (stun_time < 0.0) { state = States::idle; }
 }
 
 void LittleBoar::dead(double delta)
 {
-    
+    queue_free();
 }
 
 bool LittleBoar::is_collided_player()
@@ -120,7 +131,7 @@ void LittleBoar::_on_detection_area_entered(Node *area) {
     if (area->is_in_group("Player")) {
         target = cast_to<Node2D>(area);
         ray_cast->set_target_position(target->get_global_position());
-        if (is_collided_player()) { state = States::run; }
+        if (is_collided_player()) { state = States::run; run_time = 20.0 / 6.0; }
     }
 }
 
@@ -137,6 +148,5 @@ void LittleBoar::take_damage(int amount) {
     if (hp <= 0) {
         hp = 0;
         state = States::dead;
-        queue_free();
     }
 }

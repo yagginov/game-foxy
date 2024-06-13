@@ -29,6 +29,9 @@ private:
     Label *healthLabel;
 
     States state;
+
+    double stun_time;
+    double run_time;
 protected:
     static void _bind_methods();
 

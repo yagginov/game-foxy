@@ -412,6 +412,7 @@ position = Vector2(-1.49012e-07, 0)
 shape = SubResource("CircleShape2D_2sks3")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -89.0
 offset_top = -77.0
 offset_right = -4.0
@@ -422,7 +423,7 @@ text = "test"
 position = Vector2(0.33333, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idleRight"
-frame_progress = 0.85295
+frame_progress = 0.934981
 offset = Vector2(0.66667, -16)
 
 [node name="HurtBox" type="Area2D" parent="."]

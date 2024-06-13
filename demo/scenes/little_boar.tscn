@@ -10,7 +10,7 @@ radius = 5.0
 height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
-radius = 150.003
+radius = 300.002
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e5ol"]
 atlas = ExtResource("1_0vw8j")
@@ -28,8 +28,6 @@ animations = [{
 }]
 
 [node name="little_boar" type="LittleBoar"]
-collision_layer = 3
-collision_mask = 3
 motion_mode = 1
 
 [node name="HurtBox" type="Area2D" parent="."]
