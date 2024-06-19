@@ -171,8 +171,9 @@ void LittleBoar::_give_damage(Node2D *area)
 void LittleBoar::take_damage(int amount) {
     hp -= amount;
     knockback_time = 0.4;
-    if (hp <= 0) {
+    if (hp <= 0.1) {
         hp = 0;
         state = States::dead;
+        queue_free();
     }
 }
