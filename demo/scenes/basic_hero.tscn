@@ -397,6 +397,7 @@ texture = ExtResource("1_fcybp")
 offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.33333, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cjo3x")
@@ -404,7 +405,7 @@ shape = SubResource("CapsuleShape2D_cjo3x")
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2(0.33333, -13)
 collision_layer = 0
-collision_mask = 10
+collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -422,13 +423,14 @@ text = "HP: 4"
 position = Vector2(0.33333, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idleRight"
-frame_progress = 0.57049
+frame_progress = 0.0975203
 offset = Vector2(0.66667, -16)
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 position = Vector2(1.33333, -16)
 rotation = 1.5708
-collision_layer = 20
+collision_layer = 16
 collision_mask = 0
 monitoring = false
 
@@ -438,5 +440,5 @@ shape = SubResource("RectangleShape2D_rn0rf")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0.33333, -13)
-collision_mask = 10
+collision_mask = 32
 collide_with_areas = true

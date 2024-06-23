@@ -44,7 +44,7 @@ void LittleBoar::_ready() {
     ray_cast = get_node<RayCast2D>("RayCast2D");
     if (ray_cast)
     {
-        ray_cast->set_collide_with_bodies(true);
+        ray_cast->set_collide_with_bodies(false);
         ray_cast->set_collide_with_areas(true);
     }
     

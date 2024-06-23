@@ -54,14 +54,12 @@ radius = 5.0
 height = 14.0
 
 [node name="DummyEnemy" type="DummyEnemy"]
-collision_layer = 5
-collision_mask = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_t1adb")
 animation = &"idle"
-frame_progress = 0.0805054
+frame_progress = 0.422253
 
 [node name="HealthLabel" type="Label" parent="."]
 offset_left = -15.0
@@ -76,7 +74,7 @@ vertical_alignment = 1
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(0, -10)
-collision_layer = 2
+collision_layer = 40
 collision_mask = 0
 monitoring = false
 

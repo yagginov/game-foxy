@@ -3,11 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1l3x6"]
-size = Vector2(31, 20)
+size = Vector2(30.75, 17)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
-radius = 5.0
-height = 26.0
+radius = 6.0
+height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
 radius = 300.002
@@ -31,25 +31,30 @@ animations = [{
 size = Vector2(31, 21)
 
 [node name="little_boar" type="LittleBoar"]
+hp = 59.485
 motion_mode = 1
 
 [node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 2
+position = Vector2(1, -17)
+collision_layer = 40
 collision_mask = 0
 monitoring = false
+gravity_space_override = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(1, -18)
+position = Vector2(-1, -2)
 shape = SubResource("RectangleShape2D_1l3x6")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(3, -5)
+visible = false
+position = Vector2(2, -6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qlech")
 
 [node name="SearchArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
-collision_mask = 4
+collision_mask = 16
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
@@ -57,7 +62,8 @@ position = Vector2(4, -8)
 shape = SubResource("CircleShape2D_csl4e")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-collision_mask = 12
+visible = false
+collision_mask = 16
 collide_with_areas = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -70,9 +76,10 @@ offset_left = -28.0
 offset_top = -67.0
 offset_right = 12.0
 offset_bottom = -44.0
-text = "2"
+text = "59.4850000000006"
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 position = Vector2(6, -16)
 collision_layer = 0
 collision_mask = 16
