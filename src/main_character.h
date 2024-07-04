@@ -1,89 +1,58 @@
 #ifndef MAIN_CHARACTER_H
 #define MAIN_CHARACTER_H
 
-#include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/classes/input.hpp>
-#include <godot_cpp/classes/area2d.hpp>
-#include <godot_cpp/classes/collision_shape2d.hpp>
-#include <godot_cpp/classes/label.hpp>
-#include <godot_cpp/classes/sprite2d.hpp>
-#include <godot_cpp/classes/animated_sprite2d.hpp>
+
 #include <godot_cpp/templates/vector.hpp>
-#include <godot_cpp/classes/ray_cast2d.hpp>
-#include <godot_cpp/templates/hash_set.hpp>
+#include <godot_cpp/variant/vector2.hpp>
+
+#include "actor.h"
+#include "state.h"
+#include "animation_controller.h"
 
 namespace godot {
 
-class CustomCharacterBody2D : public CharacterBody2D {
-	GDCLASS(CustomCharacterBody2D, CharacterBody2D)
+class MainCharacter : public Actor {
+	GDCLASS(MainCharacter, Actor)
 
-private:
-	Input* i;
 
-	// Vars for dodge
-	double dodge_time;
-	bool in_dodge;
+enum States
+{
+	idle = 0,
+	run = 1,
+	slide = 2
+};
 
-	// Vars for sword attack
-	HashSet<Node2D*> object_set;
-	Vector2 direction;
-	Area2D* attack_area;
-    CollisionShape2D* attack_shape;
-	Sprite2D* sword;
-	bool anim_sword_attack;
-	double time_sword_attack;
-	RayCast2D *ray_cast;
-
-	// Label for print debug info
-	Label* label;
-
-	// Vars for animated main character
-	AnimatedSprite2D* animatedSprite;
-	Vector<String> animmationVector;
-	int animationVariant;
-	bool animHelper;
-
-	CollisionShape2D* hurt_box;
-	double break_time;
-	Vector2 knockback;
-
-public:	
-	double speed;   // meters in second; default 2 m/s
-	double pixels_in_meter; // count pixels in one meter; default 32 px/m
-
-	double length_dodge_line; // default 2 meters
-	double dodge_execution_time; // default 0.1 seconds
+const Vector2 VECTOR2_ZERO = Vector2(0.0, 0.0);
 
 protected:
 	static void _bind_methods();
 
+private:
+	Input* i;
+	Vector2 direction;
+
+	States state;
+	Vector<State*> v_states;
+
+	AnimationController* animation_controller;
+
+public:	
+
+
 public:
-	CustomCharacterBody2D();
-	~CustomCharacterBody2D();
+	MainCharacter();
+	~MainCharacter();
 
     void _ready() override;
 	void _process(double delta) override;
 	void _physics_process(double delta) override;
 
-	void _on_detection_area_entered(Node2D *area);
-    void _on_detection_area_exited(Node2D *area);
+	void f_idle(double delta);
+	void f_run(double delta);
+	void f_slide(double delta);
 
-	void take_damage(int amount, Vector2 direction);
-
-	bool dodge_method(double delta);
-	void sword_attack();
-	
-	void set_speed(const double p_speed);
-	double get_speed() const;
-
-	void set_pixels_in_meter(const double p_pixels_in_meter);
-	double get_pixels_in_meter() const;
-
-	void set_length_dodge_line(const double p_length_dodge_line);
-	double get_length_dodge_line() const;
-
-	void set_dodge_execution_time(const double p_dodge_execution_time);
-	double get_dodge_execution_time() const;
+	void change_state(States state);
 
 };
 

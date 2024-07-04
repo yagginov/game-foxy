@@ -6,11 +6,16 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "custom_CharacterBody2D.h"
-#include "baseEnemy.h"
 
+#include "actor.h"
+#include "main_character.h"
+
+#include "animation_controller.h"
+
+#include "baseEnemy.h"
 #include "DummyEnemy.h"
 #include "LittleBoar.h"
+
 
 #include "health_component.h"
 #include "hurtbox.h"
@@ -23,13 +28,21 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	GDREGISTER_CLASS(CustomCharacterBody2D);
-	GDREGISTER_CLASS(DummyEnemy);
-	GDREGISTER_CLASS(BaseEnemy);
-	GDREGISTER_CLASS(LittleBoar);
+	// Actors:
+	GDREGISTER_CLASS(Actor);
+	GDREGISTER_CLASS(MainCharacter);
+
+	// Components:
+	GDREGISTER_CLASS(AnimationController);
 	GDREGISTER_CLASS(HealthComponent);
 	GDREGISTER_CLASS(Hurtbox);
 	GDREGISTER_CLASS(Hitbox);
+
+	// Enemys:
+	GDREGISTER_CLASS(DummyEnemy);
+	GDREGISTER_CLASS(BaseEnemy);
+	GDREGISTER_CLASS(LittleBoar);
+
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {
