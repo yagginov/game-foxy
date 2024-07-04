@@ -26,7 +26,7 @@ Hitbox::~Hitbox()
 
 void Hitbox::_ready()
 {
-    colliding_box = get_node<CollisionShape2D>("CollidingBox");
+    colliding_box = get_node<CollisionPolygon2D>("CollidingBox");
 }
 
 void Hitbox::set_damage(const double p_damage)

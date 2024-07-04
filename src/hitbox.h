@@ -3,7 +3,7 @@
 
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/node2d.hpp>
-#include <godot_cpp/classes/collision_shape2d.hpp>
+#include <godot_cpp/classes/collision_polygon2d.hpp>
 
 
 namespace godot {
@@ -16,7 +16,7 @@ protected:
 
 private:
     double damage;
-    CollisionShape2D* colliding_box;
+    CollisionPolygon2D* colliding_box;
 
 public:
 	Hitbox();

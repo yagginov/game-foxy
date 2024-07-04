@@ -1,13 +1,13 @@
-[gd_scene load_steps=53 format=3 uid="uid://bqekfjyfjhvfi"]
+[gd_scene load_steps=52 format=3 uid="uid://bqekfjyfjhvfi"]
 
 [ext_resource type="Texture2D" uid="uid://duvkn4whnrcby" path="res://assets/sprites/main_character.png" id="1_c2q3i"]
 [ext_resource type="Texture2D" uid="uid://8aoi20p5knvq" path="res://assets/sprites/Sword.png" id="1_fcybp"]
 [ext_resource type="Texture2D" uid="uid://cal6gorwrcfsn" path="res://assets/sprites/DodgeAnimatedBaseCharacter.png" id="2_2de7g"]
 [ext_resource type="Texture2D" uid="uid://dlqlowbbtgjma" path="res://assets/sprites/AnimatedBaseCharacter.png" id="2_glr3x"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cjo3x"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_630xb"]
 radius = 4.0
-height = 16.0
+height = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ir5b"]
 atlas = ExtResource("2_glr3x")
@@ -380,27 +380,24 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn0rf"]
-size = Vector2(24, 13)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_rk216"]
-radius = 75.0067
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ijcro"]
+radius = 7.0
+height = 24.0
 
 [node name="MC" type="MainCharacter"]
-position = Vector2(-5.33333, 0)
+motion_mode = 1
 
 [node name="Sword" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0.33333, -13)
+position = Vector2(3.33333, -13)
+rotation = 3.19744
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_fcybp")
 offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0.33333, -4)
+position = Vector2(2, -4)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_cjo3x")
+shape = SubResource("CapsuleShape2D_630xb")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -178.667
@@ -410,31 +407,36 @@ offset_bottom = -83.0
 text = "HP: 4"
 
 [node name="AnimationController" type="AnimationController" parent="."]
-position = Vector2(0.33333, 0)
+position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
+frame_progress = 0.802411
 offset = Vector2(0.66667, -16)
-
-[node name="HurtBox" type="Area2D" parent="."]
-visible = false
-position = Vector2(1.33333, -16)
-rotation = 1.5708
-collision_layer = 16
-collision_mask = 0
-monitoring = false
-
-[node name="hurtbox_shape" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(7.15256e-07, 0)
-shape = SubResource("RectangleShape2D_rn0rf")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0.33333, -13)
 collision_mask = 32
 collide_with_areas = true
 
+[node name="Hurtbox" type="Hurtbox" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2, -17)
+shape = SubResource("CapsuleShape2D_ijcro")
+
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 2.0
+position = Vector2(0, -12)
+collision_layer = 0
+monitorable = false
 
-[node name="CollidingBox" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0.33333, -13)
-shape = SubResource("CircleShape2D_rk216")
+[node name="CollidingBox" type="CollisionPolygon2D" parent="Hitbox"]
+position = Vector2(0, 12)
+polygon = PackedVector2Array(61.1667, -46.9444, 53, -60, 39, -70, 22.1667, -78.9444, 0.166668, -79.9444, 0.166668, 54.0556, 17.1667, 52.0556, 29.1667, 49.0556, 42.1667, 42.0556, 51.1667, 35.0556, 60.1667, 22.0556, 66.1667, 10.0556, 69.1667, -2.94444, 70.1667, -18.9444, 67, -34)
+
+[node name="HealthComponent" type="HealthComponent" parent="."]
+position = Vector2(3.33333, -13)
+rotation = -2.76984
+scale = Vector2(0.75, 0.75)

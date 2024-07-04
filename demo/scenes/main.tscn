@@ -733,7 +733,6 @@ layer_0/tile_data = PackedInt32Array(-1114112, 131072, 0, -1048576, 327680, 0, -
 [node name="CustomCharacterBody2D" parent="." instance=ExtResource("2_gollo")]
 acceleration = 5000.0
 position = Vector2(1177, 153.75)
-motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="CustomCharacterBody2D"]
 zoom = Vector2(4, 4)

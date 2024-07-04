@@ -9,6 +9,9 @@
 #include "actor.h"
 #include "state.h"
 #include "animation_controller.h"
+#include "health_component.h"
+#include "hurtbox.h"
+#include "hitbox.h"
 
 namespace godot {
 
@@ -20,7 +23,8 @@ enum States
 {
 	idle = 0,
 	run = 1,
-	slide = 2
+	slide = 2,
+	attack = 3
 };
 
 const Vector2 VECTOR2_ZERO = Vector2(0.0, 0.0);
@@ -37,8 +41,9 @@ private:
 
 	AnimationController* animation_controller;
 
-public:	
-
+	Hurtbox* hurtbox;
+	Hitbox* hitbox;
+	HealthComponent* health;
 
 public:
 	MainCharacter();
@@ -51,6 +56,10 @@ public:
 	void f_idle(double delta);
 	void f_run(double delta);
 	void f_slide(double delta);
+	void f_attack(double delta);
+
+	void _damage(Vector2 enemy_pos);
+	void _dead();
 
 	void change_state(States state);
 
