@@ -9,9 +9,6 @@
 radius = 4.0
 height = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2sks3"]
-radius = 66.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ku4s"]
 atlas = ExtResource("2_2de7g")
 region = Rect2(0, 96, 32, 32)
@@ -386,6 +383,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rn0rf"]
 size = Vector2(24, 13)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rk216"]
+radius = 75.0067
+
 [node name="CustomCharacterBody2D" type="CustomCharacterBody2D"]
 position = Vector2(-5.33333, 0)
 
@@ -402,16 +402,6 @@ position = Vector2(0.33333, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cjo3x")
 
-[node name="HitBox" type="Area2D" parent="."]
-position = Vector2(0.33333, -13)
-collision_layer = 0
-collision_mask = 8
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-1.49012e-07, 0)
-shape = SubResource("CircleShape2D_2sks3")
-
 [node name="Label" type="Label" parent="."]
 offset_left = -178.667
 offset_top = -106.0
@@ -423,7 +413,7 @@ text = "HP: 4"
 position = Vector2(0.33333, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idleRight"
-frame_progress = 0.0975203
+frame_progress = 0.780579
 offset = Vector2(0.66667, -16)
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -442,3 +432,10 @@ shape = SubResource("RectangleShape2D_rn0rf")
 position = Vector2(0.33333, -13)
 collision_mask = 32
 collide_with_areas = true
+
+[node name="Hitbox" type="Hitbox" parent="."]
+damage = 2.0
+
+[node name="CollidingBox" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0.33333, -13)
+shape = SubResource("CircleShape2D_rk216")

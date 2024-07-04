@@ -12,6 +12,10 @@
 #include "DummyEnemy.h"
 #include "LittleBoar.h"
 
+#include "health_component.h"
+#include "hurtbox.h"
+#include "hitbox.h"
+
 using namespace godot;
 
 void initialize_example_module(ModuleInitializationLevel p_level) {
@@ -23,6 +27,9 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(DummyEnemy);
 	GDREGISTER_CLASS(BaseEnemy);
 	GDREGISTER_CLASS(LittleBoar);
+	GDREGISTER_CLASS(HealthComponent);
+	GDREGISTER_CLASS(Hurtbox);
+	GDREGISTER_CLASS(Hitbox);
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {
