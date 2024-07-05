@@ -2,6 +2,7 @@
 #define MAIN_CHARACTER_H
 
 #include <godot_cpp/classes/input.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
 
 #include <godot_cpp/templates/vector.hpp>
 #include <godot_cpp/variant/vector2.hpp>
@@ -9,8 +10,6 @@
 #include "actor.h"
 #include "state.h"
 #include "animation_controller.h"
-#include "health_component.h"
-#include "hurtbox.h"
 #include "hitbox.h"
 
 namespace godot {
@@ -40,10 +39,12 @@ private:
 	Vector<State*> v_states;
 
 	AnimationController* animation_controller;
-
-	Hurtbox* hurtbox;
 	Hitbox* hitbox;
+	Hurtbox* hurtbox;
 	HealthComponent* health;
+
+	Sprite2D* sword;
+
 
 public:
 	MainCharacter();

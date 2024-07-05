@@ -4,6 +4,9 @@
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 
+#include "health_component.h"
+#include "hurtbox.h"
+
 namespace godot
 {
 
@@ -17,7 +20,7 @@ protected:
     Vector2 velocity;
 
 private:
-    size_t index;
+    int index;
     double speed;
     double acceleration;
 
@@ -28,6 +31,9 @@ public:
 	void _ready() override;
 
     void move(const Vector2& direction, double delta);
+
+    void set_index(const int p_index);
+    int get_index() const;
 
     void set_speed(const double p_speed);
     double get_speed() const;

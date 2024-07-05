@@ -388,18 +388,20 @@ height = 24.0
 motion_mode = 1
 
 [node name="Sword" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(3.33333, -13)
-rotation = 3.19744
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_fcybp")
 offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_630xb")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -178.667
 offset_top = -106.0
 offset_right = -93.6667
@@ -410,17 +412,14 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.802411
+frame_progress = 0.823571
 offset = Vector2(0.66667, -16)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0.33333, -13)
-collision_mask = 32
-collide_with_areas = true
-
 [node name="Hurtbox" type="Hurtbox" parent="."]
+health = NodePath("../HealthComponent")
+visible = false
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(2, -17)
@@ -428,15 +427,18 @@ shape = SubResource("CapsuleShape2D_ijcro")
 
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 2.0
+visible = false
 position = Vector2(0, -12)
-collision_layer = 0
-monitorable = false
+collision_mask = 0
+monitoring = false
 
 [node name="CollidingBox" type="CollisionPolygon2D" parent="Hitbox"]
 position = Vector2(0, 12)
 polygon = PackedVector2Array(61.1667, -46.9444, 53, -60, 39, -70, 22.1667, -78.9444, 0.166668, -79.9444, 0.166668, 54.0556, 17.1667, 52.0556, 29.1667, 49.0556, 42.1667, 42.0556, 51.1667, 35.0556, 60.1667, 22.0556, 66.1667, 10.0556, 69.1667, -2.94444, 70.1667, -18.9444, 67, -34)
+disabled = true
 
 [node name="HealthComponent" type="HealthComponent" parent="."]
+max_hp = 6.0
 position = Vector2(3.33333, -13)
 rotation = -2.76984
 scale = Vector2(0.75, 0.75)

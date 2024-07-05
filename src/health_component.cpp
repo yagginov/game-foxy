@@ -11,6 +11,8 @@ void HealthComponent::_bind_methods()
 	ClassDB::bind_method(D_METHOD("set_max_hp", "p_max_hp"), &HealthComponent::set_max_hp);
 	ClassDB::add_property("HealthComponent", PropertyInfo(Variant::INT, "max_hp"), "set_max_hp", "get_max_hp");
 
+    ClassDB::bind_method(D_METHOD("get_hp"), &HealthComponent::get_hp);
+
     ADD_SIGNAL(MethodInfo("dead"));
 }
 
@@ -44,6 +46,8 @@ void HealthComponent::damage(double damage)
         hp = 0;
         emit_signal("dead");
     }
+
+    UtilityFunctions::print("hp: " + String::num(hp));
 }
 
 void HealthComponent::heal(double heal)
@@ -65,4 +69,9 @@ void HealthComponent::set_max_hp(const double p_max_hp)
 double HealthComponent::get_max_hp() const
 {
     return max_hp;
+}
+
+double HealthComponent::get_hp() const
+{
+    return hp;
 }

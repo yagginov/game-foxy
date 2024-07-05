@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://xr2gopua0lf7"]
+[gd_scene load_steps=8 format=3 uid="uid://xr2gopua0lf7"]
 
 [ext_resource type="Texture2D" uid="uid://cb251ficjltmh" path="res://assets/tilesets/dark_fantasy_tileset.png" id="1_ps7lj"]
 [ext_resource type="PackedScene" uid="uid://bqekfjyfjhvfi" path="res://scenes/basic_hero.tscn" id="2_gollo"]
@@ -721,6 +721,9 @@ terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_3d88a")
 pattern_0 = SubResource("TileMapPattern_r8yjk")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5t53h"]
+radius = 27.0
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
@@ -742,3 +745,13 @@ position = Vector2(823, 173)
 
 [node name="CharacterBody2D2" parent="." instance=ExtResource("3_8lew1")]
 position = Vector2(826, 216)
+
+[node name="Hitbox" type="Hitbox" parent="."]
+damage = 2.0
+position = Vector2(934, 132)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollidingBox" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_5t53h")
+debug_color = Color(0.99, 0.0594, 0.0594, 0.796078)

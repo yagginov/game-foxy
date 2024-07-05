@@ -30,6 +30,8 @@ public:
     void set_max_hp(const double p_max_hp);
     double get_max_hp() const;
 
+    double get_hp() const;
+
 };
 
 }	// namespace godot

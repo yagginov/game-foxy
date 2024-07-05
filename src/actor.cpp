@@ -1,5 +1,6 @@
 #include "actor.h"
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 
 using namespace godot;
@@ -7,6 +8,10 @@ using namespace godot;
 
 void Actor::_bind_methods() 
 {
+    ClassDB::bind_method(D_METHOD("get_index"), &Actor::get_index);
+	ClassDB::bind_method(D_METHOD("set_index", "p_index"), &Actor::set_index);
+	ClassDB::add_property("Actor", PropertyInfo(Variant::INT, "index"), "set_index", "get_index");
+
     ClassDB::bind_method(D_METHOD("get_speed"), &Actor::get_speed);
 	ClassDB::bind_method(D_METHOD("set_speed", "p_speed"), &Actor::set_speed);
 	ClassDB::add_property("Actor", PropertyInfo(Variant::FLOAT, "speed"), "set_speed", "get_speed");
@@ -24,6 +29,7 @@ Actor::Actor()
 	// Initialize any variables here.
     speed = 200;
     acceleration = 200;
+    velocity = Vector2(0.0, 0.0);
 }
 
 Actor::~Actor() 
@@ -33,7 +39,7 @@ Actor::~Actor()
 
 void Actor::_ready() 
 {
-    
+
 }
 
 void Actor::move(const Vector2& direction, double delta)
@@ -46,6 +52,16 @@ void Actor::move(const Vector2& direction, double delta)
 
     move_and_slide();
 }
+
+void Actor::set_index(const int p_index)
+{
+    index = p_index;
+}
+int Actor::get_index() const
+{
+    return index;
+}
+    
 
 void Actor::set_speed(const double p_speed)
 {

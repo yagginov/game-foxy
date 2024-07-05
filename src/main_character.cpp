@@ -6,10 +6,11 @@
 
 using namespace godot;
 
+#define PI 3.1415926535897932384626433832795
 
 void MainCharacter::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("damage", "enemy_pos"), &MainCharacter::_damage);
-	ClassDB::bind_method(D_METHOD("dead"), &MainCharacter::_dead);
+	ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &MainCharacter::_damage);
+	ClassDB::bind_method(D_METHOD("_dead"), &MainCharacter::_dead);
 }
 
 MainCharacter::MainCharacter() {
@@ -36,18 +37,21 @@ MainCharacter::~MainCharacter() {
 }
 
 void MainCharacter::_ready() {
+	Actor::_ready();
+
 	add_to_group("Player");
 
 	animation_controller = get_node<AnimationController>("AnimationController");
-
-	hurtbox = get_node<Hurtbox>("Hurtbox");
 	hitbox = get_node<Hitbox>("Hitbox");
+	hurtbox = get_node<Hurtbox>("Hurtbox");
 	health = get_node<HealthComponent>("HealthComponent");
+
+	hitbox->turn_off();
 
 	hurtbox->connect("damage", Callable(this, "_damage"));
 	health->connect("dead", Callable(this, "_dead"));
 
-	hitbox->turn_off();
+	sword = get_node<Sprite2D>("Sword");
 }
 
 void MainCharacter::_process(double delta) {
@@ -147,20 +151,29 @@ void MainCharacter::f_attack(double delta)
 	if (v_states[state]->is_start())
 	{
 		hitbox->turn_on();
+		sword->set_visible(true);
+		double angle = -animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
+		sword->set_rotation(angle);
+	}
+	else
+	{
+		sword->set_rotation(sword->get_rotation() + PI * ( delta / 0.2));
 	}
 
 	if (v_states[state]->update(delta))
 	{
 		hitbox->turn_off();
 		change_state(States::idle);
+		sword->set_visible(false);
 	}
+	
 	direction = VECTOR2_ZERO;
 }
 
 void MainCharacter::_damage(Vector2 enemy_pos)
 {
 	Vector2 knokback_pos = get_position() - enemy_pos;
-	velocity = knokback_pos.normalized() * 0.05 * get_acceleration();
+	velocity = knokback_pos.normalized() * 0.12 * get_acceleration();
 	set_velocity(velocity);
 
 	change_state(States::idle);
@@ -168,7 +181,7 @@ void MainCharacter::_damage(Vector2 enemy_pos)
 
 void MainCharacter::_dead()
 {
-
+	UtilityFunctions::print("U are dead");
 }
 
 void MainCharacter::change_state(States p_state)

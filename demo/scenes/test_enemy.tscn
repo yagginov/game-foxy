@@ -16,11 +16,15 @@ texture = ExtResource("1_demwf")
 hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_kvea6")
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
 health = NodePath("../HealthComponent")
+visible = false
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-0.5, -9)
