@@ -12,7 +12,7 @@ A 2D actor is specialized for movement and level work.
 
 | type     | name                                          | default value |
 |----------|-----------------------------------------------|---------------|
-| int      | [index](#int-index--0)                        | 0             |
+| int      | [index](#index)                        | 0             |
 | double   | [speed](#double-speed--2000)                  | 200           |
 | double   | [acceleration](#double-acceleration--2000)    | 200           |
 
@@ -26,7 +26,7 @@ A 2D actor is specialized for movement and level work.
 
 ### Property Descriptions
 
-##### int index = <span style="color: green;">0</span>  {#int-index--0}
+##### int index = <span style="color: green;">0</span>  {#index}
 
  - void **set_index** ( const int p_index )
  - int **get_index** ( ) const
