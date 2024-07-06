@@ -7,10 +7,10 @@ size = Vector2(30.75, 17)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
 radius = 6.0
-height = 32.0
+height = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
-radius = 300.002
+radius = 189.2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e5ol"]
 atlas = ExtResource("1_0vw8j")
@@ -27,48 +27,45 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rehlp"]
-size = Vector2(31, 21)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ptb"]
 
-[node name="little_boar" type="LittleBoar"]
-hp = 59.485
+[node name="boar" type="Boar"]
+index = 95
+acceleration = 400.0
 motion_mode = 1
 
-[node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(1, -17)
-collision_layer = 40
-collision_mask = 0
-monitoring = false
-gravity_space_override = 3
+[node name="Hurtbox" type="Hurtbox" parent="."]
+health = NodePath("../HealthComponent")
+visible = false
+collision_layer = 0
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-1, -2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_1l3x6")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(2, -6)
+position = Vector2(2, 8)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qlech")
 
-[node name="SearchArea" type="Area2D" parent="."]
+[node name="HealthComponent" type="HealthComponent" parent="."]
+max_hp = 100.0
+
+[node name="SearchArea" type="SearchArea" parent="."]
+ray_cast = NodePath("../RayCast2D")
 visible = false
 collision_layer = 0
-collision_mask = 16
+collision_mask = 4
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
-position = Vector2(4, -8)
 shape = SubResource("CircleShape2D_csl4e")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-visible = false
-collision_mask = 16
-collide_with_areas = true
-collide_with_bodies = false
+collision_mask = 4
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -16)
+[node name="AnimationController" type="AnimationController" parent="."]
+position = Vector2(-5.96046e-08, -9.53674e-07)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_fgjkc")
 
@@ -77,15 +74,15 @@ offset_left = -28.0
 offset_top = -67.0
 offset_right = 12.0
 offset_bottom = -44.0
-text = "59.485"
+text = "100"
 
-[node name="HitBox" type="Area2D" parent="."]
-visible = false
-position = Vector2(6, -16)
-collision_layer = 0
-collision_mask = 16
-monitorable = false
+[node name="Hitbox" type="Hitbox" parent="."]
+damage = 1.0
+collision_layer = 2
+collision_mask = 0
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-5.5, 0.5)
-shape = SubResource("RectangleShape2D_rehlp")
+[node name="CollidingBox" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(2, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f1ptb")

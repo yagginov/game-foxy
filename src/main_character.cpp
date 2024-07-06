@@ -37,8 +37,6 @@ MainCharacter::~MainCharacter() {
 }
 
 void MainCharacter::_ready() {
-	Actor::_ready();
-
 	add_to_group("Player");
 
 	animation_controller = get_node<AnimationController>("AnimationController");
@@ -94,6 +92,12 @@ void MainCharacter::_physics_process(double delta)
 
 void MainCharacter::f_idle(double delta)
 {
+	if (v_states[state]->is_start())
+	{
+		hitbox->turn_off();
+		sword->set_visible(false);
+	}
+
 	if (direction != VECTOR2_ZERO)
 	{
 		change_state(States::run);
@@ -172,10 +176,7 @@ void MainCharacter::f_attack(double delta)
 
 void MainCharacter::_damage(Vector2 enemy_pos)
 {
-	Vector2 knokback_pos = get_position() - enemy_pos;
-	velocity = knokback_pos.normalized() * 0.12 * get_acceleration();
-	set_velocity(velocity);
-
+	Actor::_damage(enemy_pos);
 	change_state(States::idle);
 }
 

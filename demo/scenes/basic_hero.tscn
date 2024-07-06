@@ -385,6 +385,7 @@ radius = 7.0
 height = 24.0
 
 [node name="MC" type="MainCharacter"]
+index = 0
 motion_mode = 1
 
 [node name="Sword" type="Sprite2D" parent="."]
@@ -412,14 +413,15 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.823571
+frame_progress = 0.671777
 offset = Vector2(0.66667, -16)
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
 health = NodePath("../HealthComponent")
 visible = false
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(2, -17)
@@ -427,7 +429,6 @@ shape = SubResource("CapsuleShape2D_ijcro")
 
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 2.0
-visible = false
 position = Vector2(0, -12)
 collision_mask = 0
 monitoring = false
@@ -439,6 +440,6 @@ disabled = true
 
 [node name="HealthComponent" type="HealthComponent" parent="."]
 max_hp = 6.0
-position = Vector2(3.33333, -13)
+position = Vector2(-2.38419e-07, -13)
 rotation = -2.76984
 scale = Vector2(0.75, 0.75)

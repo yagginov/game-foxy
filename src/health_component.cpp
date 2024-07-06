@@ -47,7 +47,7 @@ void HealthComponent::damage(double damage)
         emit_signal("dead");
     }
 
-    UtilityFunctions::print("hp: " + String::num(hp));
+    //UtilityFunctions::print("hp: " + String::num(hp));
 }
 
 void HealthComponent::heal(double heal)

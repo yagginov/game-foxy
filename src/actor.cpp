@@ -53,6 +53,15 @@ void Actor::move(const Vector2& direction, double delta)
     move_and_slide();
 }
 
+void Actor::_damage(Vector2 enemy_pos)
+{
+    Vector2 knokback_pos = get_position() - enemy_pos;
+	velocity = knokback_pos.normalized() * 0.12 * get_acceleration();
+	set_velocity(velocity);
+
+    UtilityFunctions::print("inside actor _damage()");
+}
+
 void Actor::set_index(const int p_index)
 {
     index = p_index;

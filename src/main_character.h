@@ -45,7 +45,6 @@ private:
 
 	Sprite2D* sword;
 
-
 public:
 	MainCharacter();
 	~MainCharacter();
@@ -59,7 +58,7 @@ public:
 	void f_slide(double delta);
 	void f_attack(double delta);
 
-	void _damage(Vector2 enemy_pos);
+	void _damage(Vector2 enemy_pos) override;
 	void _dead();
 
 	void change_state(States state);

@@ -25,7 +25,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_5sslu")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"idle_right",
 "speed": 1.0
 }, {
 "frames": [{
@@ -39,27 +39,28 @@ animations = [{
 "texture": SubResource("AtlasTexture_1a248")
 }],
 "loop": false,
-"name": &"take_damage",
+"name": &"run_right",
 "speed": 24.0
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n42w3"]
 font_color = Color(1, 0.0431373, 0.0431373, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_chgd5"]
-size = Vector2(10, 20)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmcht"]
 radius = 5.0
 height = 14.0
 
-[node name="DummyEnemy" type="DummyEnemy"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chgd5"]
+size = Vector2(10, 20)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="DummyEnemy" type="DummyEnemy"]
+index = -694827871
+
+[node name="AnimationController" type="AnimationController" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_t1adb")
-animation = &"idle"
-frame_progress = 0.141963
+animation = &"idle_right"
+frame_progress = 0.681436
 
 [node name="HealthLabel" type="Label" parent="."]
 offset_left = -15.0
@@ -67,21 +68,22 @@ offset_top = -39.0
 offset_right = 73.0
 offset_bottom = -16.0
 scale = Vector2(0.327736, 0.314401)
-text = "100"
+text = "60"
 label_settings = SubResource("LabelSettings_n42w3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0, -10)
-collision_layer = 40
-collision_mask = 0
-monitoring = false
-
-[node name="Collider" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(9.53674e-07, -10)
-shape = SubResource("RectangleShape2D_chgd5")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_nmcht")
+
+[node name="HealthComponent" type="HealthComponent" parent="."]
+max_hp = 60.0
+position = Vector2(0, -10)
+
+[node name="Hurtbox" type="Hurtbox" parent="."]
+health = NodePath("../HealthComponent")
+
+[node name="Collider" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(9.53674e-07, -20)
+shape = SubResource("RectangleShape2D_chgd5")

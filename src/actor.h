@@ -31,6 +31,7 @@ public:
 	void _ready() override;
 
     void move(const Vector2& direction, double delta);
+    virtual void _damage(Vector2 enemy_pos);
 
     void set_index(const int p_index);
     int get_index() const;

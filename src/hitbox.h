@@ -5,6 +5,8 @@
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/collision_polygon2d.hpp>
 
+#include <godot_cpp/variant/vector2.hpp>
+
 
 namespace godot {
 
@@ -23,6 +25,8 @@ public:
 	~Hitbox();
 
 	void _ready() override;
+
+    void hit(Vector2 target_pos);
 
     void turn_on();
     void turn_off();

@@ -12,6 +12,8 @@ void Hitbox::_bind_methods()
 
     ClassDB::bind_method(D_METHOD("turn_on"), &Hitbox::turn_on);
     ClassDB::bind_method(D_METHOD("turn_off"), &Hitbox::turn_off);
+
+    ADD_SIGNAL(MethodInfo("hit", PropertyInfo(Variant::VECTOR2, "target_pos")));
 }
 
 Hitbox::Hitbox()
@@ -27,6 +29,11 @@ Hitbox::~Hitbox()
 void Hitbox::_ready()
 {
     colliding_box = get_node<CollisionPolygon2D>("CollidingBox");
+}
+
+void Hitbox::hit(Vector2 target_pos)
+{
+    emit_signal("hit", target_pos);
 }
 
 void Hitbox::set_damage(const double p_damage)

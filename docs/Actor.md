@@ -1,4 +1,4 @@
-## Actor
+# Actor
 
 **Inherits**: CharacterBody2D
 
@@ -10,16 +10,16 @@ A 2D actor is specialized for movement and level work.
 
 ### Properties
 
-| type     | name            | default value |
-|----------|-----------------|---------------|
-| int      | [index](#int-index--0)          | 0             |
-| double   | [speed](#double-speed--2000)           | 200           |
+| type     | name                                          | default value |
+|----------|-----------------------------------------------|---------------|
+| int      | [index](#int-index--0)                        | 0             |
+| double   | [speed](#double-speed--2000)                  | 200           |
 | double   | [acceleration](#double-acceleration--2000)    | 200           |
 
 ### Methods
 
-| return type | function                                       |
-|-------------|------------------------------------------------|
+| return type | function                                                                                      |
+|-------------|-----------------------------------------------------------------------------------------------|
 | void        | [move](#void-move--vector2-direction-double-delta-)(Vector2 direction, double delta)          |
 
 <hr style="height: 5px; border: none;" />
@@ -55,6 +55,6 @@ A 2D actor is specialized for movement and level work.
 
 ### Method Descriptions
 
-##### void **move** ( Vector2 direction, double delta ) {#void-move--vector2-direction-double-delta-}
+##### void move ( Vector2 direction, double delta ) {#void-move--vector2-direction-double-delta-}
 
 &nbsp;&nbsp;Makes the actor move in _direction_. Thanks to the use of variable _acceleration_, the actor will not gain _speed_ instantly, and therefore such a movement is more correct.

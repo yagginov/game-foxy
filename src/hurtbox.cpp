@@ -39,7 +39,8 @@ void Hurtbox::_hitbox_entered(Hitbox* node)
 {
     health->damage(node->get_damage());
 
-    emit_signal("damage", node->get_position());
+    emit_signal("damage", node->get_global_position());
+    node->hit(get_global_position());
 }
 
 void Hurtbox::set_health(const NodePath& p_health)
