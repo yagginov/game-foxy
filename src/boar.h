@@ -7,11 +7,11 @@
 #include <godot_cpp/classes/label.hpp>
 
 #include "actor.h"
-#include "animation_controller.h"
-#include "health_component.h"
-#include "hitbox.h"
-#include "hurtbox.h"
-#include "search_area.h"
+#include "components/animation_controller.h"
+#include "components/health_component.h"
+#include "components/hitbox.h"
+#include "components/hurtbox.h"
+#include "components/search_area.h"
 
 #include "state.h"
 

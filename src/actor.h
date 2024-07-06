@@ -4,8 +4,8 @@
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 
-#include "health_component.h"
-#include "hurtbox.h"
+#include "components/health_component.h"
+#include "components/hurtbox.h"
 
 namespace godot
 {

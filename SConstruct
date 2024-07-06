@@ -13,19 +13,19 @@ env = SConscript("godot-cpp/SConstruct")
 # - LINKFLAGS are for linking flags
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=["src/"])
-sources = Glob("src/*.cpp")
+env.Append(CPPPATH=["src/", "src/components"])
+sources = Glob("src/*.cpp") +  Glob("src/components/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+        "demo/bin/libgd_game_foxy.{}.{}.framework/libgd_game_foxy.{}.{}".format(
             env["platform"], env["target"], env["platform"], env["target"]
         ),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "demo/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "demo/bin/libgd_game_foxy{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 

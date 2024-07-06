@@ -9,8 +9,8 @@
 
 #include "actor.h"
 #include "state.h"
-#include "animation_controller.h"
-#include "hitbox.h"
+#include "components/animation_controller.h"
+#include "components/hitbox.h"
 
 namespace godot {
 

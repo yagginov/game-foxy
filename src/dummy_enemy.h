@@ -4,9 +4,9 @@
 #include <godot_cpp/classes/label.hpp>
 
 #include "actor.h"
-#include "animation_controller.h"
-#include "health_component.h"
-#include "hurtbox.h"
+#include "components/animation_controller.h"
+#include "components/health_component.h"
+#include "components/hurtbox.h"
 
 namespace godot {
 
