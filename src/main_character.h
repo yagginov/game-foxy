@@ -12,6 +12,8 @@
 #include "components/animation_controller.h"
 #include "components/hitbox.h"
 
+#include "components_container.h"
+
 namespace godot {
 
 class MainCharacter : public Actor {
@@ -38,10 +40,7 @@ private:
 	States state;
 	Vector<State*> v_states;
 
-	AnimationController* animation_controller;
-	Hitbox* hitbox;
-	Hurtbox* hurtbox;
-	HealthComponent* health;
+	ComponentsContainer* components;
 
 	Sprite2D* sword;
 
@@ -60,9 +59,9 @@ public:
 
 	void _damage(Vector2 enemy_pos) override;
 	void _dead();
+	void _hit(Vector2 target_pos);
 
 	void change_state(States state);
-
 };
 
 }	// namespace godot

@@ -11,6 +11,7 @@ using namespace godot;
 void MainCharacter::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &MainCharacter::_damage);
 	ClassDB::bind_method(D_METHOD("_dead"), &MainCharacter::_dead);
+	ClassDB::bind_method(D_METHOD("_hit", "target_pos"), &MainCharacter::_hit);
 }
 
 MainCharacter::MainCharacter() {
@@ -39,15 +40,11 @@ MainCharacter::~MainCharacter() {
 void MainCharacter::_ready() {
 	add_to_group("Player");
 
-	animation_controller = get_node<AnimationController>("AnimationController");
-	hitbox = get_node<Hitbox>("Hitbox");
-	hurtbox = get_node<Hurtbox>("Hurtbox");
-	health = get_node<HealthComponent>("HealthComponent");
+	components = get_node<ComponentsContainer>("ComponentsContainer");
 
-	hitbox->turn_off();
+	components->bind(this);
 
-	hurtbox->connect("damage", Callable(this, "_damage"));
-	health->connect("dead", Callable(this, "_dead"));
+	components->hitbox->turn_off();
 
 	sword = get_node<Sprite2D>("Sword");
 }
@@ -60,11 +57,11 @@ void MainCharacter::_physics_process(double delta)
 {
 	direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized();
 
-	animation_controller->set_angle(direction);
-	animation_controller->play_current_animation();
+	components->animation_controller->set_angle(direction);
+	components->animation_controller->play_current_animation();
 
-	double angle = -animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
-	hitbox->set_rotation(angle);
+	double angle = -components->animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
+	components->hitbox->set_rotation(angle);
 
 
 	switch(state)
@@ -94,7 +91,7 @@ void MainCharacter::f_idle(double delta)
 {
 	if (v_states[state]->is_start())
 	{
-		hitbox->turn_off();
+		components->hitbox->turn_off();
 		sword->set_visible(false);
 	}
 
@@ -139,7 +136,7 @@ void MainCharacter::f_slide(double delta)
 {
 	if (v_states[state]->is_start())
 	{
-		velocity = animation_controller->get_angle_vector() * 0.2 * get_acceleration();
+		velocity = components->animation_controller->get_angle_vector() * 0.2 * get_acceleration();
 		set_velocity(velocity);
 	}
 
@@ -154,9 +151,9 @@ void MainCharacter::f_attack(double delta)
 {
 	if (v_states[state]->is_start())
 	{
-		hitbox->turn_on();
+		components->hitbox->turn_on();
 		sword->set_visible(true);
-		double angle = -animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
+		double angle = -components->animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
 		sword->set_rotation(angle);
 	}
 	else
@@ -166,7 +163,7 @@ void MainCharacter::f_attack(double delta)
 
 	if (v_states[state]->update(delta))
 	{
-		hitbox->turn_off();
+		components->hitbox->turn_off();
 		change_state(States::idle);
 		sword->set_visible(false);
 	}
@@ -185,10 +182,15 @@ void MainCharacter::_dead()
 	UtilityFunctions::print("U are dead");
 }
 
+void MainCharacter::_hit(Vector2 target_pos)
+{
+	UtilityFunctions::print("HIT");
+}
+
 void MainCharacter::change_state(States p_state)
 {
 	v_states[state]->reset();
 	state = p_state;
 
-	animation_controller->set_state(static_cast<int>(state));
+	components->animation_controller->set_state(static_cast<int>(state));
 }

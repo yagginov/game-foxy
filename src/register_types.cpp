@@ -19,6 +19,8 @@
 #include "components/hitbox.h"
 #include "components/search_area.h"
 
+#include "components_container.h"
+
 
 //
 #include "non_playable_character.h"
@@ -43,6 +45,8 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Hurtbox);
 	GDREGISTER_CLASS(Hitbox);
 	GDREGISTER_CLASS(SearchArea);
+
+	GDREGISTER_CLASS(ComponentsContainer);
 
 	// Enemys:
 	GDREGISTER_CLASS(DummyEnemy);
