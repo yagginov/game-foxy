@@ -26,11 +26,6 @@ Boar::Boar() {
     direction = Vector2(0.0, 0.0);
 
     health_label = nullptr;
-    health = nullptr;
-    animation_controller = nullptr;
-    hitbox = nullptr;
-    hurtbox = nullptr;
-    search_area = nullptr;
 }
 
 Boar::~Boar() {
@@ -45,20 +40,9 @@ void Boar::_ready() {
     add_to_group("Enemy");
     
     health_label = get_node<Label>("HealthLabel");
-    health = get_node<HealthComponent>("HealthComponent");
 
-    animation_controller = get_node<AnimationController>("AnimationController");
-    hitbox = get_node<Hitbox>("Hitbox");
-	hurtbox = get_node<Hurtbox>("Hurtbox");
-    search_area = get_node<SearchArea>("SearchArea");
-
-    hitbox->connect("hit", Callable(this, "_hit"));
-
-	hurtbox->connect("damage", Callable(this, "_damage"));
-	health->connect("dead", Callable(this, "_dead"));
-
-    search_area->connect("target_spotted", Callable(this, "_target_spotted"));
-    search_area->connect("target_missed", Callable(this, "_target_missed"));
+    components = get_node<ComponentsContainer>("ComponentsContainer");
+	components->bind(this);
 }
 
 void Boar::_physics_process(double delta) {
@@ -77,7 +61,7 @@ void Boar::_physics_process(double delta) {
 
     if(health_label)
     {
-        health_label->set_text(String::num(health->get_hp()));
+        health_label->set_text(String::num(components->health->get_hp()));
     }
 
     Actor::move(direction, delta);

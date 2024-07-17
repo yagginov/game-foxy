@@ -44,7 +44,9 @@ animations = [{
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n42w3"]
-font_color = Color(1, 0.0431373, 0.0431373, 1)
+font_size = 200
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmcht"]
 radius = 5.0
@@ -60,14 +62,14 @@ index = -694827871
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_t1adb")
 animation = &"idle_right"
-frame_progress = 0.470036
+frame_progress = 0.896808
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = -15.0
-offset_top = -39.0
-offset_right = 73.0
-offset_bottom = -16.0
-scale = Vector2(0.327736, 0.314401)
+offset_left = -8.0
+offset_top = -42.0
+offset_right = 220.0
+offset_bottom = 231.0
+scale = Vector2(0.068124, 0.0449812)
 text = "60"
 label_settings = SubResource("LabelSettings_n42w3")
 horizontal_alignment = 1

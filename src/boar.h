@@ -7,12 +7,7 @@
 #include <godot_cpp/classes/label.hpp>
 
 #include "actor.h"
-#include "components/animation_controller.h"
-#include "components/health_component.h"
-#include "components/hitbox.h"
-#include "components/hurtbox.h"
-#include "components/search_area.h"
-
+#include "components_container.h"
 #include "state.h"
 
 namespace godot {
@@ -36,11 +31,7 @@ private:
     Vector2 direction;
 
     Label *health_label;
-    AnimationController* animation_controller;
-    HealthComponent* health;
-    Hitbox* hitbox;
-    Hurtbox* hurtbox;
-    SearchArea* search_area;
+    ComponentsContainer* components;
 
 public:
     Boar();

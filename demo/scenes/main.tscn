@@ -751,7 +751,19 @@ position = Vector2(828, 211)
 
 [node name="boar" parent="." instance=ExtResource("4_tiol0")]
 index = 110
-position = Vector2(1300, -133)
+position = Vector2(1276, -167)
+
+[node name="boar2" parent="." instance=ExtResource("4_tiol0")]
+index = 110
+position = Vector2(1232, -148)
+
+[node name="boar3" parent="." instance=ExtResource("4_tiol0")]
+index = 110
+position = Vector2(1332, -169)
+
+[node name="boar4" parent="." instance=ExtResource("4_tiol0")]
+index = 110
+position = Vector2(1275, -137)
 
 [node name="HitCircle" type="Sprite2D" parent="."]
 position = Vector2(989, 199)
@@ -760,7 +772,6 @@ texture = ExtResource("5_c2mhd")
 [node name="Hitbox" type="Hitbox" parent="HitCircle"]
 damage = 2.0
 visible = false
-scale = Vector2(1, 1)
 collision_layer = 3
 collision_mask = 0
 monitoring = false

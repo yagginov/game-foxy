@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://mjysodwpb5rl"]
+[gd_scene load_steps=9 format=3 uid="uid://mjysodwpb5rl"]
 
 [ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
 
@@ -10,7 +10,7 @@ radius = 6.0
 height = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
-radius = 189.2
+radius = 299.06
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e5ol"]
 atlas = ExtResource("1_0vw8j")
@@ -26,6 +26,11 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jnvn"]
+font_size = 200
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ptb"]
 
@@ -49,11 +54,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qlech")
 
 [node name="HealthComponent" type="HealthComponent" parent="."]
-max_hp = 100.0
+max_hp = 6.0
 
 [node name="SearchArea" type="SearchArea" parent="."]
 ray_cast = NodePath("../RayCast2D")
-visible = false
 collision_layer = 0
 collision_mask = 4
 monitorable = false
@@ -70,11 +74,13 @@ scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_fgjkc")
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = -28.0
-offset_top = -67.0
-offset_right = 12.0
-offset_bottom = -44.0
-text = "100"
+offset_left = -10.0
+offset_top = -29.0
+offset_right = 332.0
+offset_bottom = 244.0
+scale = Vector2(0.0677199, 0.0484757)
+text = "6"
+label_settings = SubResource("LabelSettings_5jnvn")
 
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 1.0
@@ -86,3 +92,10 @@ monitoring = false
 position = Vector2(2, -2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f1ptb")
+
+[node name="ComponentsContainer" type="ComponentsContainer" parent="."]
+health_path = NodePath("../HealthComponent")
+hitbox_path = NodePath("../Hitbox")
+hurtbox_path = NodePath("../Hurtbox")
+animation_controller_path = NodePath("../AnimationController")
+search_area_path = NodePath("../SearchArea")
