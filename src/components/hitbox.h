@@ -19,6 +19,8 @@ protected:
 private:
     double damage;
     CollisionPolygon2D* colliding_box;
+    
+    NodePath colliding_box_path;
 
 public:
 	Hitbox();
@@ -33,6 +35,9 @@ public:
 
     void set_damage(const double p_damage);
     double get_damage() const;
+
+    void set_colliding_box_path(const NodePath& p_colliding_box_path);
+    NodePath get_colliding_box_path() const;
 
 };
 

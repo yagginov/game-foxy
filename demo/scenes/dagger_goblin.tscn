@@ -1,0 +1,111 @@
+[gd_scene load_steps=9 format=3 uid="uid://doq572b08hcx6"]
+
+[ext_resource type="Texture2D" uid="uid://cg80jadp2xiqx" path="res://assets/sprites/dagger.png" id="1_nnww2"]
+[ext_resource type="Texture2D" uid="uid://bfiw50rw0tdav" path="res://assets/sprites/dagger_goblin.png" id="2_s3o78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l3x6"]
+size = Vector2(14.5313, 23.9375)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_csl4e"]
+radius = 170.003
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vrum"]
+atlas = ExtResource("2_s3o78")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgjkc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vrum")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlech"]
+radius = 3.0
+height = 16.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jnvn"]
+font_size = 200
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DaggerGoblin" type="DaggerGoblin"]
+index = 95
+speed = 140.0
+acceleration = 360.0
+motion_mode = 1
+
+[node name="Hurtbox" type="Hurtbox" parent="."]
+health = NodePath("../HealthComponent")
+position = Vector2(0, -18)
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_1l3x6")
+
+[node name="SearchArea" type="SearchArea" parent="."]
+ray_cast = NodePath("../RayCast2D")
+visible = false
+position = Vector2(0, -18)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
+shape = SubResource("CircleShape2D_csl4e")
+
+[node name="Hitbox" type="Hitbox" parent="."]
+damage = 1.0
+colliding_box_path = NodePath("CollidingBox")
+position = Vector2(0, -18)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollidingBox" type="CollisionPolygon2D" parent="Hitbox"]
+position = Vector2(19, -3)
+polygon = PackedVector2Array(7, -6, 12, 0, 7, 7, -6, 8, -6, -7)
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
+position = Vector2(19, -3)
+texture = ExtResource("1_nnww2")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -18)
+collision_mask = 4
+
+[node name="HealthComponent" type="HealthComponent" parent="."]
+max_hp = 4.0
+
+[node name="AnimationController" type="AnimationController" parent="."]
+position = Vector2(1, -18)
+scale = Vector2(0.542958, 0.595886)
+sprite_frames = SubResource("SpriteFrames_fgjkc")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qlech")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -3.0
+offset_top = -44.0
+offset_right = 339.0
+offset_bottom = 229.0
+scale = Vector2(0.0459599, 0.0275556)
+text = "4"
+label_settings = SubResource("LabelSettings_5jnvn")
+metadata/_edit_use_anchors_ = true
+
+[node name="ComponentsContainer" type="ComponentsContainer" parent="."]
+health_path = NodePath("../HealthComponent")
+hitbox_path = NodePath("../Hitbox")
+hurtbox_path = NodePath("../Hurtbox")
+animation_controller_path = NodePath("../AnimationController")
+search_area_path = NodePath("../SearchArea")

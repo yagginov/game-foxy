@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://mjysodwpb5rl"]
+[gd_scene load_steps=8 format=3 uid="uid://mjysodwpb5rl"]
 
 [ext_resource type="Texture2D" uid="uid://cks0qurrrqytn" path="res://assets/sprites/little_boar.png" id="1_0vw8j"]
 
@@ -31,8 +31,6 @@ animations = [{
 font_size = 200
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1ptb"]
 
 [node name="boar" type="Boar"]
 index = 95
@@ -81,17 +79,19 @@ offset_bottom = 244.0
 scale = Vector2(0.0677199, 0.0484757)
 text = "6"
 label_settings = SubResource("LabelSettings_5jnvn")
+metadata/_edit_use_anchors_ = true
 
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 1.0
+colliding_box_path = NodePath("CollidingBox")
 collision_layer = 2
 collision_mask = 0
 monitoring = false
 
-[node name="CollidingBox" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollidingBox" type="CollisionPolygon2D" parent="Hitbox"]
 position = Vector2(2, -2)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_f1ptb")
+polygon = PackedVector2Array(-11.9999, 14, 6.00006, 16, 14, 7.99995, 9.99996, -12, -8.00005, -14)
 
 [node name="ComponentsContainer" type="ComponentsContainer" parent="."]
 health_path = NodePath("../HealthComponent")

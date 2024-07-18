@@ -11,6 +11,8 @@
 #include "main_character.h"
 #include "dummy_enemy.h"
 #include "boar.h"
+#include "bat.h"
+#include "dagger_goblin.h"
 
 
 #include "components/animation_controller.h"
@@ -51,6 +53,8 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	// Enemys:
 	GDREGISTER_CLASS(DummyEnemy);
 	GDREGISTER_CLASS(Boar);
+	GDREGISTER_CLASS(Bat);
+	GDREGISTER_CLASS(DaggerGoblin);
 
 }
 

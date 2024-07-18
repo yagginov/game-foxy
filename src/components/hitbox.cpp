@@ -10,6 +10,10 @@ void Hitbox::_bind_methods()
 	ClassDB::bind_method(D_METHOD("set_damage", "p_damage"), &Hitbox::set_damage);
 	ClassDB::add_property("Hitbox", PropertyInfo(Variant::FLOAT, "damage"), "set_damage", "get_damage");
 
+    ClassDB::bind_method(D_METHOD("get_colliding_box_path"), &Hitbox::get_colliding_box_path);
+	ClassDB::bind_method(D_METHOD("set_colliding_box_path", "p_colliding_box_path"), &Hitbox::set_colliding_box_path);
+	ClassDB::add_property("Hitbox", PropertyInfo(Variant::NODE_PATH, "colliding_box_path"), "set_colliding_box_path", "get_colliding_box_path");
+
     ClassDB::bind_method(D_METHOD("turn_on"), &Hitbox::turn_on);
     ClassDB::bind_method(D_METHOD("turn_off"), &Hitbox::turn_off);
 
@@ -28,7 +32,9 @@ Hitbox::~Hitbox()
 
 void Hitbox::_ready()
 {
-    colliding_box = get_node<CollisionPolygon2D>("CollidingBox");
+    if (has_node(colliding_box_path)) {
+        colliding_box = get_node<CollisionPolygon2D>(colliding_box_path); 
+    }
 }
 
 void Hitbox::hit(Vector2 target_pos)
@@ -48,10 +54,25 @@ double Hitbox::get_damage() const
 
 void Hitbox::turn_on()
 {
-    colliding_box->set_disabled(false);
+    if (colliding_box)
+    {
+        colliding_box->set_disabled(false);
+    }
 }
 
 void Hitbox::turn_off()
 {
-    colliding_box->set_disabled(true);
+    if (colliding_box)
+    {
+        colliding_box->set_disabled(true);
+    }
+}
+
+void Hitbox::set_colliding_box_path(const NodePath& p_colliding_box_path)
+{
+    colliding_box_path = p_colliding_box_path;
+}
+NodePath Hitbox::get_colliding_box_path() const
+{
+    return colliding_box_path;
 }
