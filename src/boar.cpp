@@ -117,7 +117,44 @@ void Boar::_target_spotted(Vector2 target_pos)
     }
     else if (state == States::run)
     {
+
         direction = (target_pos - get_position()).normalized();
+        if (direction.x > 0.9)
+        {
+            direction = Vector2(1.0, 0.0);
+        }
+        else if (direction.x < -0.9)
+        {
+            direction = Vector2(-1.0, 0.0);
+        }
+        else if (direction.y > 0.9)
+        {
+            direction = Vector2(0.0, 1.0);
+        }
+        else if (direction.y < -0.9)
+        {
+            direction = Vector2(0.0, -1.0);
+        }
+        else
+        {
+            if (direction.x > 0.0)
+            {
+                direction.x = 1.0;
+            }
+            else 
+            {
+                direction.x = -1.0;
+            }
+            if (direction.y > 0.0)
+            {
+                direction.y = 1.0;
+            }
+            else
+            {
+                direction.y = -1.0;
+            }
+        }
+        direction = direction.normalized();
     }
 }
 

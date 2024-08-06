@@ -18,7 +18,8 @@ class DaggerGoblin : public Actor {
 enum States{
     idle = 0,
     run,
-    attack
+    attack,
+    attack_cooldown
 };
 
 protected:
@@ -45,6 +46,7 @@ public:
     void f_idle(double delta);
     void f_run(double delta);
     void f_attack(double delta);
+    void f_attack_cooldown(double delta);
 
     void _hit(Vector2 target_pos);
     void _damage(Vector2 enemy_pos) override;

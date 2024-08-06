@@ -179,12 +179,12 @@ void MainCharacter::_damage(Vector2 enemy_pos)
 
 void MainCharacter::_dead()
 {
-	UtilityFunctions::print("U are dead");
+	//UtilityFunctions::print("U are dead");
 }
 
 void MainCharacter::_hit(Vector2 target_pos)
 {
-	UtilityFunctions::print("HIT");
+	//UtilityFunctions::print("HIT");
 }
 
 void MainCharacter::change_state(States p_state)

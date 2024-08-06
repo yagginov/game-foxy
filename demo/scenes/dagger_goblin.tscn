@@ -35,8 +35,8 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="DaggerGoblin" type="DaggerGoblin"]
 index = 95
-speed = 140.0
-acceleration = 360.0
+speed = 100.0
+acceleration = 300.0
 motion_mode = 1
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
