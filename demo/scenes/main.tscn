@@ -768,7 +768,7 @@ index = 110
 position = Vector2(1275, -137)
 
 [node name="HitCircle" type="Sprite2D" parent="."]
-position = Vector2(989, 199)
+position = Vector2(1004, 198)
 texture = ExtResource("5_c2mhd")
 
 [node name="Hitbox" type="Hitbox" parent="HitCircle"]
