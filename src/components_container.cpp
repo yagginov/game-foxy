@@ -45,22 +45,27 @@ void ComponentsContainer::_ready()
 {
     if (has_node(health_path)) {
         health = get_node<HealthComponent>(health_path); 
+        //health->_ready();
     }
 
     if (has_node(hitbox_path)) {
         hitbox = get_node<Hitbox>(hitbox_path); 
+        //hitbox->_ready();
     }
 
     if (has_node(hurtbox_path)) {
         hurtbox = get_node<Hurtbox>(hurtbox_path); 
+        //hurtbox->_ready();
     }
 
     if (has_node(animation_controller_path)) {
         animation_controller = get_node<AnimationController>(animation_controller_path); 
+        //animation_controller->_ready();
     }
 
     if (has_node(search_area_path)) {
         search_area = get_node<SearchArea>(search_area_path); 
+        //search_area->_ready();
     }
 }
 

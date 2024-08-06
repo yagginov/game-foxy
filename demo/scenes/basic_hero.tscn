@@ -414,7 +414,7 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.17361
+frame_progress = 0.578449
 offset = Vector2(0.66667, -16)
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
@@ -430,7 +430,7 @@ shape = SubResource("CapsuleShape2D_ijcro")
 
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 1.0
-visible = false
+colliding_box_path = NodePath("CollidingBox")
 position = Vector2(0, -12)
 collision_mask = 0
 monitoring = false
