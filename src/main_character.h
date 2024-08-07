@@ -41,7 +41,6 @@ private:
 	Vector<State*> v_states;
 
 	ComponentsContainer* components;
-
 	Sprite2D* sword;
 
 public:
