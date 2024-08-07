@@ -36,8 +36,11 @@ private:
     double              distance;
     Vector2             prev_position;
     Vector2             direction;
+    Vector2             velocity;
+    double              speed;
+    double              acceleration;
 
-    Vector<State*>       v_states;
+    Vector<State*>      v_states;
     States              state;
 
 public:

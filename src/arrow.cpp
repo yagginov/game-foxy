@@ -7,7 +7,17 @@ using namespace godot;
 
 void Arrow::_bind_methods() 
 {
-	
+	ClassDB::bind_method(D_METHOD("get_max_count_of_targets"), &Arrow::get_max_count_of_targets);
+	ClassDB::bind_method(D_METHOD("set_max_count_of_targets", "p_max_count_of_targets"), &Arrow::set_max_count_of_targets);
+	ClassDB::add_property("Arrow", PropertyInfo(Variant::INT, "max_count_of_targets"), "set_max_count_of_targets", "get_max_count_of_targets");
+
+    ClassDB::bind_method(D_METHOD("get_max_distance"), &Arrow::get_max_distance);
+	ClassDB::bind_method(D_METHOD("set_max_distance", "p_max_distance"), &Arrow::set_max_distance);
+	ClassDB::add_property("Arrow", PropertyInfo(Variant::FLOAT, "max_distance"), "set_max_distance", "get_max_distance");
+
+    ClassDB::bind_method(D_METHOD("get_sprite_path"), &Arrow::get_sprite_path);
+	ClassDB::bind_method(D_METHOD("set_sprite_path", "p_sprite_path"), &Arrow::set_sprite_path);
+	ClassDB::add_property("Arrow", PropertyInfo(Variant::NODE_PATH, "sprite_path"), "set_sprite_path", "get_sprite_path");
 }
 
 Arrow::Arrow() 
@@ -22,6 +32,10 @@ Arrow::Arrow()
     max_distance = 32 * 8;
     prev_position = Vector(0.0, 0.0);
     direction = Vector2(0.0, 0.0);
+
+    velocity = Vector2(0.0, 0.0);
+    speed = 400;
+    acceleration = 1500;
 
     v_states.push_back(new State(0.0));
     v_states.push_back(new States(0.0));
@@ -38,7 +52,9 @@ void Arrow::_ready()
 {
 	add_to_group("Arrow");
 
-
+    if (has_node(sprite_path)) {
+        sprite = get_node<Sprite2D>(sprite_path); 
+    }
 }
 
 void Arrow::_physics_process(double delta) 
@@ -66,7 +82,11 @@ void Arrow::f_fly(double delta)
     }
     
     distance += (get_global_position() - prev_position).length(); 
+    prev_position = get_global_position();
     
+    velocity = velocity.move_toward(direction * speed, acceleration * delta);
+    set_global_position(get_global_position() + velocity * delta);
+
     if (distance > max_distance)
     {
         reset();
@@ -113,4 +133,32 @@ void Arrow::shot(const Vector2 p_direction)
     reset();
     state = States::fly;
     direction = p_direction;
+}
+
+
+void Arrow::set_sprite_path(const NodePath& p_sprite_path)
+{
+    sprite_path = p_sprite_path;
+}
+NodePath Arrow::get_sprite_path() const
+{
+    return sprite_path;
+}
+
+void Arrow::set_max_count_of_targets(const int p_max_count_of_targets)
+{
+    max_count_of_targets = p_max_count_of_targets;
+}
+int Arrow::get_max_count_of_targets() const
+{
+    return max_count_of_targets;
+}
+
+void Arrow::set_max_distance(const double p_max_distance)
+{
+    max_distance = p_max_distance;
+}
+double Arrow::get_max_distance() const
+{
+    return max_distance;
 }
