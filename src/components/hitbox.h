@@ -18,9 +18,10 @@ protected:
 
 private:
     double damage;
-    CollisionPolygon2D* colliding_box;
-    
     NodePath colliding_box_path;
+
+protected:
+    CollisionPolygon2D* colliding_box;
 
 public:
 	Hitbox();

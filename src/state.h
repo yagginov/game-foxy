@@ -14,6 +14,9 @@ public:
     bool update(double delta);
     bool is_start();
 
+    double get_current_time() const;
+    double get_max_time() const;
+
     void reset();
 
 };

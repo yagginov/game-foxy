@@ -30,6 +30,8 @@ MainCharacter::MainCharacter() {
 
 	arrow = nullptr;
 
+	arrow_line = nullptr;
+
 }
 
 MainCharacter::~MainCharacter() {
@@ -53,11 +55,11 @@ void MainCharacter::_ready() {
 
 	arrow = get_node<Arrow>("Arrow");
 
-	UtilityFunctions::print("main_character _ready() success");
+	arrow_line = get_node<LineEdit>("ArrowLine");
 }
 
 void MainCharacter::_process(double delta) {
-	UtilityFunctions::print("fps: " + String::num((int)(1.0/delta)));
+	//UtilityFunctions::print("fps: " + String::num((int)(1.0/delta)));
 }
 
 void MainCharacter::_physics_process(double delta) 
@@ -191,9 +193,17 @@ void MainCharacter::f_attack(double delta)
 
 void MainCharacter::f_shot(double delta)
 {
+	if (v_states[state]->is_start())
+	{
+		arrow_line->set_visible(true);
+		components->animation_controller->set_state(static_cast<int>(States::idle));
+	}
+
 	if (!i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !v_states[state]->update(delta))
 	{
 		change_state(States::idle);
+		arrow_line->set_visible(false);
+		return;
 	}
 
 	if (v_states[state]->update(delta))
@@ -212,6 +222,28 @@ void MainCharacter::f_shot(double delta)
 			}
 			
 			change_state(States::idle);
+			arrow_line->set_visible(false);
+			return;
+		}
+	}
+
+	int count_download = v_states[state]->get_current_time() / v_states[state]->get_max_time() * 7;
+
+	if (count_download > 7)
+	{
+		if (arrow_line)
+		{
+			arrow_line->set_text("[#######]");
+		}
+	}
+	else
+	{
+		if (arrow_line)
+		{
+			arrow_line->set_text(String("[" 
+			+ String("#######").substr(0, count_download) 
+			+ String("*******").substr(0, 7 - count_download) 
+			+ String("]")));
 		}
 	}
 

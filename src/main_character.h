@@ -7,6 +7,8 @@
 #include <godot_cpp/templates/vector.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 
+#include <godot_cpp/classes/line_edit.hpp>
+
 #include "actor.h"
 #include "state.h"
 #include "components/animation_controller.h"
@@ -49,6 +51,8 @@ private:
 	Sprite2D* sword;
 
 	Arrow* arrow;
+
+	LineEdit* arrow_line;
 
 private:
 	Vector2 get_mouse_position() const;

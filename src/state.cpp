@@ -30,3 +30,14 @@ void State::reset()
     time = 0;
     isStart = true;
 }
+
+
+double State::get_current_time() const
+{
+    return time;
+}
+
+double State::get_max_time() const
+{
+    return maxTime;
+}

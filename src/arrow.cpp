@@ -56,6 +56,8 @@ void Arrow::_ready()
 {
 	add_to_group("Arrow");
 
+    Hitbox::_ready();
+
     if (has_node(sprite_path)) {
         sprite = get_node<Sprite2D>(sprite_path); 
         UtilityFunctions::print("sprite received");
@@ -84,7 +86,7 @@ void Arrow::f_fly(double delta)
 {
     if (v_states[state]->is_start())
     {
-        turn_on();
+        this->turn_on();
         prev_position = get_global_position();
     }
     
@@ -103,7 +105,7 @@ void Arrow::f_fly(double delta)
 void Arrow::hit(Vector2 target_pos)
 {
     Hitbox::hit(target_pos);
-    if (++count_of_targets > max_count_of_targets)
+    if (++count_of_targets >= max_count_of_targets)
     {
         reset();
     }
@@ -111,7 +113,9 @@ void Arrow::hit(Vector2 target_pos)
 
 void Arrow::turn_on()
 {
+
     Hitbox::turn_on();
+
     if (sprite)
     {
         sprite->set_visible(true);
@@ -121,10 +125,6 @@ void Arrow::turn_on()
 void Arrow::turn_off()
 {
     Hitbox::turn_off();
-    if (sprite)
-    {
-        sprite->set_visible(false);
-    }
 }
 
 void Arrow::reset()
