@@ -24,6 +24,8 @@
 #include "components_container.h"
 
 
+#include "arrow.h"
+
 //
 #include "non_playable_character.h"
 //
@@ -49,6 +51,8 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(SearchArea);
 
 	GDREGISTER_CLASS(ComponentsContainer);
+
+	GDREGISTER_CLASS(Arrow);
 
 	// Enemys:
 	GDREGISTER_CLASS(DummyEnemy);

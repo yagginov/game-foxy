@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://bqekfjyfjhvfi"]
+[gd_scene load_steps=53 format=3 uid="uid://bqekfjyfjhvfi"]
 
 [ext_resource type="Texture2D" uid="uid://duvkn4whnrcby" path="res://assets/sprites/main_character.png" id="1_c2q3i"]
 [ext_resource type="Texture2D" uid="uid://8aoi20p5knvq" path="res://assets/sprites/Sword.png" id="1_fcybp"]
 [ext_resource type="Texture2D" uid="uid://cal6gorwrcfsn" path="res://assets/sprites/DodgeAnimatedBaseCharacter.png" id="2_2de7g"]
 [ext_resource type="Texture2D" uid="uid://dlqlowbbtgjma" path="res://assets/sprites/AnimatedBaseCharacter.png" id="2_glr3x"]
+[ext_resource type="Texture2D" uid="uid://gt5w6upa1vua" path="res://assets/sprites/arrow.png" id="5_8v2m7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_630xb"]
 radius = 4.0
@@ -386,12 +387,11 @@ height = 24.0
 
 [node name="MC" type="MainCharacter"]
 index = 22
-position = Vector2(3.66667, 0)
 motion_mode = 1
 
 [node name="Sword" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(3.33333, -13)
+position = Vector2(0, -13)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_fcybp")
 offset = Vector2(0, -45)
@@ -414,7 +414,7 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.467262
+frame_progress = 0.992985
 offset = Vector2(0.66667, -16)
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
@@ -431,6 +431,7 @@ shape = SubResource("CapsuleShape2D_ijcro")
 [node name="Hitbox" type="Hitbox" parent="."]
 damage = 1.0
 colliding_box_path = NodePath("CollidingBox")
+visible = false
 position = Vector2(0, -12)
 collision_mask = 0
 monitoring = false
@@ -454,3 +455,23 @@ animation_controller_path = NodePath("../AnimationController")
 position = Vector2(-2.38419e-07, -13)
 rotation = -2.76984
 scale = Vector2(0.75, 0.75)
+
+[node name="Arrow" type="Arrow" parent="."]
+max_distance = 400.0
+sprite_path = NodePath("Sprite2D")
+damage = 2.0
+colliding_box_path = NodePath("CollidingBox")
+position = Vector2(0, -13)
+collision_mask = 0
+monitoring = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Arrow"]
+visible = false
+position = Vector2(1.7053e-13, -9)
+rotation = -0.785398
+texture = ExtResource("5_8v2m7")
+
+[node name="CollidingBox" type="CollisionPolygon2D" parent="Arrow"]
+position = Vector2(0, -20)
+polygon = PackedVector2Array(0, -1, 3, 4, -3, 4)
+disabled = true

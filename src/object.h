@@ -1,22 +1,23 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
 
 #include <godot_cpp/classes/animated_sprite2d.hpp>
 
+#include "components_container.h"
+
 namespace godot {
 
-class Object : public AnimatedSprite2D {
-    GDCLASS(Object, AnimatedSprite2D);
+class GameObject : public AnimatedSprite2D {
+    GDCLASS(GameObject, AnimatedSprite2D);
 
 protected:
     static void _bind_methods();
 
 private:
-    ComponentsContainer* components;
 
 public:
-    Object();
-    ~Object();
+    GameObject();
+    ~GameObject();
 
     void _ready() override;
     void _physics_process(double delta) override;
@@ -27,4 +28,4 @@ public:
 
 }           // namespace godot
 
-#endif      // OBJECT_H
+#endif      // GAME_OBJECT_H

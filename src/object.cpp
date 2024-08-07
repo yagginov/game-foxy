@@ -5,41 +5,28 @@
 
 using namespace godot;
 
-void Object::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &Object::_damage);
+void GameObject::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &GameObject::_damage);
 }
 
-Object::Object() {
-    components = nullptr;
+GameObject::GameObject() {
 }
 
-Object::~Object() {
+GameObject::~GameObject() {
     // Add your cleanup here.
 }
 
-void Object::_ready() {
-    add_to_group("BaseObject");
-
-    components = get_node<ComponentsContainer>("ComponentsContainer");
-    if (components)
-    {
-        components->_ready();
-	    components->bind(this);
-    }
+void GameObject::_ready() {
+    add_to_group("BaseGameObject");
 
 }
 
-void Object::_physics_process(double delta) {
+void GameObject::_physics_process(double delta) {
     
 }
 
 
-void Object::_damage(Vector2 enemy_pos)
+void GameObject::_damage(Vector2 enemy_pos)
 {
     //_dead();
-}
-
-void Object::_dead()
-{
-    queue_free();
 }

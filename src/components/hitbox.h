@@ -28,10 +28,10 @@ public:
 
 	void _ready() override;
 
-    void hit(Vector2 target_pos);
+    virtual void hit(Vector2 target_pos);
 
-    void turn_on();
-    void turn_off();
+    virtual void turn_on();
+    virtual void turn_off();
 
     void set_damage(const double p_damage);
     double get_damage() const;

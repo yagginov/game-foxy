@@ -10,7 +10,7 @@
 
 namespace godot {
 
-class Arrow: Hitbox
+class Arrow: public Hitbox
 {
     GDCLASS(Arrow, Hitbox);
 
@@ -22,7 +22,7 @@ private:
     {
         calm = 0, 
         fly = 1
-    }
+    };
 
 private:
     // elements
@@ -30,7 +30,7 @@ private:
     int                 count_of_targets;
 
     NodePath            sprite_path;
-    Sprite2D            sprite;
+    Sprite2D*           sprite;
 
     double              max_distance;
     double              distance;
@@ -60,6 +60,8 @@ public:
     void shot(const Vector2 p_direction);
     void reset();
 
+    bool is_active() const;
+
     // set / get
     void set_sprite_path(const NodePath& p_sprite_path);
     NodePath get_sprite_path() const;
@@ -71,7 +73,7 @@ public:
     double get_max_distance() const;
 
     
-}   // class Arrow
+};   // class Arrow
 
 
 }	// namespace godot

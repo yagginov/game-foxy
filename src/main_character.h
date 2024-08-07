@@ -14,6 +14,10 @@
 
 #include "components_container.h"
 
+/**/
+#include "arrow.h"
+/**/
+
 namespace godot {
 
 class MainCharacter : public Actor {
@@ -25,7 +29,8 @@ enum States
 	idle = 0,
 	run = 1,
 	slide = 2,
-	attack = 3
+	attack = 3,
+	shot = 4
 };
 
 const Vector2 VECTOR2_ZERO = Vector2(0.0, 0.0);
@@ -43,6 +48,12 @@ private:
 	ComponentsContainer* components;
 	Sprite2D* sword;
 
+	Arrow* arrow;
+
+private:
+	Vector2 get_mouse_position() const;
+
+
 public:
 	MainCharacter();
 	~MainCharacter();
@@ -55,6 +66,7 @@ public:
 	void f_run(double delta);
 	void f_slide(double delta);
 	void f_attack(double delta);
+	void f_shot(double delta);
 
 	void _damage(Vector2 enemy_pos) override;
 	void _dead();

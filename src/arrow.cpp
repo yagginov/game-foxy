@@ -18,6 +18,9 @@ void Arrow::_bind_methods()
     ClassDB::bind_method(D_METHOD("get_sprite_path"), &Arrow::get_sprite_path);
 	ClassDB::bind_method(D_METHOD("set_sprite_path", "p_sprite_path"), &Arrow::set_sprite_path);
 	ClassDB::add_property("Arrow", PropertyInfo(Variant::NODE_PATH, "sprite_path"), "set_sprite_path", "get_sprite_path");
+
+    ClassDB::bind_method(D_METHOD("turn_on"), &Arrow::turn_on);
+    ClassDB::bind_method(D_METHOD("turn_off"), &Arrow::turn_off);
 }
 
 Arrow::Arrow() 
@@ -25,12 +28,11 @@ Arrow::Arrow()
 	// Initialize any variables here.	
 	max_count_of_targets = 1;
     count_of_targets = 0;
-    sprite_path = nullptr;
     sprite = nullptr;
 
     distance = 0;
     max_distance = 32 * 8;
-    prev_position = Vector(0.0, 0.0);
+    prev_position = Vector2(0.0, 0.0);
     direction = Vector2(0.0, 0.0);
 
     velocity = Vector2(0.0, 0.0);
@@ -38,7 +40,9 @@ Arrow::Arrow()
     acceleration = 1500;
 
     v_states.push_back(new State(0.0));
-    v_states.push_back(new States(0.0));
+    v_states.push_back(new State(0.0));
+
+    state = States::calm;
 
 }
 
@@ -54,7 +58,10 @@ void Arrow::_ready()
 
     if (has_node(sprite_path)) {
         sprite = get_node<Sprite2D>(sprite_path); 
+        UtilityFunctions::print("sprite received");
     }
+
+    UtilityFunctions::print("arrow _ready() success");
 }
 
 void Arrow::_physics_process(double delta) 
@@ -75,7 +82,7 @@ void Arrow::_physics_process(double delta)
 
 void Arrow::f_fly(double delta)
 {
-    if (v_states[state].is_start())
+    if (v_states[state]->is_start())
     {
         turn_on();
         prev_position = get_global_position();
@@ -107,7 +114,7 @@ void Arrow::turn_on()
     Hitbox::turn_on();
     if (sprite)
     {
-        sprite.set_visible(true);
+        sprite->set_visible(true);
     }
 }
 
@@ -116,7 +123,7 @@ void Arrow::turn_off()
     Hitbox::turn_off();
     if (sprite)
     {
-        sprite.set_visible(false);
+        sprite->set_visible(false);
     }
 }
 
@@ -126,6 +133,13 @@ void Arrow::reset()
     state = States::calm;
     distance = 0.0;
     count_of_targets = 0;
+    velocity = Vector2(0.0, 0.0);
+    set_position(Vector2(0.0, -13.0));
+
+    if (sprite)
+    {
+        sprite->set_visible(false);
+    }
 }
 
 void Arrow::shot(const Vector2 p_direction)
@@ -133,6 +147,15 @@ void Arrow::shot(const Vector2 p_direction)
     reset();
     state = States::fly;
     direction = p_direction;
+}
+
+bool Arrow::is_active() const
+{
+    if (sprite)
+    {
+        return sprite->is_visible();
+    }
+    return true;
 }
 
 

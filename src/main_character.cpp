@@ -22,10 +22,13 @@ MainCharacter::MainCharacter() {
 
 	state = States::idle;
 
-	v_states.push_back(new State(0.0));
-	v_states.push_back(new State(0.0));
-	v_states.push_back(new State(0.2));
-	v_states.push_back(new State(0.2));
+	v_states.push_back(new State(0.0));		// idle
+	v_states.push_back(new State(0.0));		// run
+	v_states.push_back(new State(0.2));		// slide
+	v_states.push_back(new State(0.2));		// attack
+	v_states.push_back(new State(2.0));		// shot
+
+	arrow = nullptr;
 
 }
 
@@ -47,10 +50,14 @@ void MainCharacter::_ready() {
 	components->hitbox->turn_off();
 
 	sword = get_node<Sprite2D>("Sword");
+
+	arrow = get_node<Arrow>("Arrow");
+
+	UtilityFunctions::print("main_character _ready() success");
 }
 
 void MainCharacter::_process(double delta) {
-
+	UtilityFunctions::print("fps: " + String::num((int)(1.0/delta)));
 }
 
 void MainCharacter::_physics_process(double delta) 
@@ -59,10 +66,6 @@ void MainCharacter::_physics_process(double delta)
 
 	components->animation_controller->set_angle(direction);
 	components->animation_controller->play_current_animation();
-
-	double angle = -components->animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
-	components->hitbox->set_rotation(angle);
-
 
 	switch(state)
 	{
@@ -80,6 +83,10 @@ void MainCharacter::_physics_process(double delta)
 
 	case States::attack :
 		f_attack(delta);
+		break;
+
+	case States::shot :
+		f_shot(delta);
 		break;
 	}
 
@@ -110,6 +117,11 @@ void MainCharacter::f_idle(double delta)
 		change_state(States::idle);
 		state = States::attack;
 	}
+
+	if (i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
+	{
+		change_state(States::shot);
+	}
 }
 
 void MainCharacter::f_run(double delta)
@@ -129,6 +141,11 @@ void MainCharacter::f_run(double delta)
 	{
 		change_state(States::idle);
 		state = States::attack;
+	}
+
+	if (i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
+	{
+		change_state(States::shot);
 	}
 }
 
@@ -155,6 +172,7 @@ void MainCharacter::f_attack(double delta)
 		sword->set_visible(true);
 		double angle = -components->animation_controller->get_angle_vector().angle_to(Vector2(1.0, 0.0));
 		sword->set_rotation(angle);
+		components->hitbox->set_rotation(angle);
 	}
 	else
 	{
@@ -171,6 +189,35 @@ void MainCharacter::f_attack(double delta)
 	direction = VECTOR2_ZERO;
 }
 
+void MainCharacter::f_shot(double delta)
+{
+	if (!i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !v_states[state]->update(delta))
+	{
+		change_state(States::idle);
+	}
+
+	if (v_states[state]->update(delta))
+	{
+		if (!i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT))
+		{
+			Vector2 mouse_dir = MainCharacter::get_mouse_position() - arrow->get_global_position();
+			mouse_dir = mouse_dir.normalized();
+
+			double angle = -mouse_dir.angle_to(Vector2(0.0, -1.0));
+
+			if (arrow)
+			{
+				arrow->set_rotation(angle);
+				arrow->shot(mouse_dir);
+			}
+			
+			change_state(States::idle);
+		}
+	}
+
+	direction = VECTOR2_ZERO;
+}
+
 void MainCharacter::_damage(Vector2 enemy_pos)
 {
 	Actor::_damage(enemy_pos);
@@ -179,12 +226,12 @@ void MainCharacter::_damage(Vector2 enemy_pos)
 
 void MainCharacter::_dead()
 {
-	//UtilityFunctions::print("U are dead");
+	UtilityFunctions::print("U are dead");
 }
 
 void MainCharacter::_hit(Vector2 target_pos)
 {
-	//UtilityFunctions::print("HIT");
+	UtilityFunctions::print("HIT");
 }
 
 void MainCharacter::change_state(States p_state)
@@ -193,4 +240,12 @@ void MainCharacter::change_state(States p_state)
 	state = p_state;
 
 	components->animation_controller->set_state(static_cast<int>(state));
+}
+
+
+// private methods
+
+Vector2 MainCharacter::get_mouse_position() const
+{
+	return get_global_mouse_position();
 }
