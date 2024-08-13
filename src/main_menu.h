@@ -29,6 +29,12 @@ public:
     void _ready();
     void _physics_process(double delta) override;
 
+    // listeners
+    void            _on_play_button_pressed();
+    void            _on_settings_button_pressed();
+    void            _on_quit_button_pressed();
+
+    // set / get
     void            set_play_button(const NodePath& p_play_button_path);
     NodePath        get_play_button() const;
 

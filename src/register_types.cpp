@@ -6,7 +6,7 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-
+// characters
 #include "actor.h"
 #include "main_character.h"
 #include "dummy_enemy.h"
@@ -14,17 +14,18 @@
 #include "bat.h"
 #include "dagger_goblin.h"
 
-
+// components
 #include "components/animation_controller.h"
 #include "components/health_component.h"
 #include "components/hurtbox.h"
 #include "components/hitbox.h"
 #include "components/search_area.h"
-
 #include "components_container.h"
 
-
 #include "arrow.h"
+
+// ui
+#include "main_menu.h"
 
 //
 #include "non_playable_character.h"
@@ -49,7 +50,6 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Hurtbox);
 	GDREGISTER_CLASS(Hitbox);
 	GDREGISTER_CLASS(SearchArea);
-
 	GDREGISTER_CLASS(ComponentsContainer);
 
 	GDREGISTER_CLASS(Arrow);
@@ -59,6 +59,9 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Boar);
 	GDREGISTER_CLASS(Bat);
 	GDREGISTER_CLASS(DaggerGoblin);
+
+	// UI
+	GDREGISTER_CLASS(MainMenu);
 
 }
 
