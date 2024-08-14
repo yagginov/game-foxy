@@ -726,6 +726,7 @@ sources/0 = SubResource("TileSetAtlasSource_3d88a")
 pattern_0 = SubResource("TileMapPattern_r8yjk")
 
 [node name="Game" type="Node2D"]
+process_mode = 1
 y_sort_enabled = true
 
 [node name="TileMap2" type="TileMap" parent="."]
