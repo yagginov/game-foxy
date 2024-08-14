@@ -26,6 +26,7 @@
 
 // ui
 #include "main_menu.h"
+#include "pause_menu.h"
 
 //
 #include "non_playable_character.h"
@@ -62,6 +63,7 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 
 	// UI
 	GDREGISTER_CLASS(MainMenu);
+	GDREGISTER_CLASS(PauseMenu);
 
 }
 

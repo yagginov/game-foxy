@@ -415,7 +415,7 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.490668
+frame_progress = 0.338991
 offset = Vector2(0.66667, -16)
 
 [node name="Hurtbox" type="Hurtbox" parent="."]

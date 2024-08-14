@@ -92,8 +92,16 @@ void PauseMenu::_physics_process(double delta)
 {
     if (i->is_action_just_pressed("ui_cancel"))
     {
-        this->show();
-        this->get_tree()->set_pause(true);
+        if (this->get_tree()->is_paused())
+        {
+            this->hide();
+            this->get_tree()->set_pause(false);
+        }
+        else
+        {
+            this->show();
+            this->get_tree()->set_pause(true);
+        }
     }
 }
 
@@ -122,6 +130,8 @@ void PauseMenu::_on_to_main_menu_button_pressed()
     {
         return;
     }
+    this->hide();
+    this->get_tree()->set_pause(false);
     this->get_tree()->change_scene_to_file("res://scenes/main_menu.tscn");
 }
 
@@ -131,6 +141,8 @@ void PauseMenu::_on_to_desktop_button_pressed()
     {
         return;
     }
+    this->hide();
+    this->get_tree()->set_pause(false);
     this->get_tree()->quit();
 }
 
