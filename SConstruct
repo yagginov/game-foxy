@@ -28,5 +28,5 @@ else:
         "demo/bin/libgd_game_foxy{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
-
+    
 Default(library)

@@ -12,9 +12,15 @@ config_version=5
 
 config/name="game-foxy"
 config/tags=PackedStringArray("2d", "demo", "tilemap")
-run/main_scene="res://scenes/test_level.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1366
+window/size/viewport_height=768
+window/size/resizable=false
 
 [dotnet]
 

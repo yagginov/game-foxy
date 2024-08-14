@@ -739,7 +739,7 @@ layer_0/tile_data = PackedInt32Array(-1114112, 131072, 0, -1048576, 327680, 0, -
 index = 0
 speed = 100.0
 acceleration = 5000.0
-position = Vector2(406.667, 347)
+position = Vector2(1048.33, 347)
 collision_layer = 5
 
 [node name="Camera2D" type="Camera2D" parent="Hero"]

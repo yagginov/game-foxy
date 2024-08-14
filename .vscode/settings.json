@@ -76,5 +76,6 @@
     "thread": "cpp",
     "tuple": "cpp",
     "utility": "cpp"
-  }
+  },
+  "python.analysis.typeCheckingMode": "basic"
 }
