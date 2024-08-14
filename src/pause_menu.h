@@ -1,6 +1,7 @@
 #ifndef PAUSE_MENU_H
 #define PAUSE_MENU_H
 
+#include <godot_cpp/classes/input.hpp>
 #include "godot_cpp/classes/control.hpp"
 #include "godot_cpp/classes/button.hpp"
 
@@ -13,6 +14,10 @@ protected:
     static void _bind_methods();
 
 private:
+
+// temp
+    Input* i;
+// temp
 
     Button*             resume;
     Button*             settings;

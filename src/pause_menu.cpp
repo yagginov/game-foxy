@@ -35,6 +35,10 @@ PauseMenu::PauseMenu()
     settings = nullptr;
     to_main_menu = nullptr;
     to_desktop = nullptr;
+
+// temp
+    i = Input::get_singleton();
+// temp
 }
 
 PauseMenu::~PauseMenu() 
