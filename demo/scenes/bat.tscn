@@ -42,6 +42,7 @@ motion_mode = 1
 health = NodePath("../HealthComponent")
 position = Vector2(0, -18)
 collision_layer = 0
+collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -49,6 +50,7 @@ shape = SubResource("RectangleShape2D_1l3x6")
 
 [node name="SearchArea" type="SearchArea" parent="."]
 ray_cast = NodePath("../RayCast2D")
+visible = false
 position = Vector2(0, -18)
 collision_layer = 0
 collision_mask = 4

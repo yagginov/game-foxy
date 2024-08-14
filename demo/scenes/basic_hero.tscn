@@ -387,7 +387,6 @@ height = 24.0
 
 [node name="MC" type="MainCharacter"]
 index = 22
-position = Vector2(7.33334, 0)
 motion_mode = 1
 
 [node name="Sword" type="Sprite2D" parent="."]
@@ -415,7 +414,7 @@ text = "HP: 4"
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8o7it")
 animation = &"idle_right"
-frame_progress = 0.99005
+frame_progress = 0.537026
 offset = Vector2(0.66667, -16)
 
 [node name="Hurtbox" type="Hurtbox" parent="."]
@@ -434,6 +433,7 @@ damage = 1.0
 colliding_box_path = NodePath("CollidingBox")
 visible = false
 position = Vector2(0, -12)
+collision_layer = 8
 collision_mask = 0
 monitoring = false
 
@@ -465,6 +465,7 @@ damage = 2.0
 colliding_box_path = NodePath("CollidingBox")
 position = Vector2(0, -13)
 rotation = 1.47292
+collision_layer = 8
 collision_mask = 0
 monitoring = false
 

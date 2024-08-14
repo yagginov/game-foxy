@@ -1066,7 +1066,7 @@ z_as_relative = false
 zoom = Vector2(3, 3)
 
 [node name="DummyEnemy" parent="." instance=ExtResource("3_k8ijq")]
-position = Vector2(829, 168)
+position = Vector2(827, 185)
 
 [node name="DummyEnemy2" parent="." instance=ExtResource("3_k8ijq")]
 position = Vector2(828, 211)
@@ -1077,7 +1077,7 @@ position = Vector2(1276, -167)
 
 [node name="boar2" parent="." instance=ExtResource("4_cgv5b")]
 index = 110
-position = Vector2(1232, -148)
+position = Vector2(1189, -176)
 
 [node name="boar3" parent="." instance=ExtResource("4_cgv5b")]
 index = 110
@@ -1108,7 +1108,7 @@ position = Vector2(1982, 11.4062)
 position = Vector2(2298, 38.3537)
 
 [node name="Bat3" parent="." instance=ExtResource("6_ai180")]
-position = Vector2(2299, 180.82)
+position = Vector2(1350, -148)
 
 [node name="Bat4" parent="." instance=ExtResource("6_ai180")]
 position = Vector2(2342, 454)
