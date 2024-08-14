@@ -1,4 +1,4 @@
-# Ігнорування компільованих файлів
+# Compiled files
 *.o
 *.obj
 *.so
@@ -8,7 +8,7 @@
 *.a
 *.lib
 
-# Ігнорування тимчасових файлів
+# Temporary files
 *.tmp
 *.temp
 *.log
@@ -17,6 +17,11 @@
 *.bak
 *.d
 
-# Ігнорування файлів з налаштуваннями IDE
 # Visual Studio
 .vscode/
+
+# Ignore exported files
+exported/
+
+# Scons db
+*.dblite
