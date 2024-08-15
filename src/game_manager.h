@@ -5,6 +5,8 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/singleton.hpp>
 
+#include "main_character.h"
+
 namespace godot
 {
 
@@ -16,9 +18,15 @@ protected:
     static void _bind_methods();
 
 private:
-    static GameManager* instance;
+    static GameManager*         instance;
+    GameManager () 
+    {
+        MC = nullptr;
+    }
 
-    GameManager () {}
+private:
+    NodePath                    main_character_path;
+    MainCharacter*              MC;
 
 public:
     ~GameManager()
@@ -27,7 +35,7 @@ public:
     }
 
     // Get the singleton instance
-    static GameManager* get_instance();
+    static GameManager*         get_singleton()
     {
         if (instance == nullptr) 
         {
@@ -35,15 +43,18 @@ public:
         }
         return instance;
     }
-
     
-
     // Initialize the singleton (used by Godot to register the class as a singleton)
-    static void _register_singleton() 
+    static void                 _register_singleton() 
     {
         instance = memnew(GameManager);
         Engine::get_singleton()->add_singleton(Engine::Singleton("GameManager", instance));
     }
+
+    MainCharacter*              get_main_character() const;
+
+    NodePath                    get_main_character_path() const;
+    void                        set_main_character(const NodePath p_MC);
 
 };          // class GameManager
 

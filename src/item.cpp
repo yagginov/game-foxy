@@ -5,23 +5,30 @@
 
 using namespace godot;
 
-void Item::_bind_methods() {
+void Item::_bind_methods() 
+{
 
 }
 
-Item::Item() {
-
+Item::Item() 
+{
+    gm = nullptr;
 }
 
-Item::~Item() {
+Item::~Item() 
+{
     // Add your cleanup here.
 }
 
-void Item::_ready() {
+void Item::_ready() 
+{
     add_to_group("Items");
+
+    gm = GameManager::get_singleton();
 }
 
-void Item::_physics_process(double delta) {
+void Item::_physics_process(double delta) 
+{
     
 }
 
