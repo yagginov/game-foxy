@@ -28,6 +28,12 @@
 #include "main_menu.h"
 #include "pause_menu.h"
 
+// items
+#include "item.h"
+
+// game manager
+#include "game_mahager.h"
+
 //
 #include "non_playable_character.h"
 //
@@ -64,6 +70,13 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	// UI
 	GDREGISTER_CLASS(MainMenu);
 	GDREGISTER_CLASS(PauseMenu);
+
+	// Items
+	GDREGISTER_CLASS(Item);
+
+	// Game Manager
+	GDREGISTER_CLASS(GameManager);
+	GameManager::_register_singleton();
 
 }
 
