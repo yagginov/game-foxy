@@ -15,7 +15,9 @@ void MainCharacter::_bind_methods() {
 }
 
 MainCharacter::MainCharacter() {
-	// Initialize any variables here.	
+	// Initialize any variables here.
+	gm = nullptr;
+
 	i = Input::get_singleton();
 
 	direction = VECTOR2_ZERO;
@@ -44,6 +46,8 @@ MainCharacter::~MainCharacter() {
 
 void MainCharacter::_ready() {
 	add_to_group("Player");
+
+	gm = GameManager::get_singleton();
 
 	components = get_node<ComponentsContainer>("ComponentsContainer");
 

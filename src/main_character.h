@@ -16,15 +16,18 @@
 
 #include "components_container.h"
 
+#include "game_manager.h"
+
 /**/
 #include "arrow.h"
 /**/
 
 namespace godot {
 
+class GameManager;
+
 class MainCharacter : public Actor {
 	GDCLASS(MainCharacter, Actor)
-
 
 enum States
 {
@@ -41,6 +44,8 @@ protected:
 	static void _bind_methods();
 
 private:
+	GameManager* gm;
+
 	Input* i;
 	Vector2 direction;
 

@@ -37,7 +37,7 @@ void HealingPotion::_physics_process(double delta)
 
 void HealingPotion::use_item()
 {
-    gm->get_main_character()->get_node<HealthComponent>("HealthComponent")->heal(hp);
+    gm->get_mc()->get_node<HealthComponent>("HealthComponent")->heal(hp);
 }
 
 

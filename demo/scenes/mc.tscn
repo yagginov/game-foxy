@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://disgt6n7n703h"]
+
+[ext_resource type="PackedScene" uid="uid://bqekfjyfjhvfi" path="res://scenes/basic_hero.tscn" id="1_jjete"]
+[ext_resource type="PackedScene" uid="uid://cdmdosx1wpumu" path="res://scenes/pause_menu.tscn" id="2_hdt7n"]
+
+[node name="MC" instance=ExtResource("1_jjete")]
+
+[node name="AnimationController" parent="." index="3"]
+frame_progress = 0.707572
+
+[node name="Camera2D" type="Camera2D" parent="." index="10"]
+zoom = Vector2(3, 3)
+
+[node name="PauseMenu" parent="." index="11" instance=ExtResource("2_hdt7n")]
+process_mode = 3
+visible = false

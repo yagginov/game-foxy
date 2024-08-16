@@ -1,15 +1,3 @@
-[gd_scene load_steps=3 format=3 uid="uid://2x8snaar4crr"]
-
-[ext_resource type="PackedScene" uid="uid://bqekfjyfjhvfi" path="res://scenes/basic_hero.tscn" id="1_mf08k"]
-[ext_resource type="PackedScene" uid="uid://cdmdosx1wpumu" path="res://scenes/pause_menu.tscn" id="2_1rv54"]
+[gd_scene format=3 uid="uid://2x8snaar4crr"]
 
 [node name="GameManager" type="GameManager"]
-main_character_path = NodePath("MC")
-
-[node name="MC" parent="." instance=ExtResource("1_mf08k")]
-
-[node name="Camera2D" type="Camera2D" parent="MC"]
-zoom = Vector2(3, 3)
-
-[node name="PauseMenu" parent="MC" instance=ExtResource("2_1rv54")]
-visible = false

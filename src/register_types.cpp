@@ -5,6 +5,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+#include <godot_cpp/classes/engine.hpp>
 
 // characters
 #include "actor.h"
@@ -28,8 +29,10 @@
 #include "main_menu.h"
 #include "pause_menu.h"
 
-// items
+// inventory system
+#include "inventory.h"
 #include "item.h"
+#include "healing_potion.h"
 
 // game manager
 #include "game_manager.h"
@@ -71,12 +74,15 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(MainMenu);
 	GDREGISTER_CLASS(PauseMenu);
 
-	// Items
+	// Inventory System
+	GDREGISTER_CLASS(Inventory);
 	GDREGISTER_CLASS(Item);
+	GDREGISTER_CLASS(HealingPotion);
 
 	// Game Manager
 	GDREGISTER_CLASS(GameManager);
-	GameManager::_register_singleton();
+	godot::GameManager::singleton = memnew(godot::GameManager);
+    Engine::get_singleton()->register_singleton("GameManager", godot::GameManager::singleton);
 
 }
 
