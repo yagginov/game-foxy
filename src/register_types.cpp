@@ -32,7 +32,7 @@
 #include "item.h"
 
 // game manager
-#include "game_mahager.h"
+#include "game_manager.h"
 
 //
 #include "non_playable_character.h"

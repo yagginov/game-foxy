@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://xr2gopua0lf7"]
+[gd_scene load_steps=13 format=3 uid="uid://xr2gopua0lf7"]
 
 [ext_resource type="Texture2D" uid="uid://cb251ficjltmh" path="res://assets/tilesets/dark_fantasy_tileset.png" id="1_1q8kh"]
-[ext_resource type="PackedScene" uid="uid://bqekfjyfjhvfi" path="res://scenes/basic_hero.tscn" id="2_dxwnc"]
+[ext_resource type="PackedScene" uid="uid://2x8snaar4crr" path="res://scenes/game_manager.tscn" id="1_dv3c3"]
 [ext_resource type="Texture2D" uid="uid://dnqa8djab8rir" path="res://assets/tilesets/tileset_wall.png" id="2_w36t0"]
-[ext_resource type="PackedScene" uid="uid://cdmdosx1wpumu" path="res://scenes/pause_menu.tscn" id="3_h7fsb"]
 [ext_resource type="PackedScene" uid="uid://b6hncwrlagptc" path="res://scenes/dummy_enemy.tscn" id="3_k8ijq"]
 [ext_resource type="PackedScene" uid="uid://mjysodwpb5rl" path="res://scenes/little_boar.tscn" id="4_cgv5b"]
 [ext_resource type="Texture2D" uid="uid://xagk0yb1shex" path="res://assets/sprites/hit_circle.png" id="5_xhp7g"]
@@ -1069,6 +1068,10 @@ pattern_0 = SubResource("TileMapPattern_r8yjk")
 process_mode = 1
 y_sort_enabled = true
 
+[node name="GameManager" parent="." instance=ExtResource("1_dv3c3")]
+y_sort_enabled = true
+position = Vector2(904, 150)
+
 [node name="TileMap2" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
@@ -1078,22 +1081,6 @@ layer_0/tile_data = PackedInt32Array(-1114112, 131072, 0, -1048576, 327680, 0, -
 layer_1/y_sort_enabled = true
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(393227, 131073, 0, 393228, 131073, 0, 393229, 196609, 3, 327693, 65537, 2, 262157, 65537, 2, 196621, 131073, 2, 131085, 196609, 2, 65549, 196609, 2, 13, 196609, 2, 12, 131073, 1, 11, 131073, 1, 10, 131073, 0, 9, 131073, 0, 8, 131073, 0, 7, 131073, 0, 6, 131073, 0, 5, 131073, 0, 4, 131073, 0, 3, 65537, 1, 65539, 1, 2, 131075, 1, 2, 196611, 1, 2, 262147, 1, 2, 327683, 1, 2, 393219, 65537, 3, 393220, 131073, 0, 393221, 131073, 0, 393222, 131073, 0, 393223, 131073, 0, 393224, 196609, 0, 393226, 65537, 0, 131084, 131073, 3, 65548, 131073, 2, 65547, 65537, 2, 131083, 131073, 2, 131082, 131073, 2, 65546, 196609, 1, 65545, 65537, 1, 131081, 65537, 2, 196617, 65537, 3, 196618, 131073, 3, 196619, 131073, 3, 196620, 131073, 0, 196622, 131073, 0, 196623, 131073, 0, 196624, 196609, 1, 262160, 131073, 2, 262159, 131073, 0, 262158, 131073, 1, 327694, 131073, 3, 327695, 131073, 0, 327696, 131073, 3, 327697, 196609, 3, 262161, 131073, 1, 262162, 131073, 0, 262163, 131073, 0, 262164, 131073, 0, 262165, 131073, 0, 262166, 131073, 0, 262167, 131073, 0, 262168, 196609, 3, 196632, 1, 2, 131096, 1, 2, 65560, 1, 2, 24, 1, 2, -65512, 131073, 1, -65513, 131073, 0, -65514, 131073, 0, -65515, 131073, 0, -65516, 131073, 0, -65517, 131073, 0, -65518, 131073, 0, -65519, 131073, 0, -65520, 131073, 0, -65521, 131073, 0, -65522, 131073, 0, -65523, 65537, 1, -65511, 131073, 0, -65510, 131073, 0, -65509, 131073, 0, -65508, 131073, 0, -65507, 131073, 0, -65506, 131073, 0, -65505, 196609, 1, 31, 1, 2, 65567, 1, 2, 131103, 131073, 2, 196639, 131073, 2, 262175, 65537, 3, 262176, 196609, 3, 196640, 196609, 1, 196638, 65537, 3, 131102, 65537, 1, 131104, 131073, 0, 131105, 131073, 0, 131106, 131073, 1, 131107, 196609, 1, 196643, 196609, 2, 262179, 196609, 3, 262178, 131073, 3, 262177, 65537, 3, 196641, 65537, 1, 196642, 131073, 2)
-
-[node name="Hero" parent="." instance=ExtResource("2_dxwnc")]
-index = 0
-speed = 100.0
-acceleration = 5000.0
-position = Vector2(928, 138)
-collision_layer = 5
-
-[node name="PauseMenu" parent="Hero" instance=ExtResource("3_h7fsb")]
-process_mode = 3
-visible = false
-z_index = 4
-z_as_relative = false
-
-[node name="Camera2D" type="Camera2D" parent="Hero"]
-zoom = Vector2(3, 3)
 
 [node name="DummyEnemy" parent="." instance=ExtResource("3_k8ijq")]
 position = Vector2(827, 185)

@@ -3,7 +3,7 @@
 
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/core/singleton.hpp>
+#include <godot_cpp/classes/engine.hpp>
 
 #include "main_character.h"
 
@@ -29,10 +29,7 @@ private:
     MainCharacter*              MC;
 
 public:
-    ~GameManager()
-    {
-        memdelete(instance);
-    }
+
 
     // Get the singleton instance
     static GameManager*         get_singleton()
@@ -48,13 +45,15 @@ public:
     static void                 _register_singleton() 
     {
         instance = memnew(GameManager);
-        Engine::get_singleton()->add_singleton(Engine::Singleton("GameManager", instance));
+        Engine::get_singleton()->register_singleton("GameManager", instance);
     }
+
+    void                        _ready() override;
 
     MainCharacter*              get_main_character() const;
 
     NodePath                    get_main_character_path() const;
-    void                        set_main_character(const NodePath p_MC);
+    void                        set_main_character_path(const NodePath p_MC);
 
 };          // class GameManager
 
