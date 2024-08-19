@@ -19,9 +19,6 @@ public:
     HealingPotion();
     ~HealingPotion();
 
-    void                _ready() override;
-    void                _physics_process(double delta) override;
-
     void                use_item() override;
 
     void                set_hp(const int p_hp);

@@ -14,7 +14,7 @@ void HealingPotion::_bind_methods()
 	ClassDB::add_property("HealingPotion", PropertyInfo(Variant::INT, "hp"), "set_hp", "get_hp");
 }
 
-HealingPotion::HealingPotion() 
+HealingPotion::HealingPotion() : Item::Item()
 {
 
 }
@@ -22,16 +22,6 @@ HealingPotion::HealingPotion()
 HealingPotion::~HealingPotion() 
 {
     // Add your cleanup here.
-}
-
-void HealingPotion::_ready() 
-{
-    Item::_ready();
-}
-
-void HealingPotion::_physics_process(double delta) 
-{
-    
 }
 
 

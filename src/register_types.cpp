@@ -31,6 +31,7 @@
 
 // inventory system
 #include "inventory.h"
+#include "slot.h"
 #include "item.h"
 #include "healing_potion.h"
 
@@ -76,6 +77,7 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 
 	// Inventory System
 	GDREGISTER_CLASS(Inventory);
+	GDREGISTER_CLASS(Slot);
 	GDREGISTER_CLASS(Item);
 	GDREGISTER_CLASS(HealingPotion);
 

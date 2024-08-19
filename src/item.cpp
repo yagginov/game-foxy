@@ -18,7 +18,7 @@ void Item::_bind_methods()
 
 Item::Item() 
 {
-    gm = nullptr;
+    gm = GameManager::get_singleton();
 
     name = "";
     texture = nullptr;
@@ -28,19 +28,6 @@ Item::~Item()
 {
     // Add your cleanup here.
 }
-
-void Item::_ready() 
-{
-    add_to_group("Items");
-
-    gm = GameManager::get_singleton();
-}
-
-void Item::_physics_process(double delta) 
-{
-    
-}
-
 
 void Item::use_item()
 {

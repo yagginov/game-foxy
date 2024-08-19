@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/classes/resource.hpp>
 #include <godot_cpp/classes/texture2d.hpp>
 #include <godot_cpp/variant/string.hpp>
 
@@ -9,9 +9,9 @@
 
 namespace godot {
 
-class Item : public Node2D 
+class Item : public Resource 
 {
-    GDCLASS(Item, Node2D);
+    GDCLASS(Item, Resource);
 
 protected:
     static void _bind_methods();
@@ -26,9 +26,6 @@ protected:
 public:
     Item();
     ~Item();
-
-    void _ready() override;
-    void _physics_process(double delta) override;
 
     virtual void use_item();
 
