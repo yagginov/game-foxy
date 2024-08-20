@@ -39,6 +39,17 @@ void Inventory::_bind_methods()
 Inventory::Inventory() 
 {
     gm = nullptr;
+
+    // temp
+    was_key_1_pressed = false;
+    was_key_2_pressed = false;
+    was_key_3_pressed = false;
+    was_key_4_pressed = false;
+    was_key_5_pressed = false;
+    was_key_q_pressed = false;
+    // temp
+
+    active_item_index = 0;
 }
 
 Inventory::~Inventory() 
@@ -62,39 +73,49 @@ void Inventory::_physics_process(double delta)
 
     //UtilityFunctions::print(gm->i);
 
-    
-    if (gm->i->is_physical_key_pressed(KEY_1))
+    if (gm->i->is_physical_key_pressed(KEY_1) && !was_key_1_pressed)
     {
         set_active_item(0);
     }
-    else if (gm->i->is_physical_key_pressed(KEY_2))
+    was_key_1_pressed = gm->i->is_physical_key_pressed(KEY_1);
+
+    if (gm->i->is_physical_key_pressed(KEY_2) && !was_key_2_pressed)
     {
         set_active_item(1);
     }
-    else if (gm->i->is_physical_key_pressed(KEY_3))
+    was_key_2_pressed = gm->i->is_physical_key_pressed(KEY_2);
+
+    if (gm->i->is_physical_key_pressed(KEY_3) && !was_key_3_pressed)
     {
         set_active_item(2);
     }
-    else if (gm->i->is_physical_key_pressed(KEY_4))
+    was_key_3_pressed = gm->i->is_physical_key_pressed(KEY_3);
+
+    if (gm->i->is_physical_key_pressed(KEY_4) && !was_key_4_pressed)
     {
         set_active_item(3);
     }
-    else if (gm->i->is_physical_key_pressed(KEY_5))
+    was_key_4_pressed = gm->i->is_physical_key_pressed(KEY_4);
+
+    if (gm->i->is_physical_key_pressed(KEY_5) && !was_key_5_pressed)
     {
         set_active_item(4);
     }
+    was_key_5_pressed = gm->i->is_physical_key_pressed(KEY_5);
 
-    if (gm->i->is_physical_key_pressed(KEY_Q))
+
+    if (gm->i->is_physical_key_pressed(KEY_Q) && !was_key_q_pressed)
     {
         use_active_item();
     }
+    was_key_q_pressed = gm->i->is_physical_key_pressed(KEY_Q);
     
 }
 
 
 void Inventory::update()
 {
-    if (slots.size() != items.size())
+    if (slots.size() - 1 != items.size())
     {
         return;
     }
@@ -148,13 +169,61 @@ void Inventory::set_active_item(size_t index)
         if (item.is_valid())
         {
             active_item = item;
+            active_item_index = index;
+            if (slots.size() == 6)
+            {
+                Slot* slot = Object::cast_to<Slot>(slots[5]);
+                if (slot)
+                {
+                    slot->set_item_texture(active_item->get_texture());
+                }
+            }
+        }
+        else
+        {
+            active_item = Ref<Item>(nullptr);
+            if (slots.size() == 6)
+            {
+                Slot* slot = Object::cast_to<Slot>(slots[5]);
+                if (slot)
+                {
+                    slot->set_item_texture(nullptr);
+                }
+            }
         }
     }
+    else
+        {
+            active_item = Ref<Item>(nullptr);
+            if (slots.size() == 6)
+            {
+                Slot* slot = Object::cast_to<Slot>(slots[5]);
+                if (slot)
+                {
+                    slot->set_item_texture(nullptr);
+                }
+            }
+        }
 }
 
 
 void Inventory::set_items(const TypedArray<Item>& new_items)
 { 
+    if (active_item.is_valid())
+    {
+        if (active_item_index < new_items.size())
+        {
+            if (active_item != Object::cast_to<Item>(new_items[active_item_index]))
+            {
+                set_active_item(100);
+            }
+        }
+        else
+        {
+            set_active_item(100);
+        }
+    }
+
     items = new_items; 
     update();
 }

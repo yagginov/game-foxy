@@ -23,7 +23,18 @@ private:
     TypedArray<Item> items;
     TypedArray<Slot> slots;
     TypedArray<NodePath> slots_path;
+    size_t active_item_index;
     Ref<Item> active_item;
+
+private:
+// temp
+    bool was_key_1_pressed;
+    bool was_key_2_pressed;
+    bool was_key_3_pressed;
+    bool was_key_4_pressed;
+    bool was_key_5_pressed;
+    bool was_key_q_pressed;
+// temp
 
 protected:
     GameManager* gm;

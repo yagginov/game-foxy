@@ -14,5 +14,6 @@ texture = ExtResource("1_yrgpl")
 centered = false
 
 [node name="SpriteItem" type="Sprite2D" parent="."]
+z_index = 4
 centered = false
 offset = Vector2(2, 2)

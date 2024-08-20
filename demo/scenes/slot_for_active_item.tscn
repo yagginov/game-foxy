@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://65siip5putjs"]
+
+[ext_resource type="Texture2D" uid="uid://do73ha2fxk4gv" path="res://assets/sprites/UI_slot_for_active_item.png" id="1_651i4"]
+
+[node name="ActiveSlot" type="Slot"]
+sprite_item_path = NodePath("SpriteItem")
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+offset_right = 24.0
+offset_bottom = 24.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_651i4")
+centered = false
+
+[node name="SpriteItem" type="Sprite2D" parent="."]
+centered = false
+offset = Vector2(4, 4)

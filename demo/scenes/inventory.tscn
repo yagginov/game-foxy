@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dljbqgbhatohu" path="res://scenes/slot.tscn" id="2_wy84q"]
 
 [node name="Inventory" type="Inventory"]
-items = Array[Item]([null, ExtResource("1_bxbdr"), ExtResource("1_bxbdr"), null, null])
+items = Array[Item]([null, null, null, ExtResource("1_bxbdr"), null])
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5")])
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
