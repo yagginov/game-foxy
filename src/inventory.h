@@ -22,6 +22,7 @@ protected:
 private:
     TypedArray<Item> items;
     TypedArray<Slot> slots;
+    TypedArray<NodePath> slots_path;
 
 protected:
     GameManager* gm;
@@ -34,14 +35,15 @@ public:
     void _physics_process(double delta) override;
 
     void update();
+    void update_slots();
 
     // Setters
     void set_items(const TypedArray<Item>& new_items);
-    void set_slots(const TypedArray<Slot>& new_slots);
+    void set_slots(const TypedArray<NodePath>& new_slots);
 
     // Getters
     TypedArray<Item> get_items() const;
-    TypedArray<Slot> get_slots() const;
+    TypedArray<NodePath> get_slots() const;
 
 };          // class Inventory
 

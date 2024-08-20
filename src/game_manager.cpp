@@ -42,7 +42,11 @@ GameManager::~GameManager() {
 
 MainCharacter* GameManager::get_mc() const
 {
-    return Object::cast_to<MainCharacter>(this->get_tree()->get_nodes_in_group("Player")[0]);
+    if (this->get_tree()->get_nodes_in_group("Player").size())
+    {
+        return Object::cast_to<MainCharacter>(this->get_tree()->get_nodes_in_group("Player")[0]);
+    }
+    return nullptr;
 }
 
 } // namespace godot

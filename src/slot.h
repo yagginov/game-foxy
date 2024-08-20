@@ -4,6 +4,8 @@
 #include <godot_cpp/classes/panel.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/texture2d.hpp>
+#include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/classes/ref_counted.hpp>
 
 namespace godot {
 
@@ -24,7 +26,7 @@ public:
     void _ready();
     void _physics_process(double delta) override;
 
-    void set_item_texture(Texture2D* p_texture);
+    void set_item_texture(const Ref<Texture2D>& p_texture);
 
     // set / get
     void            set_item_sprite(const NodePath& p_item_sprite_path);

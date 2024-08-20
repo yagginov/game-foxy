@@ -21,7 +21,7 @@ Item::Item()
     gm = GameManager::get_singleton();
 
     name = "";
-    texture = nullptr;
+    
 }
 
 Item::~Item() 
@@ -31,7 +31,7 @@ Item::~Item()
 
 void Item::use_item()
 {
-    
+    UtilityFunctions::print("use_item");
 }
 
 void Item::set_name(const String p_name)
@@ -43,11 +43,11 @@ String Item::get_name() const
     return name;
 }
 
-void Item::set_texture(Texture2D* p_texture)
+void Item::set_texture(const Ref<Texture2D>& p_texture)
 {
     texture = p_texture;
 }
-Texture2D* Item::get_texture() const
+Ref<Texture2D> Item::get_texture() const
 {
     return texture;
 }

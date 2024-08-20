@@ -2,6 +2,7 @@
 
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 
 using namespace godot;
@@ -42,7 +43,7 @@ void Slot::_physics_process(double delta)
 
 }
 
-void Slot::set_item_texture(Texture2D* p_texture)
+void Slot::set_item_texture(const Ref<Texture2D>& p_texture)
 {
     if (item_sprite)
     {

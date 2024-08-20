@@ -16,7 +16,8 @@ void HealingPotion::_bind_methods()
 
 HealingPotion::HealingPotion() : Item::Item()
 {
-
+    set_name("HealingPotion");
+    hp = 2;
 }
 
 HealingPotion::~HealingPotion() 
@@ -27,7 +28,14 @@ HealingPotion::~HealingPotion()
 
 void HealingPotion::use_item()
 {
-    gm->get_mc()->get_node<HealthComponent>("HealthComponent")->heal(hp);
+    UtilityFunctions::print(GameManager::get_singleton());
+
+    //MainCharacter* mc = GameManager::get_singleton()->get_mc();
+    //if (mc)
+    //{
+    //    mc->get_node<HealthComponent>("HealthComponent")->heal(hp);
+    //}
+    
 }
 
 

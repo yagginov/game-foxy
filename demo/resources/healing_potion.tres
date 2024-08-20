@@ -3,6 +3,4 @@
 [ext_resource type="Texture2D" uid="uid://dvm22y8cd1d7n" path="res://assets/sprites/HealingPotion.png" id="1_a3l6i"]
 
 [resource]
-hp = 2
-name = "HealingPotion"
 texture = ExtResource("1_a3l6i")
