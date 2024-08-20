@@ -8,7 +8,6 @@ using namespace godot;
 
 void Inventory::_bind_methods() 
 {
-    
     ClassDB::bind_method(D_METHOD("set_items", "items"), &Inventory::set_items);
     ClassDB::bind_method(D_METHOD("get_items"), &Inventory::get_items);
     ADD_PROPERTY(
@@ -54,11 +53,42 @@ void Inventory::_ready()
     gm = GameManager::get_singleton();
 
     update_slots();
+    UtilityFunctions::print("all good");
 }
 
 void Inventory::_physics_process(double delta) 
 {
     update();
+
+    //UtilityFunctions::print(gm->i);
+
+    
+    if (gm->i->is_physical_key_pressed(KEY_1))
+    {
+        set_active_item(0);
+    }
+    else if (gm->i->is_physical_key_pressed(KEY_2))
+    {
+        set_active_item(1);
+    }
+    else if (gm->i->is_physical_key_pressed(KEY_3))
+    {
+        set_active_item(2);
+    }
+    else if (gm->i->is_physical_key_pressed(KEY_4))
+    {
+        set_active_item(3);
+    }
+    else if (gm->i->is_physical_key_pressed(KEY_5))
+    {
+        set_active_item(4);
+    }
+
+    if (gm->i->is_physical_key_pressed(KEY_Q))
+    {
+        use_active_item();
+    }
+    
 }
 
 
@@ -98,6 +128,26 @@ void Inventory::update_slots()
         if (has_node(slots_path[i]))
         {
             slots[i] = get_node<Slot>(slots_path[i]);
+        }
+    }
+}
+
+void Inventory::use_active_item()
+{
+    if (active_item.is_valid())
+    {
+        active_item->use_item();
+    }
+}
+
+void Inventory::set_active_item(size_t index)
+{
+    if (index < items.size())
+    {
+        Ref<Item> item = Object::cast_to<Item>(items[index]);
+        if (item.is_valid())
+        {
+            active_item = item;
         }
     }
 }

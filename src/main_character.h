@@ -13,8 +13,9 @@
 #include "state.h"
 #include "components/animation_controller.h"
 #include "components/hitbox.h"
-
 #include "components_container.h"
+
+#include "inventory.h"
 
 #include "game_manager.h"
 
@@ -23,8 +24,6 @@
 /**/
 
 namespace godot {
-
-class GameManager;
 
 class MainCharacter : public Actor {
 	GDCLASS(MainCharacter, Actor)
@@ -58,6 +57,8 @@ private:
 	Arrow* arrow;
 
 	LineEdit* arrow_line;
+
+	Inventory* inventory;
 
 private:
 	Vector2 get_mouse_position() const;

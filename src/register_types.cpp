@@ -7,6 +7,9 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/classes/engine.hpp>
 
+// game manager
+#include "game_manager.h"
+
 // characters
 #include "actor.h"
 #include "main_character.h"
@@ -35,9 +38,6 @@
 #include "item.h"
 #include "healing_potion.h"
 
-// game manager
-#include "game_manager.h"
-
 //
 #include "non_playable_character.h"
 //
@@ -49,6 +49,11 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
 	}
+
+	// Game Manager
+	GDREGISTER_CLASS(GameManager);
+	godot::GameManager::create_singletone();
+    Engine::get_singleton()->register_singleton("GameManager", godot::GameManager::singleton);
 
 	// Actors:
 	GDREGISTER_CLASS(Actor);
@@ -80,11 +85,6 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Slot);
 	GDREGISTER_CLASS(Item);
 	GDREGISTER_CLASS(HealingPotion);
-
-	// Game Manager
-	GDREGISTER_CLASS(GameManager);
-	godot::GameManager::singleton = memnew(godot::GameManager);
-    Engine::get_singleton()->register_singleton("GameManager", godot::GameManager::singleton);
 
 }
 

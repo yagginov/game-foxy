@@ -3,6 +3,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include "main_character.h"
 #include "components/health_component.h"
 
 using namespace godot;
@@ -28,13 +29,12 @@ HealingPotion::~HealingPotion()
 
 void HealingPotion::use_item()
 {
-    UtilityFunctions::print(GameManager::get_singleton());
+    //UtilityFunctions::print(GameManager::get_singleton());
 
-    //MainCharacter* mc = GameManager::get_singleton()->get_mc();
-    //if (mc)
-    //{
-    //    mc->get_node<HealthComponent>("HealthComponent")->heal(hp);
-    //}
+    if (gm->mc)
+    {
+        gm->mc->get_node<HealthComponent>("HealthComponent")->heal(hp);
+    }
     
 }
 

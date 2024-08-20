@@ -6,6 +6,8 @@
 #include <godot_cpp/variant/string_name.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
+#include "main_character.h"
+
 namespace godot {
 
 GameManager* GameManager::singleton = nullptr;
@@ -33,6 +35,11 @@ void GameManager::_bind_methods()
 }
 
 
+GameManager::GameManager()
+{
+    i = Input::get_singleton();
+}
+
 GameManager::~GameManager() {
     if (singleton == this) {
         ClassDB::_unregister_engine_singleton(GameManager::get_class_static());
@@ -40,13 +47,24 @@ GameManager::~GameManager() {
     }
 }
 
+void GameManager::create_singletone()
+{
+    singleton = memnew(GameManager);
+}
+
+void GameManager::_ready()
+{
+    
+}
+
+void GameManager::give_mc_pointer(MainCharacter* p_mc)
+{
+    mc = p_mc;
+}
+
 MainCharacter* GameManager::get_mc() const
 {
-    if (this->get_tree()->get_nodes_in_group("Player").size())
-    {
-        return Object::cast_to<MainCharacter>(this->get_tree()->get_nodes_in_group("Player")[0]);
-    }
-    return nullptr;
+    return mc;
 }
 
 } // namespace godot

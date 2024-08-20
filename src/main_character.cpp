@@ -3,7 +3,6 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
-
 using namespace godot;
 
 #define PI 3.1415926535897932384626433832795
@@ -16,7 +15,7 @@ void MainCharacter::_bind_methods() {
 
 MainCharacter::MainCharacter() {
 	// Initialize any variables here.
-	gm = nullptr;
+	gm = GameManager::get_singleton();
 
 	i = Input::get_singleton();
 
@@ -47,19 +46,21 @@ MainCharacter::~MainCharacter() {
 void MainCharacter::_ready() {
 	add_to_group("Player");
 
-	gm = GameManager::get_singleton();
+	if (gm)
+	{
+		gm->give_mc_pointer(this);
+	}
 
 	components = get_node<ComponentsContainer>("ComponentsContainer");
-
 	components->bind(this);
-
 	components->hitbox->turn_off();
 
 	sword = get_node<Sprite2D>("Sword");
 
 	arrow = get_node<Arrow>("Arrow");
-
 	arrow_line = get_node<LineEdit>("ArrowLine");
+
+	inventory = get_node<Inventory>("Inventory");
 }
 
 void MainCharacter::_process(double delta) {
@@ -68,6 +69,8 @@ void MainCharacter::_process(double delta) {
 
 void MainCharacter::_physics_process(double delta) 
 {
+	//UtilityFunctions::print("mazafaka");
+
 	direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized();
 
 	components->animation_controller->set_angle(direction);

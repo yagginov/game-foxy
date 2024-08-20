@@ -14,7 +14,7 @@ offset_right = -137.0
 offset_bottom = -99.0
 
 [node name="AnimationController" parent="." index="3"]
-frame_progress = 0.137766
+frame_progress = 0.798827
 
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 zoom = Vector2(3, 3)

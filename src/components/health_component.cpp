@@ -52,12 +52,13 @@ void HealthComponent::damage(double damage)
 
 void HealthComponent::heal(double heal)
 {
-
     damage(-heal);
     if (hp > max_hp)
     {
         hp = max_hp;
     }
+
+    UtilityFunctions::print(String("Heal +") + String::num(heal) + String("hp"));
 }
 
 

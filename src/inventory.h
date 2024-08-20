@@ -7,8 +7,8 @@
 #include <godot_cpp/classes/ref.hpp>
 
 #include "game_manager.h"
-#include "item.h"
 #include "slot.h"
+#include "item.h"
 
 namespace godot {
 
@@ -23,6 +23,7 @@ private:
     TypedArray<Item> items;
     TypedArray<Slot> slots;
     TypedArray<NodePath> slots_path;
+    Ref<Item> active_item;
 
 protected:
     GameManager* gm;
@@ -36,6 +37,9 @@ public:
 
     void update();
     void update_slots();
+
+    void use_active_item();
+    void set_active_item(size_t index);
 
     // Setters
     void set_items(const TypedArray<Item>& new_items);
