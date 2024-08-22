@@ -1,22 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://disgt6n7n703h"]
+[gd_scene load_steps=7 format=3 uid="uid://disgt6n7n703h"]
 
 [ext_resource type="PackedScene" uid="uid://bqekfjyfjhvfi" path="res://scenes/basic_hero.tscn" id="1_jjete"]
 [ext_resource type="PackedScene" uid="uid://cdmdosx1wpumu" path="res://scenes/pause_menu.tscn" id="2_hdt7n"]
 [ext_resource type="PackedScene" uid="uid://nyciowblccok" path="res://scenes/inventory.tscn" id="3_ia1hq"]
 [ext_resource type="PackedScene" uid="uid://65siip5putjs" path="res://scenes/slot_for_active_item.tscn" id="3_k7loq"]
+[ext_resource type="PackedScene" uid="uid://7gkibjd1eanb" path="res://scenes/health_ui.tscn" id="4_n47su"]
 [ext_resource type="HealingPotion" uid="uid://bibirt8fa5ntk" path="res://resources/healing_potion.tres" id="5_ntbch"]
 
 [node name="MC" instance=ExtResource("1_jjete")]
 
+[node name="Sword" parent="." index="0"]
+rotation = 3.14159
+
 [node name="Label" parent="." index="2"]
-visible = true
 offset_left = -222.0
 offset_top = -122.0
 offset_right = -137.0
 offset_bottom = -99.0
 
 [node name="AnimationController" parent="." index="3"]
-frame_progress = 0.323662
+frame_progress = 0.0661797
 
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 zoom = Vector2(3, 3)
@@ -32,7 +35,13 @@ offset_right = 211.333
 offset_bottom = -100.0
 scale = Vector2(1.5, 1.5)
 
-[node name="Inventory" parent="." index="13" instance=ExtResource("3_ia1hq")]
+[node name="HealthUI" parent="." index="13" instance=ExtResource("4_n47su")]
+offset_left = -224.0
+offset_top = -124.0
+offset_right = -224.0
+offset_bottom = -124.0
+
+[node name="Inventory" parent="." index="14" instance=ExtResource("3_ia1hq")]
 items = Array[Item]([ExtResource("5_ntbch"), null, ExtResource("5_ntbch"), null, ExtResource("5_ntbch")])
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5"), NodePath("../ActiveSlot")])
 z_index = 3
