@@ -46,6 +46,8 @@ public:
     void _ready() override;
     void _physics_process(double delta) override;
 
+    bool add_item(Ref<Item> new_item);
+
     void update();
     void update_slots();
 

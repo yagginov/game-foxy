@@ -29,15 +29,7 @@ HealthUI::HealthUI()
 
 HealthUI::~HealthUI() 
 {
-    for (auto& it : health_sprites)
-    {
-        memdelete(it);
-    }
-
-    for (auto& it : panels)
-    {
-        memdelete(it);
-    }
+    
 }
 
 void HealthUI::_ready() 

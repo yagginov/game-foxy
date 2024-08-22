@@ -112,6 +112,21 @@ void Inventory::_physics_process(double delta)
     
 }
 
+bool Inventory::add_item(Ref<Item> new_item)
+{
+    for (int i = 0; i < items.size(); ++i)
+    {
+        Ref<Item> item = Object::cast_to<Item>(items[i]);
+
+        if (item.is_null())
+        {
+            items[i] = new_item;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void Inventory::update()
 {
