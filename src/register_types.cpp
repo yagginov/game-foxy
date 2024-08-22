@@ -39,6 +39,9 @@
 #include "item.h"
 #include "healing_potion.h"
 
+// objects
+#include "liftable_object.h"
+
 //
 #include "non_playable_character.h"
 //
@@ -87,6 +90,9 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Slot);
 	GDREGISTER_CLASS(Item);
 	GDREGISTER_CLASS(HealingPotion);
+
+	// Objects
+	GDREGISTER_CLASS(LiftableObject);
 
 }
 

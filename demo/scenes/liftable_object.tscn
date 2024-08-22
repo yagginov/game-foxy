@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcy354aextjx2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d30yw"]
+radius = 20.0
+
+[node name="LiftableObject" type="LiftableObject"]
+search_area_path = NodePath("SearchArea")
+sprite_path = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="SearchArea" type="SearchArea" parent="."]
+ray_cast = NodePath("RayCast2D")
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
+shape = SubResource("CircleShape2D_d30yw")
+
+[node name="RayCast2D" type="RayCast2D" parent="SearchArea"]
+target_position = Vector2(0, 20)
+collision_mask = 4
