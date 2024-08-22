@@ -14,6 +14,7 @@ void HealthComponent::_bind_methods()
     ClassDB::bind_method(D_METHOD("get_hp"), &HealthComponent::get_hp);
 
     ADD_SIGNAL(MethodInfo("dead"));
+    ADD_SIGNAL(MethodInfo("change_health", PropertyInfo(Variant::FLOAT, "current_hp")));
 }
 
 HealthComponent::HealthComponent()
@@ -46,19 +47,21 @@ void HealthComponent::damage(double damage)
         hp = 0;
         emit_signal("dead");
     }
+    emit_signal("change_health", hp);
 
     //UtilityFunctions::print("hp: " + String::num(hp));
 }
 
 void HealthComponent::heal(double heal)
 {
-    damage(-heal);
+    hp += heal;
     if (hp > max_hp)
     {
         hp = max_hp;
     }
+    emit_signal("change_health", hp);
 
-    UtilityFunctions::print(String("Heal +") + String::num(heal) + String("hp"));
+    //UtilityFunctions::print(String("Heal +") + String::num(heal) + String("hp"));
 }
 
 
