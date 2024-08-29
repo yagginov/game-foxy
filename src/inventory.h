@@ -20,11 +20,12 @@ protected:
     static void _bind_methods();
 
 private:
-    TypedArray<Item> items;
+    //TypedArray<Item> items;
     TypedArray<Slot> slots;
     TypedArray<NodePath> slots_path;
     size_t active_item_index;
-    Ref<Item> active_item;
+
+    //Ref<Item> active_item;
 
 private:
 // temp
@@ -55,11 +56,11 @@ public:
     void set_active_item(size_t index);
 
     // Setters
-    void set_items(const TypedArray<Item>& new_items);
+    //void set_items(const TypedArray<Item>& new_items);
     void set_slots(const TypedArray<NodePath>& new_slots);
 
     // Getters
-    TypedArray<Item> get_items() const;
+    //TypedArray<Item> get_items() const;
     TypedArray<NodePath> get_slots() const;
 
 };          // class Inventory

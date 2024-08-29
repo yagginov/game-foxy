@@ -8,16 +8,16 @@ using namespace godot;
 
 void Inventory::_bind_methods() 
 {
-    ClassDB::bind_method(D_METHOD("set_items", "items"), &Inventory::set_items);
-    ClassDB::bind_method(D_METHOD("get_items"), &Inventory::get_items);
-    ADD_PROPERTY(
-        PropertyInfo(
-            Variant::ARRAY, 
-            "items", 
-            PROPERTY_HINT_ARRAY_TYPE, 
-            String::num(Variant::OBJECT) + "/" + String::num(PROPERTY_HINT_RESOURCE_TYPE) + String(":") + Item::get_class_static()), 
-        "set_items", 
-        "get_items");
+    //ClassDB::bind_method(D_METHOD("set_items", "items"), &Inventory::set_items);
+    //ClassDB::bind_method(D_METHOD("get_items"), &Inventory::get_items);
+    //ADD_PROPERTY(
+    //    PropertyInfo(
+    //        Variant::ARRAY, 
+    //        "items", 
+    //        PROPERTY_HINT_ARRAY_TYPE, 
+    //        String::num(Variant::OBJECT) + "/" + String::num(PROPERTY_HINT_RESOURCE_TYPE) + String(":") + Item::get_class_static()), 
+    //    "set_items", 
+    //    "get_items");
 
     
     ClassDB::bind_method(D_METHOD("set_slots", "slots"), &Inventory::set_slots);
@@ -64,12 +64,12 @@ void Inventory::_ready()
     gm = GameManager::get_singleton();
 
     update_slots();
-    UtilityFunctions::print("all good");
+    //UtilityFunctions::print("all good");
 }
 
 void Inventory::_physics_process(double delta) 
 {
-    update();
+    //update();
 
     //UtilityFunctions::print(gm->i);
 
@@ -114,13 +114,13 @@ void Inventory::_physics_process(double delta)
 
 bool Inventory::add_item(Ref<Item> new_item)
 {
-    for (int i = 0; i < items.size(); ++i)
+    for (int i = 0; i < slots.size() - 1; ++i)
     {
-        Ref<Item> item = Object::cast_to<Item>(items[i]);
+        Slot* slot = Object::cast_to<Slot>(slots[i]);
 
-        if (item.is_null())
+        if (slot->is_empty())
         {
-            items[i] = new_item;
+            slot->set_item(new_item);
             return true;
         }
     }
@@ -130,30 +130,7 @@ bool Inventory::add_item(Ref<Item> new_item)
 
 void Inventory::update()
 {
-    if (slots.size() - 1 != items.size())
-    {
-        return;
-    }
-    for (int i = 0; i < items.size(); ++i)
-    {
-        Ref<Item> item = Object::cast_to<Item>(items[i]);
-        Slot* slot = Object::cast_to<Slot>(slots[i]);
-
-        if (item.is_valid())
-        {  
-            if (slot)
-            {
-                slot->set_item_texture(item->get_texture());
-            }            
-        }
-        else
-        {
-            if (slot)
-            {
-                slot->set_item_texture(nullptr);
-            } 
-        }
-    }
+    
 }
 
 void Inventory::update_slots()
@@ -168,83 +145,32 @@ void Inventory::update_slots()
     }
 }
 
-void Inventory::use_active_item()
-{
-    if (active_item.is_valid())
-    {
-        active_item->use_item();
-    }
-}
-
 void Inventory::set_active_item(size_t index)
 {
-    if (index < items.size())
+    if (index < slots.size() - 1)
     {
-        Ref<Item> item = Object::cast_to<Item>(items[index]);
-        if (item.is_valid())
+        Slot* slot = Object::cast_to<Slot>(slots[index]);
+        Slot* active_slot = Object::cast_to<Slot>(slots[slots.size() - 1]);
+
+        if (!slot->is_empty())
         {
-            active_item = item;
+            active_slot->set_item(slot->get_item());
             active_item_index = index;
-            if (slots.size() == 6)
-            {
-                Slot* slot = Object::cast_to<Slot>(slots[5]);
-                if (slot)
-                {
-                    slot->set_item_texture(active_item->get_texture());
-                }
-            }
         }
         else
         {
-            active_item = Ref<Item>(nullptr);
-            if (slots.size() == 6)
-            {
-                Slot* slot = Object::cast_to<Slot>(slots[5]);
-                if (slot)
-                {
-                    slot->set_item_texture(nullptr);
-                }
-            }
+            active_slot->set_item(nullptr);
         }
     }
-    else
-        {
-            active_item = Ref<Item>(nullptr);
-            if (slots.size() == 6)
-            {
-                Slot* slot = Object::cast_to<Slot>(slots[5]);
-                if (slot)
-                {
-                    slot->set_item_texture(nullptr);
-                }
-            }
-        }
 }
 
-
-void Inventory::set_items(const TypedArray<Item>& new_items)
-{ 
-    if (active_item.is_valid())
+void Inventory::use_active_item()
+{
+    Slot* active_slot = Object::cast_to<Slot>(slots[slots.size() - 1]);
+    if (!active_slot->is_empty())
     {
-        if (active_item_index < new_items.size())
-        {
-            if (active_item != Object::cast_to<Item>(new_items[active_item_index]))
-            {
-                set_active_item(100);
-            }
-        }
-        else
-        {
-            set_active_item(100);
-        }
+        active_slot->get_item()->use_item();
     }
-
-    items = new_items; 
-    update();
-}
-TypedArray<Item> Inventory::get_items() const
-{ 
-    return items; 
 }
 
 void Inventory::set_slots(const TypedArray<NodePath>& new_slots) 

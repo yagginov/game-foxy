@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://nyciowblccok"]
+[gd_scene load_steps=3 format=3 uid="uid://nyciowblccok"]
 
-[ext_resource type="HealingPotion" uid="uid://bibirt8fa5ntk" path="res://resources/healing_potion.tres" id="1_bxbdr"]
 [ext_resource type="Texture2D" uid="uid://xjcnd26tq414" path="res://assets/sprites/UI_Inventory.png" id="1_l2d6u"]
 [ext_resource type="PackedScene" uid="uid://dljbqgbhatohu" path="res://scenes/slot.tscn" id="2_wy84q"]
 
 [node name="Inventory" type="Inventory"]
-items = Array[Item]([null, null, null, ExtResource("1_bxbdr"), null])
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5")])
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
