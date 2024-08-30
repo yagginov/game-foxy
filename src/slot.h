@@ -7,6 +7,8 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
 
+#include <godot_cpp/classes/input_event.hpp>
+
 #include "item.h"
 
 namespace godot {
@@ -21,6 +23,7 @@ private:
     Sprite2D*           item_sprite;
     NodePath            item_sprite_path;
     Ref<Item>           item;
+    Sprite2D*           background_sprite;
 
 public:
     Slot();
@@ -29,8 +32,13 @@ public:
     void _ready();
     void _physics_process(double delta) override;
 
-    void set_item_texture(const Ref<Texture2D>& p_texture);
+    void _gui_input(Ref<InputEvent> event);
+    void _mouse_entered();
+    void _mouse_exited();
+    void _focus_entered();
+    void _focus_exited();
 
+    void set_item_texture(const Ref<Texture2D>& p_texture);
     bool is_empty() const;
 
     // set / get

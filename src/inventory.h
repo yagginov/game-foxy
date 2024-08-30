@@ -5,6 +5,7 @@
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 #include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
 
 #include "game_manager.h"
 #include "slot.h"
@@ -20,12 +21,14 @@ protected:
     static void _bind_methods();
 
 private:
-    //TypedArray<Item> items;
     TypedArray<Slot> slots;
     TypedArray<NodePath> slots_path;
     size_t active_item_index;
 
-    //Ref<Item> active_item;
+    Slot* from_slot;
+    Ref<Item> item;
+
+    Sprite2D* drag_sprite;
 
 private:
 // temp
@@ -54,6 +57,9 @@ public:
 
     void use_active_item();
     void set_active_item(size_t index);
+
+    void _on_start_dragging(Slot* from_slot, Ref<Item> item);
+    void _on_end_dragging(Slot* to_slot);
 
     // Setters
     //void set_items(const TypedArray<Item>& new_items);

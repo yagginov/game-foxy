@@ -4,22 +4,12 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/variant/variant.hpp>
 
+#include "main_character.h"
+
 using namespace godot;
 
 void Inventory::_bind_methods() 
-{
-    //ClassDB::bind_method(D_METHOD("set_items", "items"), &Inventory::set_items);
-    //ClassDB::bind_method(D_METHOD("get_items"), &Inventory::get_items);
-    //ADD_PROPERTY(
-    //    PropertyInfo(
-    //        Variant::ARRAY, 
-    //        "items", 
-    //        PROPERTY_HINT_ARRAY_TYPE, 
-    //        String::num(Variant::OBJECT) + "/" + String::num(PROPERTY_HINT_RESOURCE_TYPE) + String(":") + Item::get_class_static()), 
-    //    "set_items", 
-    //    "get_items");
-
-    
+{    
     ClassDB::bind_method(D_METHOD("set_slots", "slots"), &Inventory::set_slots);
     ClassDB::bind_method(D_METHOD("get_slots"), &Inventory::get_slots);
     ADD_PROPERTY(PropertyInfo(
@@ -33,6 +23,9 @@ void Inventory::_bind_methods()
 
     ClassDB::bind_method(D_METHOD("update"), &Inventory::update);
     ClassDB::bind_method(D_METHOD("update_slots"), &Inventory::update_slots);
+
+    ClassDB::bind_method(D_METHOD("_on_start_dragging", "from_slot", "item"), &Inventory::_on_start_dragging);
+    ClassDB::bind_method(D_METHOD("_on_end_dragging", "to_slot"), &Inventory::_on_end_dragging);
 
 }
 
@@ -50,6 +43,8 @@ Inventory::Inventory()
     // temp
 
     active_item_index = 0;
+
+    drag_sprite = memnew(Sprite2D);
 }
 
 Inventory::~Inventory() 
@@ -59,19 +54,23 @@ Inventory::~Inventory()
 
 void Inventory::_ready() 
 {
+    add_child(drag_sprite);
+    drag_sprite->set_centered(true);
+    drag_sprite->set_z_index(1);
+
     add_to_group("UI");
 
     gm = GameManager::get_singleton();
 
     update_slots();
-    //UtilityFunctions::print("all good");
 }
 
 void Inventory::_physics_process(double delta) 
 {
-    //update();
-
-    //UtilityFunctions::print(gm->i);
+    if (item.is_valid())
+    {
+        drag_sprite->set_global_position(gm->mc->get_mouse_position());
+    }
 
     if (gm->i->is_physical_key_pressed(KEY_1) && !was_key_1_pressed)
     {
@@ -140,9 +139,48 @@ void Inventory::update_slots()
     {
         if (has_node(slots_path[i]))
         {
-            slots[i] = get_node<Slot>(slots_path[i]);
+            Slot* slot = get_node<Slot>(slots_path[i]);
+
+            if (i < slots_path.size() - 1)
+            {
+                slot->connect("start_drag", Callable(this, "_on_start_dragging"));
+                slot->connect("end_drag", Callable(this, "_on_end_dragging"));
+            }
+            
+            slots[i] = slot;
         }
     }
+}
+
+void Inventory::_on_start_dragging(Slot* p_from_slot, Ref<Item> p_item)
+{
+    if (item.is_valid())
+    {
+        _on_end_dragging(p_from_slot);
+        return;
+    }
+
+    item = p_item;
+    from_slot = p_from_slot;
+    from_slot->set_item(nullptr);
+    drag_sprite->set_texture(this->item->get_texture());
+}
+void Inventory::_on_end_dragging(Slot* to_slot)
+{
+    if (item.is_null())
+    {
+        return;
+    }
+
+    if (!to_slot->is_empty())
+    {
+        from_slot->set_item(to_slot->get_item());
+    }
+    to_slot->set_item(item);
+
+    from_slot = nullptr;
+    item.unref();
+    drag_sprite->set_texture(nullptr);
 }
 
 void Inventory::set_active_item(size_t index)
@@ -176,7 +214,6 @@ void Inventory::use_active_item()
 void Inventory::set_slots(const TypedArray<NodePath>& new_slots) 
 {
     slots_path = new_slots;
-    update_slots();
 }
 TypedArray<NodePath> Inventory::get_slots() const
 { 

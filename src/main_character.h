@@ -59,11 +59,6 @@ private:
 	LineEdit* arrow_line;
 
 	Inventory* inventory;
-
-private:
-	Vector2 get_mouse_position() const;
-
-
 public:
 	MainCharacter();
 	~MainCharacter();
@@ -83,6 +78,8 @@ public:
 	void _hit(Vector2 target_pos);
 
 	void change_state(States state);
+
+	Vector2 get_mouse_position() const;
 };
 
 }	// namespace godot

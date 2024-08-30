@@ -282,8 +282,6 @@ void MainCharacter::change_state(States p_state)
 }
 
 
-// private methods
-
 Vector2 MainCharacter::get_mouse_position() const
 {
 	return get_global_mouse_position();

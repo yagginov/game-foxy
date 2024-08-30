@@ -4,6 +4,8 @@
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include <godot_cpp/classes/input_event_mouse_button.hpp>
+
 
 using namespace godot;
 
@@ -26,6 +28,34 @@ void Slot::_bind_methods()
         "set_item", 
         "get_item");
 
+    ADD_SIGNAL(MethodInfo("start_drag", 
+        PropertyInfo(
+            Variant::OBJECT,
+            "slot", 
+            PROPERTY_HINT_NODE_TYPE,
+            Slot::get_class_static()),
+        PropertyInfo(
+            Variant::OBJECT,
+            "item", 
+            PROPERTY_HINT_RESOURCE_TYPE,
+            Item::get_class_static())
+    ));
+    ADD_SIGNAL(MethodInfo("end_drag", 
+        PropertyInfo(
+            Variant::OBJECT,
+            "slot", 
+            PROPERTY_HINT_OBJECT_ID,
+            Slot::get_class_static())
+    ));
+
+    ClassDB::bind_method(D_METHOD("_mouse_entered"), &Slot::_mouse_entered);
+    ClassDB::bind_method(D_METHOD("_mouse_exited"), &Slot::_mouse_exited);
+
+    ClassDB::bind_method(D_METHOD("_focus_entered"), &Slot::_focus_entered);
+    ClassDB::bind_method(D_METHOD("_focus_exited"), &Slot::_focus_exited);
+
+    //ClassDB::bind_method(D_METHOD("_gui_input", "event"), &Slot::_gui_input);
+
 }
 
 Slot::Slot() 
@@ -46,12 +76,72 @@ void Slot::_ready()
     {
         item_sprite = get_node<Sprite2D>(item_sprite_path);
     }
+
+    if (has_node(NodePath("Sprite2D")))
+    {
+        background_sprite = get_node<Sprite2D>("Sprite2D");
+    }
+
+    //connect("gui_input", Callable(this, "_gui_input"));
+    connect("mouse_entered", Callable(this, "_mouse_entered"));
+    connect("mouse_exited", Callable(this, "_mouse_exited"));
+
+    connect("focus_entered", Callable(this, "_focus_entered"));
+    connect("focus_exited", Callable(this, "_focus_exited"));
     
 }
 
 void Slot::_physics_process(double delta)
 {
 
+}
+
+void Slot::_gui_input(Ref<InputEvent> event) 
+{
+    Ref<InputEventMouseButton> mouse_button_event = event;
+    
+    if (mouse_button_event.is_valid() && mouse_button_event->is_pressed()) 
+    {
+        if (mouse_button_event->get_button_index() == MouseButton::MOUSE_BUTTON_LEFT) 
+        {
+            if (!is_empty()) 
+            {
+                emit_signal("start_drag", this, item);
+            }
+            else
+            {
+                emit_signal("end_drag", this);
+            }
+        }
+    }
+
+    /*
+    if (mouse_button_event.is_valid() && mouse_button_event->is_released()) 
+    {
+        if (mouse_button_event->get_button_index() == MouseButton::MOUSE_BUTTON_LEFT) 
+        {
+            emit_signal("end_drag", this);
+        }
+    }
+    */
+}
+
+void Slot::_mouse_entered()
+{
+    grab_focus();
+}
+void Slot::_mouse_exited()
+{
+    release_focus();
+}
+
+void Slot::_focus_entered()
+{
+    background_sprite->set_frame(1);
+}
+void Slot::_focus_exited()
+{
+    background_sprite->set_frame(0);
 }
 
 bool Slot::is_empty() const
