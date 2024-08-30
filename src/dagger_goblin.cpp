@@ -168,7 +168,6 @@ void DaggerGoblin::_target_spotted(Vector2 target_pos)
 {
     direction = target_pos - get_position();
     target_distance = direction.length();
-    //UtilityFunctions::print(String("target distance = ") + String::num(target_distance));
     direction = direction.normalized();
     if (state != States::attack)
     {

@@ -93,13 +93,11 @@ void LiftableObject::_physics_process(double delta)
 void LiftableObject::_target_spotted(Vector2 target_pos)
 {
     is_allowed = true;
-    UtilityFunctions::print("target_spoted");
 }
 
 void LiftableObject::_target_missed()
 {
     is_allowed = false;
-    UtilityFunctions::print("target_missed");
 }
 
 void LiftableObject::set_search_area_path(const NodePath& p_search_area_path)

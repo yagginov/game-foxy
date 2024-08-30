@@ -29,8 +29,6 @@ HealingPotion::~HealingPotion()
 
 void HealingPotion::use_item()
 {
-    //UtilityFunctions::print(GameManager::get_singleton());
-
     if (gm->mc)
     {
         gm->mc->get_node<HealthComponent>("HealthComponent")->heal(hp);

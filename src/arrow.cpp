@@ -60,10 +60,7 @@ void Arrow::_ready()
 
     if (has_node(sprite_path)) {
         sprite = get_node<Sprite2D>(sprite_path); 
-        UtilityFunctions::print("sprite received");
     }
-
-    UtilityFunctions::print("arrow _ready() success");
 }
 
 void Arrow::_physics_process(double delta) 

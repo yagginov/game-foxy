@@ -48,8 +48,6 @@ void HealthComponent::damage(double damage)
         emit_signal("dead");
     }
     emit_signal("change_health", hp);
-
-    //UtilityFunctions::print("hp: " + String::num(hp));
 }
 
 void HealthComponent::heal(double heal)
@@ -60,8 +58,6 @@ void HealthComponent::heal(double heal)
         hp = max_hp;
     }
     emit_signal("change_health", hp);
-
-    //UtilityFunctions::print(String("Heal +") + String::num(heal) + String("hp"));
 }
 
 

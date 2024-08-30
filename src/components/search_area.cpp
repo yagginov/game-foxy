@@ -63,8 +63,6 @@ void SearchArea::_target_entered(Actor* node)
 {
     target = node;
     ray_cast->add_exception(node);
-
-    //UtilityFunctions::print("target_entered");
 }
 
 void SearchArea::_target_exited(Actor* node)
@@ -72,8 +70,6 @@ void SearchArea::_target_exited(Actor* node)
     target = nullptr;
     ray_cast->remove_exception(node);
     emit_signal("target_missed");
-
-    //UtilityFunctions::print("target_missed");
 }
 
 void SearchArea::set_ray_cast(const NodePath& p_ray_cast)

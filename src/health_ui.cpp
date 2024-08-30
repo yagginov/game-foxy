@@ -111,8 +111,6 @@ void HealthUI::_change_health(double hp)
             it->set_frame(1);
         }        
     }
-
-    UtilityFunctions::print(String("Vector size = " + String::num(health_sprites.size())));
 }
 
 

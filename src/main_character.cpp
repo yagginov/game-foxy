@@ -64,13 +64,10 @@ void MainCharacter::_ready() {
 }
 
 void MainCharacter::_process(double delta) {
-	//UtilityFunctions::print("fps: " + String::num((int)(1.0/delta)));
 }
 
 void MainCharacter::_physics_process(double delta) 
 {
-	//UtilityFunctions::print("mazafaka");
-
 	direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized();
 
 	components->animation_controller->set_angle(direction);
@@ -270,7 +267,7 @@ void MainCharacter::_dead()
 
 void MainCharacter::_hit(Vector2 target_pos)
 {
-	UtilityFunctions::print("HIT");
+
 }
 
 void MainCharacter::change_state(States p_state)

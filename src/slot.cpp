@@ -54,8 +54,6 @@ void Slot::_bind_methods()
     ClassDB::bind_method(D_METHOD("_focus_entered"), &Slot::_focus_entered);
     ClassDB::bind_method(D_METHOD("_focus_exited"), &Slot::_focus_exited);
 
-    //ClassDB::bind_method(D_METHOD("_gui_input", "event"), &Slot::_gui_input);
-
 }
 
 Slot::Slot() 
@@ -82,7 +80,6 @@ void Slot::_ready()
         background_sprite = get_node<Sprite2D>("Sprite2D");
     }
 
-    //connect("gui_input", Callable(this, "_gui_input"));
     connect("mouse_entered", Callable(this, "_mouse_entered"));
     connect("mouse_exited", Callable(this, "_mouse_exited"));
 
@@ -114,16 +111,6 @@ void Slot::_gui_input(Ref<InputEvent> event)
             }
         }
     }
-
-    /*
-    if (mouse_button_event.is_valid() && mouse_button_event->is_released()) 
-    {
-        if (mouse_button_event->get_button_index() == MouseButton::MOUSE_BUTTON_LEFT) 
-        {
-            emit_signal("end_drag", this);
-        }
-    }
-    */
 }
 
 void Slot::_mouse_entered()
