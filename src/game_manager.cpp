@@ -77,4 +77,9 @@ void GameManager::set_input_allowed(const bool p_input_allowed)
     input_allowed = p_input_allowed;
 }
 
+Node* GameManager::get_current_scene() const
+{
+    return mc->get_tree()->get_current_scene();
+}
+
 } // namespace godot

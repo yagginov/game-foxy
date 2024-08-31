@@ -43,6 +43,8 @@ public:
     bool is_input_allowed() const;
     void set_input_allowed(const bool p_input_allowed);
 
+    Node* get_current_scene() const;
+
 };
 
 } // namespace godot

@@ -42,6 +42,12 @@ LiftableObject::LiftableObject()
     is_allowed = false;
 }
 
+LiftableObject::LiftableObject(const Ref<Item>& p_item):
+item(p_item) 
+{
+    is_allowed = false;
+}
+
 LiftableObject::~LiftableObject() 
 {
     // Add your cleanup here.

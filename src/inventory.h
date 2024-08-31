@@ -60,6 +60,8 @@ public:
 
     void _on_start_dragging(Slot* from_slot, Ref<Item> item);
     void _on_end_dragging(Slot* to_slot);
+
+    void spawn_liftable_object();
     
     // set / get
     void set_slots(const TypedArray<NodePath>& new_slots);

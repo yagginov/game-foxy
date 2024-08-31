@@ -3,7 +3,12 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/variant/variant.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
+#include <godot_cpp/classes/packed_scene.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 
+
+#include "liftable_object.h"
 #include "main_character.h"
 
 using namespace godot;
@@ -72,6 +77,10 @@ void Inventory::_physics_process(double delta)
         drag_sprite->set_global_position(gm->mc->get_mouse_position());
         gm->set_input_allowed(false);
 
+        if (gm->i->is_physical_key_pressed(KEY_R))
+        {
+            spawn_liftable_object();
+        }
     }
 
     if (gm->i->is_physical_key_pressed(KEY_1) && !was_key_1_pressed)
@@ -220,4 +229,42 @@ void Inventory::set_slots(const TypedArray<NodePath>& new_slots)
 TypedArray<NodePath> Inventory::get_slots() const
 { 
     return slots_path; 
+}
+
+
+void Inventory::spawn_liftable_object() 
+{
+    Ref<PackedScene> liftable_object_scene = ResourceLoader::get_singleton()->load("res://scenes/liftable_object.tscn");
+    if (liftable_object_scene.is_null()) {
+        UtilityFunctions::print("Failed to load liftable_object.tscn");
+        return;
+    }
+    UtilityFunctions::print("load liftable_object.tscn");
+
+    LiftableObject* liftable_object_instance = Object::cast_to<LiftableObject>(liftable_object_scene->instantiate());
+
+    if (!liftable_object_instance)
+    {
+        UtilityFunctions::print("Failed to create liftable_object_instance");
+        return;
+    }
+    UtilityFunctions::print("create liftable_object_instance");
+
+    liftable_object_instance->set_item(item);
+    Vector2 direction = (gm->mc->get_mouse_position() - gm->mc->get_global_position()).normalized();
+    Vector2 position = gm->mc->get_global_position() + direction * 50;
+
+    liftable_object_instance->set_global_position(position);
+
+    Node *current_scene = gm->get_current_scene();
+    
+    if (current_scene) 
+    {
+        current_scene->add_child(liftable_object_instance);
+        UtilityFunctions::print("add child to current scene");
+    } 
+
+    from_slot = nullptr;
+    item.unref();
+    drag_sprite->set_texture(nullptr);
 }

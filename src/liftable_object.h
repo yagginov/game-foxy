@@ -29,6 +29,7 @@ private:
 
 public:
     LiftableObject();
+    LiftableObject(const Ref<Item>& p_item);
     ~LiftableObject();
 
     void _ready() override;
