@@ -9,6 +9,7 @@
 namespace godot {
 
 class MainCharacter;
+class Item;
 
 class GameManager : public Node2D {
     GDCLASS(GameManager, Node2D)
@@ -44,6 +45,8 @@ public:
     void set_input_allowed(const bool p_input_allowed);
 
     Node* get_current_scene() const;
+
+    void spawn_liftable_object(Ref<Item>& item, Vector2 position, Vector2 impulse, String velocity_component_path);
 
 };
 

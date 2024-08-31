@@ -35,6 +35,17 @@ void LiftableObject::_bind_methods()
         "set_item", 
         "get_item");
 
+    ClassDB::bind_method(D_METHOD("get_velocity_component"), &LiftableObject::get_velocity_component);
+	ClassDB::bind_method(D_METHOD("set_velocity_component", "p_velocity_component"), &LiftableObject::set_velocity_component);
+	ClassDB::add_property("LiftableObject", 
+        PropertyInfo(
+            Variant::OBJECT,
+            "velocity_component", 
+            PROPERTY_HINT_RESOURCE_TYPE,
+            VelocityComponent::get_class_static()), 
+        "set_velocity_component", 
+        "get_velocity_component");
+
 }
 
 LiftableObject::LiftableObject() 
@@ -93,6 +104,16 @@ void LiftableObject::_physics_process(double delta)
             }
         }
     }
+
+    if (velocity_component.is_valid())
+    {
+        set_velocity(velocity_component->move(delta));
+        move_and_slide();
+        if (!velocity_component->get_current_speed())
+        {
+            velocity_component.unref();
+        }
+    }
 }
 
 
@@ -131,4 +152,13 @@ void LiftableObject::set_item(const Ref<Item>& p_item)
 Ref<Item> LiftableObject::get_item() const
 {
     return item;
+}
+
+void LiftableObject::set_velocity_component(const Ref<VelocityComponent>& p_velocity_component)
+{
+    velocity_component = p_velocity_component;
+}
+Ref<VelocityComponent> LiftableObject::get_velocity_component() const
+{
+    return velocity_component;
 }

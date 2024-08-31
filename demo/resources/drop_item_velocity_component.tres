@@ -1,0 +1,4 @@
+[gd_resource type="VelocityComponent" format=3 uid="uid://c0alpchskwkdv"]
+
+[resource]
+acceleration = 50.0

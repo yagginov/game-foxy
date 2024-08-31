@@ -3,10 +3,15 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/resource.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/variant/string_name.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/object.hpp>
+#include <godot_cpp/classes/packed_scene.hpp>
 
 #include "main_character.h"
+#include "item.h"
+#include "liftable_object.h"
 
 namespace godot {
 
@@ -80,6 +85,31 @@ void GameManager::set_input_allowed(const bool p_input_allowed)
 Node* GameManager::get_current_scene() const
 {
     return mc->get_tree()->get_current_scene();
+}
+
+void GameManager::spawn_liftable_object(Ref<Item>& item, Vector2 position, Vector2 impulse, String velocity_component_path) 
+{
+    // Load liftable_object
+    Ref<PackedScene> liftable_object_scene = ResourceLoader::get_singleton()->load("res://scenes/liftable_object.tscn");
+    LiftableObject* liftable_object_instance = Object::cast_to<LiftableObject>(liftable_object_scene->instantiate());
+
+    // Load velocity_component for liftable_object
+    Ref<VelocityComponent> velocity_component = ResourceLoader::get_singleton()->load(velocity_component_path);
+    velocity_component->set_impulse(impulse);
+
+    // Set basic data for liftable_object
+    liftable_object_instance->set_velocity_component(velocity_component);
+    liftable_object_instance->set_item(item);
+    liftable_object_instance->set_global_position(position);
+
+    // Load and add liftable_object to current scene
+    Node *current_scene = get_current_scene();
+    if (current_scene) 
+    {
+        current_scene->add_child(liftable_object_instance);
+    } 
+
+    item.unref();
 }
 
 } // namespace godot

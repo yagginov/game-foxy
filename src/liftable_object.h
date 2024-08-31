@@ -8,12 +8,13 @@
 #include <godot_cpp/classes/ref.hpp>
 
 #include "components/search_area.h"
+#include "components/velocity_component.h"
 #include "item.h"
 
 namespace godot {
 
-class LiftableObject : public Node2D {
-    GDCLASS(LiftableObject, Node2D);
+class LiftableObject : public CharacterBody2D {
+    GDCLASS(LiftableObject, CharacterBody2D);
 
 protected:
     static void _bind_methods();
@@ -26,6 +27,8 @@ private:
     Ref<Item> item;
 
     bool is_allowed;
+
+    Ref<VelocityComponent> velocity_component;
 
 public:
     LiftableObject();
@@ -46,6 +49,9 @@ public:
 
     void set_item(const Ref<Item>& p_item);
     Ref<Item> get_item() const;
+
+    void set_velocity_component(const Ref<VelocityComponent>& p_velocity_component);
+    Ref<VelocityComponent> get_velocity_component() const;
 
 };
 

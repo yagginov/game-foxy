@@ -1168,7 +1168,7 @@ position = Vector2(61, 465)
 position = Vector2(35, 464)
 
 [node name="MC" parent="." instance=ExtResource("8_5pmkw")]
-position = Vector2(989, 342)
+position = Vector2(982.333, 342)
 
 [node name="HealingPotion1" parent="." instance=ExtResource("9_86n5e")]
 item = ExtResource("10_amado")
