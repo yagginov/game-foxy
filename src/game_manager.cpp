@@ -35,7 +35,8 @@ void GameManager::_bind_methods()
 }
 
 
-GameManager::GameManager()
+GameManager::GameManager():
+input_allowed(true)
 {
     i = Input::get_singleton();
 }
@@ -65,6 +66,15 @@ void GameManager::give_mc_pointer(MainCharacter* p_mc)
 MainCharacter* GameManager::get_mc() const
 {
     return mc;
+}
+
+bool GameManager::is_input_allowed() const
+{
+    return input_allowed;
+}
+void GameManager::set_input_allowed(const bool p_input_allowed)
+{
+    input_allowed = p_input_allowed;
 }
 
 } // namespace godot

@@ -44,8 +44,7 @@ protected:
 
 private:
 	GameManager* gm;
-
-	Input* i;
+	
 	Vector2 direction;
 
 	States state;

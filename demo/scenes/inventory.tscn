@@ -5,9 +5,13 @@
 
 [node name="Inventory" type="Inventory"]
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5")])
+custom_minimum_size = Vector2(134, 28)
+offset_right = 134.0
+offset_bottom = 28.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-offset_right = 133.0
+layout_mode = 0
+offset_right = 134.0
 offset_bottom = 28.0
 texture = ExtResource("1_l2d6u")
 patch_margin_left = 5

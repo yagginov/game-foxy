@@ -20,6 +20,8 @@ protected:
     static void _bind_methods();
 
 private:
+    GameManager* gm;
+
     Sprite2D*           item_sprite;
     NodePath            item_sprite_path;
     Ref<Item>           item;

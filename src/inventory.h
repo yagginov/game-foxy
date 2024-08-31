@@ -1,7 +1,7 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-#include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/classes/control.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 #include <godot_cpp/classes/ref.hpp>
@@ -13,9 +13,9 @@
 
 namespace godot {
 
-class Inventory : public Node2D 
+class Inventory : public Control
 {
-    GDCLASS(Inventory, Node2D);
+    GDCLASS(Inventory, Control);
 
 protected:
     static void _bind_methods();
@@ -60,14 +60,11 @@ public:
 
     void _on_start_dragging(Slot* from_slot, Ref<Item> item);
     void _on_end_dragging(Slot* to_slot);
-
-    // Setters
-    //void set_items(const TypedArray<Item>& new_items);
+    
+    // set / get
     void set_slots(const TypedArray<NodePath>& new_slots);
-
-    // Getters
-    //TypedArray<Item> get_items() const;
     TypedArray<NodePath> get_slots() const;
+
 
 };          // class Inventory
 

@@ -17,8 +17,6 @@ MainCharacter::MainCharacter() {
 	// Initialize any variables here.
 	gm = GameManager::get_singleton();
 
-	i = Input::get_singleton();
-
 	direction = VECTOR2_ZERO;
 
 	state = States::idle;
@@ -68,7 +66,7 @@ void MainCharacter::_process(double delta) {
 
 void MainCharacter::_physics_process(double delta) 
 {
-	direction = i->get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized();
+	direction = gm->i->get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized();
 
 	components->animation_controller->set_angle(direction);
 	components->animation_controller->play_current_animation();
@@ -113,18 +111,18 @@ void MainCharacter::f_idle(double delta)
 		change_state(States::run);
 	}
 
-	if (i->is_action_just_pressed("ui_accept"))
+	if (gm->i->is_action_just_pressed("ui_accept"))
 	{
 		change_state(States::slide);
 	}
 
-	if (i->is_action_just_pressed("ui_select"))
+	if (gm->is_input_allowed() && gm->i->is_action_just_pressed("ui_select"))
 	{
 		change_state(States::idle);
 		state = States::attack;
 	}
 
-	if (i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
+	if (gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
 	{
 		change_state(States::shot);
 	}
@@ -137,19 +135,19 @@ void MainCharacter::f_run(double delta)
 		change_state(States::idle);
 	}
 
-	if (i->is_action_just_pressed("ui_accept"))
+	if (gm->i->is_action_just_pressed("ui_accept"))
 	{
 		change_state(States::slide);
 		return;
 	}
 
-	if (i->is_action_just_pressed("ui_select"))
+	if (gm->is_input_allowed() && gm->i->is_action_just_pressed("ui_select"))
 	{
 		change_state(States::idle);
 		state = States::attack;
 	}
 
-	if (i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
+	if (gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
 	{
 		change_state(States::shot);
 	}
@@ -203,7 +201,7 @@ void MainCharacter::f_shot(double delta)
 		components->animation_controller->set_state(static_cast<int>(States::idle));
 	}
 
-	if (!i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !v_states[state]->update(delta))
+	if (!gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !v_states[state]->update(delta))
 	{
 		change_state(States::idle);
 		arrow_line->set_visible(false);
@@ -212,7 +210,7 @@ void MainCharacter::f_shot(double delta)
 
 	if (v_states[state]->update(delta))
 	{
-		if (!i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT))
+		if (!gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT))
 		{
 			Vector2 mouse_dir = MainCharacter::get_mouse_position() - arrow->get_global_position();
 			mouse_dir = mouse_dir.normalized();

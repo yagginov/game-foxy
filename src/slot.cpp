@@ -58,6 +58,7 @@ void Slot::_bind_methods()
 
 Slot::Slot() 
 {
+    gm = GameManager::get_singleton();
     item_sprite = nullptr;
 }
 
@@ -124,10 +125,12 @@ void Slot::_mouse_exited()
 
 void Slot::_focus_entered()
 {
+    gm->set_input_allowed(false);
     background_sprite->set_frame(1);
 }
 void Slot::_focus_exited()
 {
+    gm->set_input_allowed(true);
     background_sprite->set_frame(0);
 }
 

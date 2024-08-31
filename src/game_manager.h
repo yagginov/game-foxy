@@ -31,11 +31,17 @@ public:
     Input* i;
     MainCharacter* mc;
 
+private:
+    bool input_allowed;
+
 public:
     void _ready() override;
 
     void give_mc_pointer(MainCharacter* p_mc);
     MainCharacter* get_mc() const;
+
+    bool is_input_allowed() const;
+    void set_input_allowed(const bool p_input_allowed);
 
 };
 

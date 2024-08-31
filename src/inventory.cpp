@@ -70,6 +70,8 @@ void Inventory::_physics_process(double delta)
     if (item.is_valid())
     {
         drag_sprite->set_global_position(gm->mc->get_mouse_position());
+        gm->set_input_allowed(false);
+
     }
 
     if (gm->i->is_physical_key_pressed(KEY_1) && !was_key_1_pressed)
