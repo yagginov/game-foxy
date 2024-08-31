@@ -24,6 +24,7 @@
 #include "components/hurtbox.h"
 #include "components/hitbox.h"
 #include "components/search_area.h"
+#include "components/velocity_component.h"
 #include "components_container.h"
 
 #include "arrow.h"
@@ -70,6 +71,7 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(Hurtbox);
 	GDREGISTER_CLASS(Hitbox);
 	GDREGISTER_CLASS(SearchArea);
+	GDREGISTER_CLASS(VelocityComponent);
 	GDREGISTER_CLASS(ComponentsContainer);
 
 	GDREGISTER_CLASS(Arrow);
