@@ -20,6 +20,8 @@ protected:
     static void _bind_methods();
 
 private:
+    GameManager* gm;
+
     NodePath sprite_path;
     Sprite2D* sprite;
     NodePath search_area_path;

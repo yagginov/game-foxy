@@ -78,7 +78,6 @@ public:
 
 	void change_state(States state);
 
-	Vector2 get_mouse_position() const;
 };
 
 }	// namespace godot

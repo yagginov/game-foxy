@@ -28,26 +28,6 @@ void Slot::_bind_methods()
         "set_item", 
         "get_item");
 
-    ADD_SIGNAL(MethodInfo("start_drag", 
-        PropertyInfo(
-            Variant::OBJECT,
-            "slot", 
-            PROPERTY_HINT_NODE_TYPE,
-            Slot::get_class_static()),
-        PropertyInfo(
-            Variant::OBJECT,
-            "item", 
-            PROPERTY_HINT_RESOURCE_TYPE,
-            Item::get_class_static())
-    ));
-    ADD_SIGNAL(MethodInfo("end_drag", 
-        PropertyInfo(
-            Variant::OBJECT,
-            "slot", 
-            PROPERTY_HINT_OBJECT_ID,
-            Slot::get_class_static())
-    ));
-
     ClassDB::bind_method(D_METHOD("_mouse_entered"), &Slot::_mouse_entered);
     ClassDB::bind_method(D_METHOD("_mouse_exited"), &Slot::_mouse_exited);
 
@@ -81,6 +61,8 @@ void Slot::_ready()
         background_sprite = get_node<Sprite2D>("Sprite2D");
     }
 
+    set_item(item);
+
     connect("mouse_entered", Callable(this, "_mouse_entered"));
     connect("mouse_exited", Callable(this, "_mouse_exited"));
 
@@ -102,14 +84,19 @@ void Slot::_gui_input(Ref<InputEvent> event)
     {
         if (mouse_button_event->get_button_index() == MouseButton::MOUSE_BUTTON_LEFT) 
         {
-            if (!is_empty()) 
+            if (gm->is_item_valid())
             {
-                emit_signal("start_drag", this, item);
+                gm->end_drag(this);
             }
             else
             {
-                emit_signal("end_drag", this);
+                if (!is_empty())
+                {
+                    gm->start_drag(this, item);
+                    set_item(nullptr);
+                }
             }
+            
         }
     }
 }
@@ -125,12 +112,12 @@ void Slot::_mouse_exited()
 
 void Slot::_focus_entered()
 {
-    gm->set_input_allowed(false);
+    //gm->set_input_allowed(false);
     background_sprite->set_frame(1);
 }
 void Slot::_focus_exited()
 {
-    gm->set_input_allowed(true);
+    //gm->set_input_allowed(true);
     background_sprite->set_frame(0);
 }
 

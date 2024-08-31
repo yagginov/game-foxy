@@ -12,6 +12,7 @@
 #include "main_character.h"
 #include "item.h"
 #include "liftable_object.h"
+#include "slot.h"
 
 namespace godot {
 
@@ -41,7 +42,10 @@ void GameManager::_bind_methods()
 
 
 GameManager::GameManager():
-input_allowed(true)
+input_allowed(true),
+item(nullptr),
+from_slot(nullptr),
+mouse_item_sprite(memnew(Sprite2D))
 {
     i = Input::get_singleton();
 }
@@ -63,9 +67,36 @@ void GameManager::_ready()
     
 }
 
+
+void GameManager::_physics_process(double delta)
+{
+    if (item.is_valid())
+    {
+        mouse_item_sprite->set_global_position(get_mouse_position());
+        input_allowed = false;
+
+        if (i->is_physical_key_pressed(KEY_R))
+        {
+            Vector2 direction = (get_mouse_position() - mc->get_global_position()).normalized();
+
+            spawn_liftable_object(item, mc->get_global_position(), direction * 50, "res://resources/drop_item_velocity_component.tres");
+
+            from_slot = nullptr;
+            mouse_item_sprite->set_texture(nullptr);
+            input_allowed = true;
+        }
+    }
+    
+}
+
+
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
     mc = p_mc;
+    mc->add_child(mouse_item_sprite);
+    mc->add_child(this);
+    mouse_item_sprite->set_centered(true);
+    mouse_item_sprite->set_z_index(4);
 }
 
 MainCharacter* GameManager::get_mc() const
@@ -85,6 +116,11 @@ void GameManager::set_input_allowed(const bool p_input_allowed)
 Node* GameManager::get_current_scene() const
 {
     return mc->get_tree()->get_current_scene();
+}
+
+Vector2 GameManager::get_mouse_position() const
+{
+	return get_global_mouse_position();
 }
 
 void GameManager::spawn_liftable_object(Ref<Item>& item, Vector2 position, Vector2 impulse, String velocity_component_path) 
@@ -110,6 +146,34 @@ void GameManager::spawn_liftable_object(Ref<Item>& item, Vector2 position, Vecto
     } 
 
     item.unref();
+}
+
+void GameManager::start_drag(Slot* p_from_slot, const Ref<Item> p_item)
+{
+    input_allowed = false;
+    from_slot = p_from_slot;
+    item = p_item;
+
+    mouse_item_sprite->set_texture(item->get_texture());
+}
+
+void GameManager::end_drag(Slot* to_slot)
+{
+    input_allowed = true;
+    if (!to_slot->is_empty())
+    {
+        from_slot->set_item(to_slot->get_item());
+    }
+    to_slot->set_item(item);
+
+    mouse_item_sprite->set_texture(nullptr);
+    item.unref();
+    from_slot = nullptr;
+}
+
+bool GameManager::is_item_valid() const
+{
+    return item.is_valid();
 }
 
 } // namespace godot

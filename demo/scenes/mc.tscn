@@ -18,7 +18,7 @@ offset_right = -137.0
 offset_bottom = -99.0
 
 [node name="AnimationController" parent="." index="3"]
-frame_progress = 0.494965
+frame_progress = 0.811815
 
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 zoom = Vector2(3, 3)
@@ -28,11 +28,10 @@ process_mode = 3
 visible = false
 
 [node name="ActiveSlot" parent="." index="12" instance=ExtResource("3_k7loq")]
-offset_left = 187.333
-offset_top = -124.0
-offset_right = 211.333
-offset_bottom = -100.0
-scale = Vector2(1.5, 1.5)
+offset_left = 199.0
+offset_top = -125.0
+offset_right = 223.0
+offset_bottom = -101.0
 
 [node name="HealthUI" parent="." index="13" instance=ExtResource("4_n47su")]
 offset_left = -224.0
@@ -43,8 +42,7 @@ offset_bottom = -124.0
 [node name="Inventory" parent="." index="14" instance=ExtResource("3_ia1hq")]
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5"), NodePath("../ActiveSlot")])
 z_index = 3
-offset_left = -224.667
-offset_top = 90.0
-offset_right = -224.667
-offset_bottom = 90.0
-scale = Vector2(1.25, 1.25)
+offset_left = -225.0
+offset_top = 96.0
+offset_right = -91.0
+offset_bottom = 124.0

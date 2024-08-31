@@ -8,7 +8,6 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 20)
 offset_right = 24.0
 offset_bottom = 24.0
-mouse_filter = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_651i4")

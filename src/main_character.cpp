@@ -212,7 +212,7 @@ void MainCharacter::f_shot(double delta)
 	{
 		if (!gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT))
 		{
-			Vector2 mouse_dir = MainCharacter::get_mouse_position() - arrow->get_global_position();
+			Vector2 mouse_dir = gm->get_mouse_position() - arrow->get_global_position();
 			mouse_dir = mouse_dir.normalized();
 
 			double angle = -mouse_dir.angle_to(Vector2(0.0, -1.0));
@@ -276,8 +276,3 @@ void MainCharacter::change_state(States p_state)
 	components->animation_controller->set_state(static_cast<int>(state));
 }
 
-
-Vector2 MainCharacter::get_mouse_position() const
-{
-	return get_global_mouse_position();
-}
