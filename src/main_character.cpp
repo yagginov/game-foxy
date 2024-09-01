@@ -44,10 +44,7 @@ MainCharacter::~MainCharacter() {
 void MainCharacter::_ready() {
 	add_to_group("Player");
 
-	if (gm)
-	{
-		gm->give_mc_pointer(this);
-	}
+	gm->give_mc_pointer(this);
 
 	components = get_node<ComponentsContainer>("ComponentsContainer");
 	components->bind(this);

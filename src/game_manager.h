@@ -44,8 +44,10 @@ private:
 public:
     void _ready() override;
     void _physics_process(double delta) override;
+    //void _physics_frame();
 
     void give_mc_pointer(MainCharacter* p_mc);
+    void create_mc();
     MainCharacter* get_mc() const;
 
     bool is_input_allowed() const;

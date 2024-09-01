@@ -13,8 +13,8 @@
 
 namespace godot {
 
-class LiftableObject : public CharacterBody2D {
-    GDCLASS(LiftableObject, CharacterBody2D);
+class LiftableObject : public Node2D {
+    GDCLASS(LiftableObject, Node2D);
 
 protected:
     static void _bind_methods();

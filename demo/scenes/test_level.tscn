@@ -7,10 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://xagk0yb1shex" path="res://assets/sprites/hit_circle.png" id="5_xhp7g"]
 [ext_resource type="PackedScene" uid="uid://yiqm8x2jg013" path="res://scenes/bat.tscn" id="6_ai180"]
 [ext_resource type="PackedScene" uid="uid://doq572b08hcx6" path="res://scenes/dagger_goblin.tscn" id="7_doqyf"]
-[ext_resource type="PackedScene" uid="uid://disgt6n7n703h" path="res://scenes/mc.tscn" id="8_5pmkw"]
 [ext_resource type="PackedScene" uid="uid://dcy354aextjx2" path="res://scenes/liftable_object.tscn" id="9_86n5e"]
 [ext_resource type="HealingPotion" uid="uid://bibirt8fa5ntk" path="res://resources/healing_potion.tres" id="10_amado"]
 [ext_resource type="Texture2D" uid="uid://cg80jadp2xiqx" path="res://assets/sprites/dagger.png" id="11_h6l8o"]
+[ext_resource type="PackedScene" uid="uid://disgt6n7n703h" path="res://scenes/mc.tscn" id="12_47d60"]
 [ext_resource type="PackedScene" uid="uid://yh7k1lr3f8oq" path="res://scenes/chest.tscn" id="12_kpslm"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_r8yjk"]
@@ -1168,9 +1168,6 @@ position = Vector2(61, 465)
 [node name="DummyEnemy12" parent="." instance=ExtResource("3_k8ijq")]
 position = Vector2(35, 464)
 
-[node name="MC" parent="." instance=ExtResource("8_5pmkw")]
-position = Vector2(982.333, 342)
-
 [node name="HealingPotion1" parent="." instance=ExtResource("9_86n5e")]
 item = ExtResource("10_amado")
 position = Vector2(1031, 383)
@@ -1212,5 +1209,8 @@ item = ExtResource("10_amado")
 
 [node name="Slot13" parent="Chest/NinePatchRect/GridContainer" index="12"]
 item = ExtResource("10_amado")
+
+[node name="MC" parent="." instance=ExtResource("12_47d60")]
+position = Vector2(987, 350)
 
 [editable path="Chest"]

@@ -9,6 +9,7 @@
 
 // game manager
 #include "game_manager.h"
+#include "level.h"
 
 // characters
 #include "actor.h"
@@ -59,6 +60,8 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(GameManager);
 	godot::GameManager::create_singletone();
     Engine::get_singleton()->register_singleton("GameManager", godot::GameManager::singleton);
+
+	GDREGISTER_CLASS(Level);
 
 	// Actors:
 	GDREGISTER_CLASS(Actor);

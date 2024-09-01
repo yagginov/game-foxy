@@ -48,15 +48,17 @@ void LiftableObject::_bind_methods()
 
 }
 
-LiftableObject::LiftableObject() 
+LiftableObject::LiftableObject():
+LiftableObject(nullptr)
 {
-    is_allowed = false;
 }
 
 LiftableObject::LiftableObject(const Ref<Item>& p_item):
 item(p_item) 
 {
     is_allowed = false;
+    sprite = nullptr;
+    search_area = nullptr;
 }
 
 LiftableObject::~LiftableObject() 
@@ -78,17 +80,7 @@ void LiftableObject::_ready() {
     if (has_node(sprite_path))
     {
         sprite = get_node<Sprite2D>(sprite_path);
-        if (sprite)
-        {
-            if (item.is_valid())
-            {
-                sprite->set_texture(item->get_texture());
-            }
-            else
-            {
-                sprite->set_texture(nullptr);
-            }
-        }
+        set_item(item);
     }
 }
 
@@ -107,8 +99,7 @@ void LiftableObject::_physics_process(double delta)
 
     if (velocity_component.is_valid())
     {
-        set_velocity(velocity_component->move(delta));
-        move_and_slide();
+        set_global_position(get_global_position() + velocity_component->move(delta));
         if (!velocity_component->get_current_speed())
         {
             velocity_component.unref();
@@ -148,6 +139,10 @@ NodePath LiftableObject::get_sprite_path() const
 void LiftableObject::set_item(const Ref<Item>& p_item)
 {
     item = p_item;
+    if (item.is_valid() && sprite)
+    {
+        sprite->set_texture(item->get_texture());
+    }
 }
 Ref<Item> LiftableObject::get_item() const
 {

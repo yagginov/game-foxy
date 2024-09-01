@@ -8,6 +8,7 @@
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/object.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
+#include <godot_cpp/classes/window.hpp>
 
 #include "main_character.h"
 #include "item.h"
@@ -48,13 +49,14 @@ from_slot(nullptr),
 mouse_item_sprite(memnew(Sprite2D))
 {
     i = Input::get_singleton();
+    //get_tree()->get_root()->add_child(this);
 }
 
 GameManager::~GameManager() {
-    if (singleton == this) {
-        ClassDB::_unregister_engine_singleton(GameManager::get_class_static());
-        singleton = nullptr;
-    }
+    //if (singleton == this) {
+        //ClassDB::_unregister_engine_singleton(GameManager::get_class_static());
+        //singleton = nullptr;
+    //}
 }
 
 void GameManager::create_singletone()
@@ -64,7 +66,6 @@ void GameManager::create_singletone()
 
 void GameManager::_ready()
 {
-    
 }
 
 
@@ -86,18 +87,43 @@ void GameManager::_physics_process(double delta)
             input_allowed = true;
         }
     }
+    else
+    {
+        input_allowed = true;
+    }
     
+}
+
+void GameManager::create_mc()
+{
+    //Ref<PackedScene> scene = ResourceLoader::get_singleton()->load("res://scenes/mc.tscn");
+    
+    //if (scene.is_valid()) 
+    //{
+    //    mc = Object::cast_to<MainCharacter>(scene->instantiate());
+    //}
+
+    //mc = get_node<MainCharacter>("./MC"); 
 }
 
 
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
     mc = p_mc;
-    mc->add_child(mouse_item_sprite);
-    mc->add_child(this);
+    if (mouse_item_sprite->get_parent() != mc->get_node<Node2D>("."))
+    {
+        mc->get_node<Node2D>(".")->add_child(mouse_item_sprite);
+    }
+    if (singleton->get_parent() != mc->get_node<Node2D>("."))
+    {
+        mc->get_node<Node2D>(".")->add_child(singleton);
+    }
+    //get_node<Node2D>(".")->add_child(this);
     mouse_item_sprite->set_centered(true);
     mouse_item_sprite->set_z_index(4);
+    
 }
+
 
 MainCharacter* GameManager::get_mc() const
 {
@@ -159,7 +185,6 @@ void GameManager::start_drag(Slot* p_from_slot, const Ref<Item> p_item)
 
 void GameManager::end_drag(Slot* to_slot)
 {
-    input_allowed = true;
     if (!to_slot->is_empty())
     {
         from_slot->set_item(to_slot->get_item());
