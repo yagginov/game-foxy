@@ -1192,6 +1192,10 @@ position = Vector2(933, 345)
 item = SubResource("Item_ch6te")
 position = Vector2(1097, 410)
 
+[node name="LiftableObject4" parent="." instance=ExtResource("9_86n5e")]
+item = SubResource("Item_ch6te")
+position = Vector2(1103, 330)
+
 [node name="Chest" parent="." instance=ExtResource("12_kpslm")]
 offset_left = 547.0
 offset_top = 490.0

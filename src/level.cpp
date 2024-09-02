@@ -26,6 +26,6 @@ Level::~Level()
 void Level::_ready()
 {
     gm = GameManager::get_singleton();
-    
+
     add_child(gm);
 }

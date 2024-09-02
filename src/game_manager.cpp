@@ -38,7 +38,7 @@ GameManager* GameManager::get_singleton() {
 
 void GameManager::_bind_methods()
 {
-	ClassDB::bind_method(D_METHOD("get_mc"), &GameManager::get_mc);
+	
 }
 
 
@@ -49,14 +49,13 @@ from_slot(nullptr),
 mouse_item_sprite(memnew(Sprite2D))
 {
     i = Input::get_singleton();
-    //get_tree()->get_root()->add_child(this);
 }
 
 GameManager::~GameManager() {
-    //if (singleton == this) {
-        //ClassDB::_unregister_engine_singleton(GameManager::get_class_static());
-        //singleton = nullptr;
-    //}
+    if (singleton == this) {
+        ClassDB::_unregister_engine_singleton(GameManager::get_class_static());
+        singleton = nullptr;
+    }
 }
 
 void GameManager::create_singletone()
@@ -94,40 +93,24 @@ void GameManager::_physics_process(double delta)
     
 }
 
-void GameManager::create_mc()
-{
-    //Ref<PackedScene> scene = ResourceLoader::get_singleton()->load("res://scenes/mc.tscn");
-    
-    //if (scene.is_valid()) 
-    //{
-    //    mc = Object::cast_to<MainCharacter>(scene->instantiate());
-    //}
-
-    //mc = get_node<MainCharacter>("./MC"); 
-}
-
 
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
+    if (mc == p_mc)
+    {
+        return;
+    }
+
     mc = p_mc;
-    if (mouse_item_sprite->get_parent() != mc->get_node<Node2D>("."))
-    {
-        mc->get_node<Node2D>(".")->add_child(mouse_item_sprite);
-    }
-    if (singleton->get_parent() != mc->get_node<Node2D>("."))
-    {
-        mc->get_node<Node2D>(".")->add_child(singleton);
-    }
-    //get_node<Node2D>(".")->add_child(this);
+    if (singleton->get_parent()) { singleton->reparent(mc); }
+    else { mc->add_child(singleton); }
+
+    if (mouse_item_sprite->get_parent()) { mouse_item_sprite->reparent(mc); }
+    else { mc->add_child(mouse_item_sprite); }
+
     mouse_item_sprite->set_centered(true);
     mouse_item_sprite->set_z_index(4);
     
-}
-
-
-MainCharacter* GameManager::get_mc() const
-{
-    return mc;
 }
 
 bool GameManager::is_input_allowed() const

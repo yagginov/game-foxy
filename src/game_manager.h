@@ -47,8 +47,6 @@ public:
     //void _physics_frame();
 
     void give_mc_pointer(MainCharacter* p_mc);
-    void create_mc();
-    MainCharacter* get_mc() const;
 
     bool is_input_allowed() const;
     void set_input_allowed(const bool p_input_allowed);
