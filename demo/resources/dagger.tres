@@ -1,0 +1,7 @@
+[gd_resource type="Item" load_steps=2 format=3 uid="uid://l0y1v7cxsbf2"]
+
+[ext_resource type="Texture2D" uid="uid://cg80jadp2xiqx" path="res://assets/sprites/dagger.png" id="1_f0475"]
+
+[resource]
+name = "Dagger"
+texture = ExtResource("1_f0475")

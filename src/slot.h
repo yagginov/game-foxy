@@ -9,6 +9,8 @@
 
 #include <godot_cpp/classes/input_event.hpp>
 
+#include <godot_cpp/classes/label.hpp>
+
 #include "item.h"
 
 namespace godot {
@@ -27,6 +29,10 @@ private:
     Ref<Item>           item;
     Sprite2D*           background_sprite;
 
+    Label*              count_label;
+
+    size_t              item_count;
+
 public:
     Slot();
     ~Slot();
@@ -37,8 +43,10 @@ public:
     void _gui_input(Ref<InputEvent> event);
     void _mouse_entered();
     void _mouse_exited();
-    void _focus_entered();
-    void _focus_exited();
+
+    void update();
+
+    bool add_item(size_t& count);
 
     void set_item_texture(const Ref<Texture2D>& p_texture);
     bool is_empty() const;
@@ -49,6 +57,9 @@ public:
 
     void set_item(const Ref<Item>& p_item);
     Ref<Item> get_item() const;
+
+    void set_item_count(const size_t p_item_count);
+    size_t get_item_count() const;
     
 
 };          // class Slot

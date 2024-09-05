@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://7gkibjd1eanb" path="res://scenes/health_ui.tscn" id="4_n47su"]
 
 [node name="MC" instance=ExtResource("1_jjete")]
+process_mode = 4
 
 [node name="Sword" parent="." index="0"]
 rotation = 3.14159
@@ -21,28 +22,28 @@ offset_bottom = -99.0
 frame_progress = 0.401203
 
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
-zoom = Vector2(3, 3)
+zoom = Vector2(3.3, 3.3)
 
 [node name="PauseMenu" parent="." index="11" instance=ExtResource("2_hdt7n")]
 process_mode = 3
 visible = false
 
 [node name="ActiveSlot" parent="." index="12" instance=ExtResource("3_k7loq")]
-offset_left = 199.0
-offset_top = -125.0
-offset_right = 223.0
-offset_bottom = -101.0
+offset_left = 179.0
+offset_top = -113.0
+offset_right = 203.0
+offset_bottom = -89.0
 
 [node name="HealthUI" parent="." index="13" instance=ExtResource("4_n47su")]
-offset_left = -224.0
-offset_top = -124.0
-offset_right = -224.0
-offset_bottom = -124.0
+offset_left = -202.0
+offset_top = -111.0
+offset_right = -202.0
+offset_bottom = -111.0
 
 [node name="Inventory" parent="." index="14" instance=ExtResource("3_ia1hq")]
 slots = Array[NodePath]([NodePath("NinePatchRect/GridContainer/Slot1"), NodePath("NinePatchRect/GridContainer/Slot2"), NodePath("NinePatchRect/GridContainer/Slot3"), NodePath("NinePatchRect/GridContainer/Slot4"), NodePath("NinePatchRect/GridContainer/Slot5"), NodePath("../ActiveSlot")])
 z_index = 3
-offset_left = -225.0
-offset_top = 96.0
-offset_right = -91.0
-offset_bottom = 124.0
+offset_left = -203.0
+offset_top = 85.0
+offset_right = -69.0
+offset_bottom = 113.0

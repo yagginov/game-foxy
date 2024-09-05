@@ -20,15 +20,17 @@ protected:
 private:
     String name;
     Ref<Texture2D> texture;
+    size_t max_count;
     
 protected:
     GameManager* gm;
 
 public:
     Item();
+    Item(const Item& other);
     ~Item();
 
-    virtual void use_item();
+    virtual bool use_item();
 
     void set_name(const String p_name);
     String get_name() const;
@@ -36,7 +38,15 @@ public:
     void set_texture(const Ref<Texture2D>& p_texture);
     Ref<Texture2D> get_texture() const;
 
+    void set_max_count(const size_t p_max_count);
+    size_t get_max_count() const;
+
 };
+
+inline bool operator==(const Item& lhs, const Item& rhs) 
+{ 
+    return lhs.get_name() == rhs.get_name();
+}
 
 }           // namespace godot
 

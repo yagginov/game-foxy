@@ -3,6 +3,8 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/variant/variant.hpp>
+#include <godot_cpp/classes/label_settings.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 
 #include "game_manager.h"
 #include "main_character.h"
@@ -59,6 +61,7 @@ item(p_item)
     is_allowed = false;
     sprite = nullptr;
     search_area = nullptr;
+    gm = nullptr;
 }
 
 LiftableObject::~LiftableObject() 
@@ -82,15 +85,18 @@ void LiftableObject::_ready() {
         sprite = get_node<Sprite2D>(sprite_path);
         set_item(item);
     }
+
+    gm = GameManager::get_singleton();
+
 }
 
 void LiftableObject::_physics_process(double delta) 
 {
     if (is_allowed)
     {
-        if (GameManager::get_singleton()->i->is_physical_key_pressed(KEY_E))
+        if (gm->i->is_physical_key_pressed(KEY_E))
         {
-            if (GameManager::get_singleton()->mc->get_node<Inventory>("Inventory")->add_item(item))
+            if (gm->mc->get_node<Inventory>("Inventory")->add_item(item))
             {
                 queue_free();
             }

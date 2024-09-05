@@ -5,6 +5,8 @@
 
 #include "main_character.h"
 
+#include <iostream>
+
 using namespace godot;
 
 void Level::_bind_methods() 
@@ -15,6 +17,7 @@ void Level::_bind_methods()
 Level::Level()
 {
     gm = nullptr;
+    std::cout << "Construct Level" << std::endl;
 }
 
 Level::~Level() 
@@ -27,5 +30,15 @@ void Level::_ready()
 {
     gm = GameManager::get_singleton();
 
-    add_child(gm);
+    if (!gm)
+    {
+        set_process_mode(PROCESS_MODE_DISABLED);
+        UtilityFunctions::print(gm);
+    }
+    else
+    {
+        set_process_mode(PROCESS_MODE_PAUSABLE);
+    }
+
+    //add_child(gm);
 }

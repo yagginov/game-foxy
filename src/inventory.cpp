@@ -66,16 +66,38 @@ void Inventory::_physics_process(double delta)
 
 bool Inventory::add_item(Ref<Item> new_item)
 {
-    for (int i = 0; i < slots.size(); ++i)
+    Slot* empty_slot = nullptr;
+    size_t count = 1;
+    for (int i = 0; i < slots.size() - 1; ++i)
     {
         Slot* slot = Object::cast_to<Slot>(slots[i]);
 
         if (slot->is_empty())
         {
-            slot->set_item(new_item);
-            return true;
+            if (!empty_slot)
+            {
+                empty_slot = slot;
+            }
+        }
+        else
+        {
+            if (slot->get_item()->get_name() == new_item->get_name())
+            {
+                if (slot->add_item(count))
+                {   
+                    //slot->set_item(slot->get_item());
+                    slot->update();
+                    return true;
+                }
+            }
         }
     }
+    if (empty_slot)
+    {
+        empty_slot->set_item(new_item);
+        return true;
+    }
+
     return false;
 }
 
@@ -92,31 +114,16 @@ void Inventory::update_slots()
     }
 }
 
-void Inventory::set_active_item(size_t index)
-{
-    if (index < slots.size() - 1)
-    {
-        Slot* slot = Object::cast_to<Slot>(slots[index]);
-        Slot* active_slot = Object::cast_to<Slot>(slots[slots.size() - 1]);
-
-        if (!slot->is_empty())
-        {
-            active_slot->set_item(slot->get_item());
-            active_item_index = index;
-        }
-        else
-        {
-            active_slot->set_item(nullptr);
-        }
-    }
-}
-
 void Inventory::use_active_item()
 {
     Slot* active_slot = Object::cast_to<Slot>(slots[slots.size() - 1]);
     if (!active_slot->is_empty())
     {
-        active_slot->get_item()->use_item();
+        active_slot->set_item_count(active_slot->get_item_count() - (int)active_slot->get_item()->use_item());
+        if (!active_slot->get_item_count())
+        {
+            active_slot->set_item(nullptr);
+        }
     }
 }
 

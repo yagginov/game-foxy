@@ -16,18 +16,15 @@ class Slot;
 class GameManager : public Node2D {
     GDCLASS(GameManager, Node2D)
 
+public:
+    static GameManager* instance;
+    static GameManager *get_singleton();
+
 private:
     GameManager();
 
 protected:
     static void _bind_methods();
-
-public:
-    static GameManager *singleton;
-    static GameManager *get_singleton();
-    static void create_singletone();
-
-protected:
     ~GameManager();
 
 public:
@@ -35,16 +32,21 @@ public:
     MainCharacter* mc;
 
 private:
+    static void set_instance(GameManager* p_instance);
+
+
+private:
     bool input_allowed;
 
     Slot* from_slot;
     Ref<Item> item;
+    size_t item_count;
     Sprite2D* mouse_item_sprite;
 
 public:
     void _ready() override;
     void _physics_process(double delta) override;
-    //void _physics_frame();
+    void _physics_frame();
 
     void give_mc_pointer(MainCharacter* p_mc);
 

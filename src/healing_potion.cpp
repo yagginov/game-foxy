@@ -27,13 +27,26 @@ HealingPotion::~HealingPotion()
 }
 
 
-void HealingPotion::use_item()
+bool HealingPotion::use_item()
 {
+    Item::use_item();
     if (gm->mc)
     {
-        gm->mc->get_node<HealthComponent>("HealthComponent")->heal(hp);
+        HealthComponent* hc = gm->mc->get_node<HealthComponent>("HealthComponent");
+        if (hc)
+        {
+            if (hc->get_hp() == hc->get_max_hp())
+            {
+                return false;
+            }
+            else
+            {
+                hc->heal(hp);
+                return true;
+            }
+        }
     }
-    
+    return false;
 }
 
 

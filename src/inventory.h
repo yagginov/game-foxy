@@ -8,8 +8,8 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 
 #include "game_manager.h"
-#include "slot.h"
 #include "item.h"
+#include "slot.h"
 
 namespace godot {
 
@@ -45,7 +45,6 @@ public:
     void update_slots();
 
     void use_active_item();
-    void set_active_item(size_t index);
 
     
     // set / get

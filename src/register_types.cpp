@@ -58,9 +58,6 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 
 	// Game Manager
 	GDREGISTER_CLASS(GameManager);
-	godot::GameManager::create_singletone();
-    Engine::get_singleton()->register_singleton("GameManager", godot::GameManager::singleton);
-
 	GDREGISTER_CLASS(Level);
 
 	// Actors:

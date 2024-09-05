@@ -15,7 +15,7 @@ void MainCharacter::_bind_methods() {
 
 MainCharacter::MainCharacter() {
 	// Initialize any variables here.
-	gm = GameManager::get_singleton();
+	gm = nullptr;
 
 	direction = VECTOR2_ZERO;
 
@@ -44,7 +44,19 @@ MainCharacter::~MainCharacter() {
 void MainCharacter::_ready() {
 	add_to_group("Player");
 
-	gm->give_mc_pointer(this);
+	gm = GameManager::get_singleton();
+
+	if (gm)
+	{
+		gm->give_mc_pointer(this);
+		set_process_mode(PROCESS_MODE_INHERIT);
+	}
+	else
+	{
+		UtilityFunctions::print(gm);
+		set_process_mode(PROCESS_MODE_DISABLED);
+	}
+	
 
 	components = get_node<ComponentsContainer>("ComponentsContainer");
 	components->bind(this);

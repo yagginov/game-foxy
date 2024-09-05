@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xr2gopua0lf7"]
+[gd_scene load_steps=17 format=3 uid="uid://xr2gopua0lf7"]
 
 [ext_resource type="Texture2D" uid="uid://cb251ficjltmh" path="res://assets/tilesets/dark_fantasy_tileset.png" id="1_1q8kh"]
 [ext_resource type="Texture2D" uid="uid://dnqa8djab8rir" path="res://assets/tilesets/tileset_wall.png" id="2_w36t0"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://doq572b08hcx6" path="res://scenes/dagger_goblin.tscn" id="7_doqyf"]
 [ext_resource type="PackedScene" uid="uid://dcy354aextjx2" path="res://scenes/liftable_object.tscn" id="9_86n5e"]
 [ext_resource type="HealingPotion" uid="uid://bibirt8fa5ntk" path="res://resources/healing_potion.tres" id="10_amado"]
-[ext_resource type="Texture2D" uid="uid://cg80jadp2xiqx" path="res://assets/sprites/dagger.png" id="11_h6l8o"]
+[ext_resource type="Item" uid="uid://l0y1v7cxsbf2" path="res://resources/dagger.tres" id="10_yfcow"]
 [ext_resource type="PackedScene" uid="uid://disgt6n7n703h" path="res://scenes/mc.tscn" id="12_47d60"]
 [ext_resource type="PackedScene" uid="uid://yh7k1lr3f8oq" path="res://scenes/chest.tscn" id="12_kpslm"]
 
@@ -1068,12 +1068,8 @@ sources/0 = SubResource("TileSetAtlasSource_3d88a")
 sources/1 = SubResource("TileSetAtlasSource_mms1w")
 pattern_0 = SubResource("TileMapPattern_r8yjk")
 
-[sub_resource type="Item" id="Item_ch6te"]
-name = "dagger"
-texture = ExtResource("11_h6l8o")
-
-[node name="Game" type="Node2D"]
-process_mode = 1
+[node name="Game" type="Level"]
+process_mode = 4
 y_sort_enabled = true
 
 [node name="TileMap2" type="TileMap" parent="."]
@@ -1181,19 +1177,19 @@ item = ExtResource("10_amado")
 position = Vector2(987, 274)
 
 [node name="LiftableObject" parent="." instance=ExtResource("9_86n5e")]
-item = SubResource("Item_ch6te")
+item = ExtResource("10_yfcow")
 position = Vector2(962, 415)
 
 [node name="LiftableObject2" parent="." instance=ExtResource("9_86n5e")]
-item = SubResource("Item_ch6te")
+item = ExtResource("10_yfcow")
 position = Vector2(933, 345)
 
 [node name="LiftableObject3" parent="." instance=ExtResource("9_86n5e")]
-item = SubResource("Item_ch6te")
+item = ExtResource("10_yfcow")
 position = Vector2(1097, 410)
 
 [node name="LiftableObject4" parent="." instance=ExtResource("9_86n5e")]
-item = SubResource("Item_ch6te")
+item = ExtResource("10_yfcow")
 position = Vector2(1103, 330)
 
 [node name="Chest" parent="." instance=ExtResource("12_kpslm")]
@@ -1204,17 +1200,33 @@ offset_bottom = 530.0
 
 [node name="Slot3" parent="Chest/NinePatchRect/GridContainer" index="2"]
 item = ExtResource("10_amado")
+item_count = 2
 
 [node name="Slot6" parent="Chest/NinePatchRect/GridContainer" index="5"]
 item = ExtResource("10_amado")
+item_count = 2
+
+[node name="Slot7" parent="Chest/NinePatchRect/GridContainer" index="6"]
+item = ExtResource("10_amado")
+item_count = 2
+
+[node name="Slot8" parent="Chest/NinePatchRect/GridContainer" index="7"]
+item = ExtResource("10_amado")
+item_count = 2
+
+[node name="Slot9" parent="Chest/NinePatchRect/GridContainer" index="8"]
+item = ExtResource("10_amado")
+item_count = 2
 
 [node name="Slot10" parent="Chest/NinePatchRect/GridContainer" index="9"]
 item = ExtResource("10_amado")
+item_count = 2
 
 [node name="Slot13" parent="Chest/NinePatchRect/GridContainer" index="12"]
 item = ExtResource("10_amado")
+item_count = 2
 
 [node name="MC" parent="." instance=ExtResource("12_47d60")]
-position = Vector2(987, 350)
+position = Vector2(1262, 350)
 
 [editable path="Chest"]

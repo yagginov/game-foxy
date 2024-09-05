@@ -19,7 +19,7 @@ public:
     HealingPotion();
     ~HealingPotion();
 
-    void                use_item() override;
+    bool                use_item() override;
 
     void                set_hp(const int p_hp);
     int                 get_hp() const;
