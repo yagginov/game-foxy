@@ -21,6 +21,9 @@ offset_bottom = -99.0
 [node name="AnimationController" parent="." index="3"]
 frame_progress = 0.401203
 
+[node name="Arrow" parent="." index="8"]
+max_count_of_targets = 3
+
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 zoom = Vector2(3.3, 3.3)
 

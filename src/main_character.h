@@ -1,13 +1,15 @@
 #ifndef MAIN_CHARACTER_H
 #define MAIN_CHARACTER_H
 
-#include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/line_edit.hpp>
+#include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/classes/input_event.hpp>
+
 
 #include <godot_cpp/templates/vector.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 
-#include <godot_cpp/classes/line_edit.hpp>
 
 #include "actor.h"
 #include "state.h"
@@ -54,10 +56,10 @@ private:
 	Sprite2D* sword;
 
 	Arrow* arrow;
-
 	LineEdit* arrow_line;
 
 	Inventory* inventory;
+
 public:
 	MainCharacter();
 	~MainCharacter();
@@ -65,6 +67,7 @@ public:
     void _ready() override;
 	void _process(double delta) override;
 	void _physics_process(double delta) override;
+	void _input(Ref<InputEvent> event);
 
 	void f_idle(double delta);
 	void f_run(double delta);

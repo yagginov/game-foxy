@@ -30,7 +30,6 @@ void GameManager::set_instance(GameManager* p_instance)
 
 void GameManager::_bind_methods()
 {
-    ClassDB::bind_method(D_METHOD("_physics_frame"), &GameManager::_physics_frame);
 	ClassDB::bind_static_method(GameManager::get_class_static(), D_METHOD("get_singleton"), &GameManager::get_singleton, DEFVAL(nullptr));
 	ClassDB::bind_static_method(GameManager::get_class_static(), D_METHOD("set_instance", "p_instance"), &GameManager::set_instance, DEFVAL(nullptr));
 }
@@ -58,15 +57,11 @@ void GameManager::_ready()
     mouse_item_sprite->set_z_index(4);
     add_child(mouse_item_sprite);
 
-    //UtilityFunctions::print("create_singleton");
-
-    get_tree()->connect("physics_frame", Callable(this, "_physics_frame"));
 }
 
 
 void GameManager::_physics_process(double delta)
 {
-    /*
     if (item.is_valid())
     {
         mouse_item_sprite->set_global_position(get_mouse_position());
@@ -82,35 +77,6 @@ void GameManager::_physics_process(double delta)
             mouse_item_sprite->set_texture(nullptr);
             input_allowed = true;
         }
-    }
-    else
-    {
-        input_allowed = true;
-    }
-    */
-}
-
-void GameManager::_physics_frame()
-{
-    if (item.is_valid())
-    {
-        mouse_item_sprite->set_global_position(get_mouse_position());
-        input_allowed = false;
-
-        if (i->is_physical_key_pressed(KEY_R))
-        {
-            Vector2 direction = (get_mouse_position() - mc->get_global_position()).normalized();
-
-            spawn_liftable_object(item, mc->get_global_position(), direction * 50, "res://resources/drop_item_velocity_component.tres");
-
-            from_slot = nullptr;
-            mouse_item_sprite->set_texture(nullptr);
-            input_allowed = true;
-        }
-    }
-    else
-    {
-        input_allowed = true;
     }
     
 }

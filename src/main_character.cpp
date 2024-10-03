@@ -3,6 +3,9 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include <godot_cpp/classes/input_event_mouse_button.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
+
 using namespace godot;
 
 #define PI 3.1415926535897932384626433832795
@@ -53,7 +56,6 @@ void MainCharacter::_ready() {
 	}
 	else
 	{
-		UtilityFunctions::print(gm);
 		set_process_mode(PROCESS_MODE_DISABLED);
 	}
 	
@@ -70,7 +72,9 @@ void MainCharacter::_ready() {
 	inventory = get_node<Inventory>("Inventory");
 }
 
-void MainCharacter::_process(double delta) {
+void MainCharacter::_process(double delta) 
+{
+
 }
 
 void MainCharacter::_physics_process(double delta) 
@@ -106,6 +110,21 @@ void MainCharacter::_physics_process(double delta)
 	move(direction, delta);
 }
 
+void MainCharacter::_input(Ref<InputEvent> event)
+{
+    Ref<InputEventMouseButton> mouse_event = event;
+    
+    if (mouse_event.is_valid()) {
+        if (mouse_event->get_button_index() == MouseButton::MOUSE_BUTTON_LEFT && mouse_event->is_pressed()) {
+			if (gm->is_input_allowed() && state != States::slide)
+			{
+				change_state(States::idle);
+				state = States::attack;
+			}
+        }
+    }
+}
+
 
 void MainCharacter::f_idle(double delta)
 {
@@ -125,12 +144,6 @@ void MainCharacter::f_idle(double delta)
 		change_state(States::slide);
 	}
 
-	if (gm->is_input_allowed() && gm->i->is_action_just_pressed("ui_select"))
-	{
-		change_state(States::idle);
-		state = States::attack;
-	}
-
 	if (gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
 	{
 		change_state(States::shot);
@@ -148,12 +161,6 @@ void MainCharacter::f_run(double delta)
 	{
 		change_state(States::slide);
 		return;
-	}
-
-	if (gm->is_input_allowed() && gm->i->is_action_just_pressed("ui_select"))
-	{
-		change_state(States::idle);
-		state = States::attack;
 	}
 
 	if (gm->i->is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_RIGHT) && !arrow->is_active())
@@ -270,6 +277,7 @@ void MainCharacter::_damage(Vector2 enemy_pos)
 void MainCharacter::_dead()
 {
 	UtilityFunctions::print("U are dead");
+	get_tree()->change_scene_to_file("res://scenes/main_menu.tscn");
 }
 
 void MainCharacter::_hit(Vector2 target_pos)

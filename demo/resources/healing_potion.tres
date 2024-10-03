@@ -4,3 +4,4 @@
 
 [resource]
 texture = ExtResource("1_a3l6i")
+max_count = 99

@@ -103,7 +103,6 @@ void Slot::_gui_input(Ref<InputEvent> event)
             if (gm->is_item_valid())
             {
                 gm->end_drag(this);
-                mouse_button_event->set_canceled(true);
             }
             else
             {
@@ -121,10 +120,12 @@ void Slot::_gui_input(Ref<InputEvent> event)
 void Slot::_mouse_entered()
 {
     background_sprite->set_frame(1);
+    gm->set_input_allowed(false);
 }
 void Slot::_mouse_exited()
 {
     background_sprite->set_frame(0);
+    gm->set_input_allowed(true);
 }
 
 bool Slot::is_empty() const
