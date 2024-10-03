@@ -3,6 +3,7 @@
 
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/variant/vector2.hpp>
+#include <godot_cpp/variant/dictionary.hpp>
 
 #include "components/health_component.h"
 #include "components/hurtbox.h"
@@ -32,6 +33,8 @@ public:
 
     void move(const Vector2& direction, double delta);
     virtual void _damage(Vector2 enemy_pos);
+
+    virtual Dictionary save();
 
     void set_index(const int p_index);
     int get_index() const;

@@ -60,6 +60,11 @@ void Actor::_damage(Vector2 enemy_pos)
 	set_velocity(velocity);
 }
 
+Dictionary Actor::save()
+{
+    return Dictionary();
+}
+
 void Actor::set_index(const int p_index)
 {
     index = p_index;
