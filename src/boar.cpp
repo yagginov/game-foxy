@@ -132,3 +132,15 @@ void Boar::change_state(States p_state)
 	v_states[state]->reset();
 	state = p_state;
 }
+
+Dictionary Boar::save()
+{
+    Dictionary info;
+
+    if (components->health)
+    {
+        info["hp"] = components->health->get_hp();
+    }
+
+    return info;
+}

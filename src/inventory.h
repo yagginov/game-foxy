@@ -6,6 +6,7 @@
 #include <godot_cpp/variant/typed_array.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/variant/dictionary.hpp>
 
 #include "game_manager.h"
 #include "item.h"
@@ -50,6 +51,8 @@ public:
     // set / get
     void set_slots(const TypedArray<NodePath>& new_slots);
     TypedArray<NodePath> get_slots() const;
+
+    Dictionary save();
 
 
 };          // class Inventory

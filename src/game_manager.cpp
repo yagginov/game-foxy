@@ -10,6 +10,10 @@
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/window.hpp>
 
+#include <godot_cpp/variant/dictionary.hpp>
+#include <godot_cpp/classes/file_access.hpp>
+#include <godot_cpp/classes/json.hpp>
+
 #include "main_character.h"
 #include "item.h"
 #include "liftable_object.h"
@@ -79,6 +83,17 @@ void GameManager::_physics_process(double delta)
         }
     }
     
+    if (i->is_physical_key_pressed(KEY_L))
+    {
+        Dictionary info = mc->save();
+        Ref<FileAccess> file = FileAccess::open(String("save.json"), FileAccess::WRITE);
+        if (file.is_valid())
+        {
+            String json_data = JSON::stringify(info, "    ");
+            file->store_string(json_data);
+            file->close();
+        }
+    }
 }
 
 

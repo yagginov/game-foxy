@@ -11,6 +11,8 @@
 
 #include <godot_cpp/classes/label.hpp>
 
+#include <godot_cpp/variant/dictionary.hpp>
+
 #include "item.h"
 
 namespace godot {
@@ -61,6 +63,8 @@ public:
     void set_item_count(const size_t p_item_count);
     size_t get_item_count() const;
     
+
+    Dictionary save();
 
 };          // class Slot
 

@@ -21,6 +21,8 @@ void Actor::_bind_methods()
 	ClassDB::add_property("Actor", PropertyInfo(Variant::FLOAT, "acceleration"), "set_acceleration", "get_acceleration");
 
     ADD_SIGNAL(MethodInfo("dead", PropertyInfo(Variant::INT, "index")));
+
+    ClassDB::bind_method(D_METHOD("save"), &Actor::save);
 }
 
 

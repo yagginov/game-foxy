@@ -37,6 +37,8 @@ void Slot::_bind_methods()
     ClassDB::bind_method(D_METHOD("_mouse_entered"), &Slot::_mouse_entered);
     ClassDB::bind_method(D_METHOD("_mouse_exited"), &Slot::_mouse_exited);
 
+    ClassDB::bind_method(D_METHOD("save"), &Slot::save);
+
     //ClassDB::bind_method(D_METHOD("_focus_entered"), &Slot::_focus_entered);
     //ClassDB::bind_method(D_METHOD("_focus_exited"), &Slot::_focus_exited);
 
@@ -223,4 +225,12 @@ void Slot::set_item_count(const size_t p_item_count)
 size_t Slot::get_item_count() const
 {
     return item_count;
+}
+
+
+Dictionary Slot::save()
+{
+    Dictionary info;
+
+    return info;
 }

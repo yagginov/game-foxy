@@ -6,6 +6,8 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/variant/string.hpp>
+
 
 #include "liftable_object.h"
 #include "main_character.h"
@@ -26,6 +28,8 @@ void Inventory::_bind_methods()
         "get_slots");  
          
     ClassDB::bind_method(D_METHOD("update_slots"), &Inventory::update_slots);
+
+    ClassDB::bind_method(D_METHOD("save"), &Inventory::save);
 
 }
 
@@ -134,4 +138,18 @@ void Inventory::set_slots(const TypedArray<NodePath>& new_slots)
 TypedArray<NodePath> Inventory::get_slots() const
 { 
     return slots_path; 
+}
+
+
+Dictionary Inventory::save()
+{
+    Dictionary info;
+
+    for (int i = 0; i < slots.size(); ++i)
+    {
+        Slot* slot = Object::cast_to<Slot>(slots[i]);
+        info["slot" + String::num(i)] = slot->save();
+    }
+
+    return info;
 }

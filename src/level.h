@@ -2,6 +2,8 @@
 #define LEVEL_H
 
 #include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/variant/dictionary.hpp>
 
 #include "game_manager.h"
 
@@ -15,12 +17,22 @@ protected:
 
 private:
     GameManager* gm;
+    String name;
+    String scene_path;
 
 public:
     Level();
     ~Level();
 
     void _ready() override;
+
+    Dictionary save();
+
+    void set_name(const String& p_name);
+    String get_name() const;
+
+    void set_scene_path(const String& p_scene_path);
+    String get_scene_path() const;
 
 };
 

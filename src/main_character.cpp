@@ -293,3 +293,18 @@ void MainCharacter::change_state(States p_state)
 	components->animation_controller->set_state(static_cast<int>(state));
 }
 
+
+Dictionary MainCharacter::save()
+{
+	Dictionary info;
+
+	Vector2 pos = get_global_position();
+	info["x_pos"] = pos.x;
+	info["y_pos"] = pos.y;
+
+	info["hp"] = components->health->get_hp();
+
+	info["inventory"] = inventory->save();
+
+	return info;
+}
