@@ -52,7 +52,6 @@ bool Item::use_item()
     {
         gm = GameManager::get_singleton();
     }
-    //UtilityFunctions::print("use_item");
     return true;
 }
 

@@ -153,7 +153,6 @@ void Slot::update()
 
 bool Slot::add_item(size_t& count)
 {
-    //UtilityFunctions::print(String::num(item->get_count()) + String(" ") + item->get_name() + String(" added"));
     if (item_count == item->get_max_count())
     {
         return false;

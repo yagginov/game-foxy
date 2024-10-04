@@ -26,6 +26,8 @@ Level::Level()
 {
     gm = nullptr;
     std::cout << "Construct Level" << std::endl;
+    name = "";
+    scene_path = "";
 }
 
 Level::~Level() 
@@ -36,12 +38,12 @@ Level::~Level()
 
 void Level::_ready()
 {
+    UtilityFunctions::print("ready" + name);
     gm = GameManager::get_singleton();
 
     if (!gm)
     {
         set_process_mode(PROCESS_MODE_DISABLED);
-        UtilityFunctions::print(gm);
     }
     else
     {
@@ -86,7 +88,6 @@ Dictionary Level::save()
                 {
                     Dictionary child_save_data = child_node->call("save");
                     String node_name = child_node->get_name();
-                    //UtilityFunctions::print(node_name);
                     level_data[node_name] = child_save_data;
                 }
             }

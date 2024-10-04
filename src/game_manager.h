@@ -8,8 +8,6 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
 
-
-
 namespace godot {
 
 class MainCharacter;
