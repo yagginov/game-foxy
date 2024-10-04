@@ -242,3 +242,31 @@ Dictionary Slot::save()
 
     return info;
 }
+
+void Slot::load(const Dictionary& info)
+{
+    if (info.has("count")) 
+    {
+        item_count = info["count"];
+    } 
+    else 
+    {
+        item_count = 0;
+    }
+
+    if (info.has("item_resource_path")) 
+    {
+        String item_resource_path = info["item_resource_path"];
+        
+        Ref<Item> item = ResourceLoader::get_singleton()->load(item_resource_path);
+        
+        if (item.is_valid()) 
+        {
+            set_item(item);
+        } 
+        else 
+        {
+            ERR_PRINT("Failed to load item resource from path: " + item_resource_path);
+        }
+    } 
+}

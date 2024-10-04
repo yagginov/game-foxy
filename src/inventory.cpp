@@ -153,3 +153,22 @@ Dictionary Inventory::save()
 
     return info;
 }
+
+void Inventory::load(const Dictionary& info)
+{
+    for (int i = 0; i < slots.size(); ++i)
+    {
+        String slot_name = "slot" + String::num(i);
+
+        Slot* slot = Object::cast_to<Slot>(slots[i]);
+        
+        if (info.has(slot_name))
+        {
+            if (info[slot_name].get_type() == Variant::DICTIONARY)
+            {
+                Dictionary slot_info = info[slot_name];
+                slot->load(slot_info);
+            }
+        }
+    }
+}

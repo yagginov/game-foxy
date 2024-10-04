@@ -65,6 +65,7 @@ public:
     
 
     Dictionary save();
+    void load(const Dictionary& info);
 
 };          // class Slot
 

@@ -82,6 +82,7 @@ public:
 	void change_state(States state);
 
 	Dictionary save() override;
+	void load(const Dictionary& info);
 
 };
 

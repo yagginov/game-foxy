@@ -53,6 +53,7 @@ public:
     TypedArray<NodePath> get_slots() const;
 
     Dictionary save();
+    void load(const Dictionary& info);
 
 
 };          // class Inventory

@@ -93,16 +93,15 @@ void GameManager::_physics_process(double delta)
 
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
+    UtilityFunctions::print(p_mc);
     mc = p_mc;
 }
 
 void GameManager::give_current_level(Level* p_current_level)
 {
-    if (current_level)
-    {
-        levels[current_level->get_name()] = current_level->save();
-    }
     current_level = p_current_level;
+    levels[current_level->get_name()] = current_level->save();
+    load();
 }
 
 bool GameManager::is_input_allowed() const
@@ -218,7 +217,7 @@ void GameManager::save()
     
     if (current_level)
     {
-        give_current_level(current_level); 
+        levels[current_level->get_name()] = current_level->save();
     }
     info["levels"] = levels;
 
@@ -230,6 +229,50 @@ void GameManager::save()
         file->close();
     }
 
+}
+
+Dictionary GameManager::load_file(const String& file_path)
+{
+    Dictionary save_data;
+
+    Ref<FileAccess> file = FileAccess::open(file_path, FileAccess::READ);
+    if (file.is_null()) 
+    {
+        ERR_PRINT("Cannot open file: " + file_path);
+        return save_data;
+    }
+
+    String json_content = file->get_as_text();
+    file->close();
+    
+    Variant parse_result;
+
+    parse_result = JSON::parse_string(json_content);
+    
+    if (parse_result.get_type() == Variant::DICTIONARY) 
+    {
+        save_data = parse_result;
+    } 
+    else 
+    {
+        ERR_PRINT("Parsed JSON is not a Dictionary.");
+    }
+
+    return save_data;
+}
+
+void GameManager::load()
+{
+    Dictionary info = load_file("save.json");
+
+    if (info.has("MC"))
+    {
+        if (info["MC"].get_type() == Variant::DICTIONARY)
+        {
+            Dictionary mc_info = info["MC"];
+            mc->load(mc_info);
+        }
+    }
 }
 
 } // namespace godot

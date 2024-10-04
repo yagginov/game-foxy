@@ -36,9 +36,6 @@ PauseMenu::PauseMenu()
     to_main_menu = nullptr;
     to_desktop = nullptr;
 
-// temp
-    i = Input::get_singleton();
-// temp
 }
 
 PauseMenu::~PauseMenu() 
@@ -49,6 +46,8 @@ PauseMenu::~PauseMenu()
 void PauseMenu::_ready() 
 {
     add_to_group("UI");
+
+    gm = GameManager::get_singleton();
 
     if (has_node(resume_path)) 
     {
@@ -90,7 +89,7 @@ void PauseMenu::_ready()
 
 void PauseMenu::_physics_process(double delta)
 {
-    if (i->is_action_just_pressed("ui_cancel"))
+    if (gm->i->is_action_just_pressed("ui_cancel"))
     {
         if (this->get_tree()->is_paused())
         {
@@ -133,6 +132,7 @@ void PauseMenu::_on_to_main_menu_button_pressed()
     this->hide();
     this->get_tree()->set_pause(false);
     this->get_tree()->change_scene_to_file("res://scenes/main_menu.tscn");
+    gm->save();
 }
 
 void PauseMenu::_on_to_desktop_button_pressed()

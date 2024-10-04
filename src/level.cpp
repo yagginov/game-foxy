@@ -86,7 +86,7 @@ Dictionary Level::save()
                 {
                     Dictionary child_save_data = child_node->call("save");
                     String node_name = child_node->get_name();
-                    UtilityFunctions::print(node_name);
+                    //UtilityFunctions::print(node_name);
                     level_data[node_name] = child_save_data;
                 }
             }

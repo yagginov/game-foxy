@@ -308,3 +308,17 @@ Dictionary MainCharacter::save()
 
 	return info;
 }
+
+void MainCharacter::load(const Dictionary& info)
+{
+	components->health->set_hp(info["hp"]);
+	set_global_position(Vector2(info["x_pos"], info["y_pos"]));
+	if (info.has("inventory"))
+	{
+		if (info["inventory"].get_type() == Variant::DICTIONARY)
+		{
+			Dictionary inventory_info = info["inventory"];
+			inventory->load(inventory_info);
+		}
+	}
+}

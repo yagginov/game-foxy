@@ -2,8 +2,10 @@
 #define PAUSE_MENU_H
 
 #include <godot_cpp/classes/input.hpp>
-#include "godot_cpp/classes/control.hpp"
-#include "godot_cpp/classes/button.hpp"
+#include <godot_cpp/classes/control.hpp>
+#include <godot_cpp/classes/button.hpp>
+
+#include "game_manager.h"
 
 namespace godot {
 
@@ -16,7 +18,7 @@ protected:
 private:
 
 // temp
-    Input* i;
+    GameManager* gm;
 // temp
 
     Button*             resume;

@@ -31,6 +31,7 @@ public:
     double get_max_hp() const;
 
     double get_hp() const;
+    void set_hp(const double p_hp);
 
 };
 

@@ -75,3 +75,9 @@ double HealthComponent::get_hp() const
 {
     return hp;
 }
+
+void HealthComponent::set_hp(const double p_hp)
+{
+    hp = p_hp;
+    emit_signal("change_health", hp);
+}

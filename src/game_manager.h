@@ -72,6 +72,9 @@ public:
     bool is_item_valid() const;
 
     void save();
+    Dictionary load_file(const String& file_path);
+
+    void load();
 
 };
 
