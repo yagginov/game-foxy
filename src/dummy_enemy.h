@@ -33,6 +33,8 @@ public:
 
     void _damage(Vector2 enemy_pos) override;
     void _dead();
+
+    Dictionary save() override;
 };
 
 }

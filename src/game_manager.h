@@ -6,12 +6,16 @@
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/variant/dictionary.hpp>
+
+
 
 namespace godot {
 
 class MainCharacter;
 class Item;
 class Slot;
+class Level;
 
 class GameManager : public Node2D {
     GDCLASS(GameManager, Node2D)
@@ -42,12 +46,17 @@ private:
     Ref<Item> item;
     size_t item_count;
     Sprite2D* mouse_item_sprite;
+    Dictionary levels;
+    Level* current_level;
 
 public:
     void _ready() override;
     void _physics_process(double delta) override;
 
     void give_mc_pointer(MainCharacter* p_mc);
+    
+    void give_current_level(Level* p_current_level);
+
 
     bool is_input_allowed() const;
     void set_input_allowed(const bool p_input_allowed);
@@ -61,6 +70,8 @@ public:
     void end_drag(Slot* to_slot);
 
     bool is_item_valid() const;
+
+    void save();
 
 };
 

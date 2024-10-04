@@ -232,5 +232,13 @@ Dictionary Slot::save()
 {
     Dictionary info;
 
+    if (item.is_valid())
+    {
+        info["item_name"] = item->get_name();
+        info["item_resource_path"] = item->get_resource_path();
+        info["count"] = item_count;
+    }
+
+
     return info;
 }

@@ -46,8 +46,8 @@ void Level::_ready()
     else
     {
         set_process_mode(PROCESS_MODE_PAUSABLE);
+        gm->give_current_level(this);
     }
-
 }
 
 void Level::set_name(const String& p_name)
@@ -70,5 +70,28 @@ String Level::get_scene_path() const
 
 Dictionary Level::save()
 {
-    return Dictionary();
+    Dictionary level_data;
+    level_data["scene_path"] = scene_path;
+
+    Array children = get_children();
+    
+    for (int i = 0; i < children.size(); i++) {
+        Node *child_node = Object::cast_to<Node>(children[i]);
+
+        if (child_node) 
+        {
+            if (!child_node->is_in_group("Player")) 
+            {
+                if (child_node->has_method("save")) 
+                {
+                    Dictionary child_save_data = child_node->call("save");
+                    String node_name = child_node->get_name();
+                    UtilityFunctions::print(node_name);
+                    level_data[node_name] = child_save_data;
+                }
+            }
+        }
+    }
+
+    return level_data;
 }

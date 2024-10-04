@@ -1,25 +1,160 @@
 {
-    "hp": 4,
-    "inventory": {
-        "slot0": {
+    "MC": {
+        "hp": 6,
+        "inventory": {
+            "slot0": {
+                "count": 4,
+                "item_name": "Dagger",
+                "item_resource_path": "res://resources/dagger.tres"
+            },
+            "slot1": {
 
+            },
+            "slot2": {
+
+            },
+            "slot3": {
+
+            },
+            "slot4": {
+
+            },
+            "slot5": {
+                "count": 3,
+                "item_name": "HealingPotion",
+                "item_resource_path": "res://resources/healing_potion.tres"
+            }
         },
-        "slot1": {
-
-        },
-        "slot2": {
-
-        },
-        "slot3": {
-
-        },
-        "slot4": {
-
-        },
-        "slot5": {
-
-        }
+        "x_pos": 951.922729492188,
+        "y_pos": 380.807800292969
     },
-    "x_pos": 762.055297851563,
-    "y_pos": 352.936431884766
+    "levels": {
+        "Test_Level": {
+            "Bat": {
+                "hp": 4
+            },
+            "Bat2": {
+                "hp": 4
+            },
+            "Bat3": {
+                "hp": 4
+            },
+            "Bat4": {
+                "hp": 4
+            },
+            "Chest": {
+                "slot0": {
+
+                },
+                "slot1": {
+
+                },
+                "slot10": {
+
+                },
+                "slot11": {
+
+                },
+                "slot12": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot13": {
+
+                },
+                "slot14": {
+
+                },
+                "slot2": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot3": {
+
+                },
+                "slot4": {
+
+                },
+                "slot5": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot6": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot7": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot8": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot9": {
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                }
+            },
+            "DaggerGoblin": {
+                "hp": 4
+            },
+            "DummyEnemy": {
+                "hp": 60
+            },
+            "DummyEnemy10": {
+                "hp": 60
+            },
+            "DummyEnemy11": {
+                "hp": 60
+            },
+            "DummyEnemy12": {
+                "hp": 60
+            },
+            "DummyEnemy2": {
+                "hp": 60
+            },
+            "DummyEnemy3": {
+                "hp": 60
+            },
+            "DummyEnemy4": {
+                "hp": 60
+            },
+            "DummyEnemy5": {
+                "hp": 60
+            },
+            "DummyEnemy6": {
+                "hp": 60
+            },
+            "DummyEnemy7": {
+                "hp": 60
+            },
+            "DummyEnemy8": {
+                "hp": 60
+            },
+            "DummyEnemy9": {
+                "hp": 60
+            },
+            "boar": {
+                "hp": 6
+            },
+            "boar2": {
+                "hp": 6
+            },
+            "boar3": {
+                "hp": 6
+            },
+            "boar4": {
+                "hp": 6
+            },
+            "scene_path": "res://scenes/test_level.tscn"
+        }
+    }
 }

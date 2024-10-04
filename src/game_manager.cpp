@@ -10,7 +10,6 @@
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/window.hpp>
 
-#include <godot_cpp/variant/dictionary.hpp>
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/json.hpp>
 
@@ -18,6 +17,7 @@
 #include "item.h"
 #include "liftable_object.h"
 #include "slot.h"
+#include "level.h"
 
 namespace godot {
 
@@ -85,21 +85,24 @@ void GameManager::_physics_process(double delta)
     
     if (i->is_physical_key_pressed(KEY_L))
     {
-        Dictionary info = mc->save();
-        Ref<FileAccess> file = FileAccess::open(String("save.json"), FileAccess::WRITE);
-        if (file.is_valid())
-        {
-            String json_data = JSON::stringify(info, "    ");
-            file->store_string(json_data);
-            file->close();
-        }
+        save();
     }
 }
+
 
 
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
     mc = p_mc;
+}
+
+void GameManager::give_current_level(Level* p_current_level)
+{
+    if (current_level)
+    {
+        levels[current_level->get_name()] = current_level->save();
+    }
+    current_level = p_current_level;
 }
 
 bool GameManager::is_input_allowed() const
@@ -205,6 +208,28 @@ void GameManager::end_drag(Slot* to_slot)
 bool GameManager::is_item_valid() const
 {
     return item.is_valid();
+}
+
+void GameManager::save()
+{
+    Dictionary info;
+
+    info["MC"] = mc->save();
+    
+    if (current_level)
+    {
+        give_current_level(current_level); 
+    }
+    info["levels"] = levels;
+
+    Ref<FileAccess> file = FileAccess::open(String("save.json"), FileAccess::WRITE);
+    if (file.is_valid())
+    {
+        String json_data = JSON::stringify(info, "    ");
+        file->store_string(json_data);
+        file->close();
+    }
+
 }
 
 } // namespace godot

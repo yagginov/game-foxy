@@ -21,6 +21,8 @@ private:
     String name;
     Ref<Texture2D> texture;
     size_t max_count;
+
+    String resource_path;
     
 protected:
     GameManager* gm;
@@ -40,6 +42,9 @@ public:
 
     void set_max_count(const size_t p_max_count);
     size_t get_max_count() const;
+
+    void set_resource_path(const String p_resource_path);
+    String get_resource_path() const;
 
 };
 

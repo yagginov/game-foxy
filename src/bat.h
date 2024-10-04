@@ -51,6 +51,8 @@ public:
 
     void change_state(States state);
 
+    Dictionary save() override;
+
 };
 
 }       // namespace godot

@@ -5,3 +5,4 @@
 [resource]
 name = "Dagger"
 texture = ExtResource("1_f0475")
+resource_path = "res://resources/dagger.tres"

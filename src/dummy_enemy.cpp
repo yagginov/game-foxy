@@ -60,3 +60,10 @@ void DummyEnemy::_dead()
 {
 
 }
+
+Dictionary DummyEnemy::save()
+{
+    Dictionary info;
+    info ["hp"] = health->get_hp();
+    return info;
+}

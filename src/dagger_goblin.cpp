@@ -190,3 +190,11 @@ void DaggerGoblin::change_state(States p_state)
 	v_states[state]->reset();
 	state = p_state;
 }
+
+
+Dictionary DaggerGoblin::save()
+{
+    Dictionary info;
+    info["hp"] = components->health->get_hp();
+    return info;
+}

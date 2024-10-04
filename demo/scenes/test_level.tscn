@@ -1069,6 +1069,8 @@ sources/1 = SubResource("TileSetAtlasSource_mms1w")
 pattern_0 = SubResource("TileMapPattern_r8yjk")
 
 [node name="Game" type="Level"]
+name = "Test_Level"
+scene_path = "res://scenes/test_level.tscn"
 process_mode = 4
 y_sort_enabled = true
 
