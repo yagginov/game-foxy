@@ -26,13 +26,14 @@ public:
 
     void _ready() override;
 
-    Dictionary save();
-
     void set_name(const String& p_name);
     String get_name() const;
 
     void set_scene_path(const String& p_scene_path);
     String get_scene_path() const;
+
+    Dictionary save();
+    void load(const Dictionary& info);
 
 };
 

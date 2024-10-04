@@ -8,7 +8,6 @@ using namespace godot;
 void Bat::_bind_methods() {
     ClassDB::bind_method(D_METHOD("_hit", "target_pos"), &Bat::_hit);
     ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &Bat::_damage);
-	ClassDB::bind_method(D_METHOD("_dead"), &Bat::_dead);
 
     ClassDB::bind_method(D_METHOD("_target_spotted", "target_pos"), &Bat::_target_spotted);
 	ClassDB::bind_method(D_METHOD("_target_missed"), &Bat::_target_missed);
@@ -112,4 +111,12 @@ Dictionary Bat::save()
     Dictionary info;
     info["hp"] = components->health->get_hp();
     return info;
+}
+
+void Bat::load(const Dictionary& info)
+{
+    if (info.has("hp"))
+    {
+        components->health->set_hp(info["hp"]);
+    }
 }

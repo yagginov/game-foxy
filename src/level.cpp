@@ -95,3 +95,39 @@ Dictionary Level::save()
 
     return level_data;
 }
+
+void Level::load(const Dictionary& info)
+{
+    Array children = get_children();
+    
+    for (int i = 0; i < children.size(); i++) {
+        Node *child_node = Object::cast_to<Node>(children[i]);
+
+        if (child_node) 
+        {
+            if (!child_node->is_in_group("Player")) 
+            {
+                if (child_node->has_method("load")) 
+                {
+                    String node_name = child_node->get_name();
+                    if (info.has(node_name))
+                    {
+                        if (info[node_name].get_type() == Variant::DICTIONARY)
+                        {
+                            Dictionary child_load_data = info[node_name];
+                            if (child_node->has_method("load"))
+                            {
+                                child_node->call("load", child_load_data);
+                            }
+                        }
+                    }
+                    else if (child_node->has_method("_dead"))
+                    {
+                        child_node->call("_dead");
+                    }
+
+                }
+            }
+        }
+    }
+}

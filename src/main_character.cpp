@@ -12,7 +12,6 @@ using namespace godot;
 
 void MainCharacter::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &MainCharacter::_damage);
-	ClassDB::bind_method(D_METHOD("_dead"), &MainCharacter::_dead);
 	ClassDB::bind_method(D_METHOD("_hit", "target_pos"), &MainCharacter::_hit);
 }
 

@@ -23,6 +23,9 @@ void Actor::_bind_methods()
     ADD_SIGNAL(MethodInfo("dead", PropertyInfo(Variant::INT, "index")));
 
     ClassDB::bind_method(D_METHOD("save"), &Actor::save);
+    ClassDB::bind_method(D_METHOD("load", "info"), &Actor::load);
+
+    ClassDB::bind_method(D_METHOD("_dead"), &Actor::_dead);
 }
 
 
@@ -62,9 +65,9 @@ void Actor::_damage(Vector2 enemy_pos)
 	set_velocity(velocity);
 }
 
-Dictionary Actor::save()
+void Actor::_dead()
 {
-    return Dictionary();
+    
 }
 
 void Actor::set_index(const int p_index)
@@ -76,24 +79,30 @@ int Actor::get_index() const
     return index;
 }
     
-
 void Actor::set_speed(const double p_speed)
 {
     speed = p_speed;
 }
-
 double Actor::get_speed() const
 {
     return speed;
 }
 
-
 void Actor::set_acceleration(const double p_acceleration)
 {
     acceleration = p_acceleration;
 }
-
 double Actor::get_acceleration() const
 {
     return acceleration;
+}
+
+Dictionary Actor::save()
+{
+    return Dictionary();
+}
+
+void Actor::load(const Dictionary& info)
+{
+    UtilityFunctions::print(info);
 }

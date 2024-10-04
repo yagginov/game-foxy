@@ -46,6 +46,7 @@ public:
     void update_slots();
 
     void use_active_item();
+    void clear();
 
     
     // set / get

@@ -7,7 +7,6 @@ using namespace godot;
 void DummyEnemy::_bind_methods() 
 {
     ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &DummyEnemy::_damage);
-	ClassDB::bind_method(D_METHOD("_dead"), &DummyEnemy::_dead);
 }
 
 DummyEnemy::DummyEnemy() 
@@ -66,4 +65,12 @@ Dictionary DummyEnemy::save()
     Dictionary info;
     info ["hp"] = health->get_hp();
     return info;
+}
+
+void DummyEnemy::load(const Dictionary& info)
+{
+    if (info.has("hp"))
+    {
+        health->set_hp(info["hp"]);
+    }
 }

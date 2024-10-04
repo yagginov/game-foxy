@@ -76,13 +76,13 @@ public:
 	void f_shot(double delta);
 
 	void _damage(Vector2 enemy_pos) override;
-	void _dead();
+	void _dead() override;
 	void _hit(Vector2 target_pos);
 
 	void change_state(States state);
 
 	Dictionary save() override;
-	void load(const Dictionary& info);
+	void load(const Dictionary& info) override;
 
 };
 

@@ -9,7 +9,6 @@ using namespace godot;
 void DaggerGoblin::_bind_methods() {
     ClassDB::bind_method(D_METHOD("_hit", "target_pos"), &DaggerGoblin::_hit);
     ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &DaggerGoblin::_damage);
-	ClassDB::bind_method(D_METHOD("_dead"), &DaggerGoblin::_dead);
 
     ClassDB::bind_method(D_METHOD("_target_spotted", "target_pos"), &DaggerGoblin::_target_spotted);
 	ClassDB::bind_method(D_METHOD("_target_missed"), &DaggerGoblin::_target_missed);
@@ -197,4 +196,12 @@ Dictionary DaggerGoblin::save()
     Dictionary info;
     info["hp"] = components->health->get_hp();
     return info;
+}
+
+void DaggerGoblin::load(const Dictionary& info)
+{
+    if (info.has("hp"))
+    {
+        components->health->set_hp(info["hp"]);
+    }
 }

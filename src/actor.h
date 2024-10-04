@@ -33,8 +33,7 @@ public:
 
     void move(const Vector2& direction, double delta);
     virtual void _damage(Vector2 enemy_pos);
-
-    virtual Dictionary save();
+    virtual void _dead();
 
     void set_index(const int p_index);
     int get_index() const;
@@ -44,6 +43,9 @@ public:
 
     void set_acceleration(const double p_acceleration);
     double get_acceleration() const;
+
+    virtual Dictionary save();
+    virtual void load(const Dictionary& info);
 };
 
 }   // namespace godot

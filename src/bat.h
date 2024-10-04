@@ -44,7 +44,7 @@ public:
 
     void _hit(Vector2 target_pos);
     void _damage(Vector2 enemy_pos) override;
-    void _dead();
+    void _dead() override;
 
     void _target_spotted(Vector2 enemy_pos);
     void _target_missed();
@@ -52,6 +52,7 @@ public:
     void change_state(States state);
 
     Dictionary save() override;
+    void load(const Dictionary& info) override;
 
 };
 

@@ -30,6 +30,7 @@ void Inventory::_bind_methods()
     ClassDB::bind_method(D_METHOD("update_slots"), &Inventory::update_slots);
 
     ClassDB::bind_method(D_METHOD("save"), &Inventory::save);
+    ClassDB::bind_method(D_METHOD("load", "info"), &Inventory::load);
 
 }
 
@@ -118,6 +119,15 @@ void Inventory::update_slots()
     }
 }
 
+void Inventory::clear()
+{
+    for (int i = 0; i < slots.size(); ++i)
+    {
+        Slot* slot = Object::cast_to<Slot>(slots[i]);
+        slot->set_item(nullptr);
+    }
+}
+
 void Inventory::use_active_item()
 {
     Slot* active_slot = Object::cast_to<Slot>(slots[slots.size() - 1]);
@@ -156,6 +166,7 @@ Dictionary Inventory::save()
 
 void Inventory::load(const Dictionary& info)
 {
+    clear();
     for (int i = 0; i < slots.size(); ++i)
     {
         String slot_name = "slot" + String::num(i);

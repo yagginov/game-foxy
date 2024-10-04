@@ -93,7 +93,6 @@ void GameManager::_physics_process(double delta)
 
 void GameManager::give_mc_pointer(MainCharacter* p_mc)
 {
-    UtilityFunctions::print(p_mc);
     mc = p_mc;
 }
 
@@ -273,6 +272,24 @@ void GameManager::load()
             mc->load(mc_info);
         }
     }
+
+    if (info.has("levels"))
+    {
+        if (info["levels"].get_type() == Variant::DICTIONARY)
+        {
+            Dictionary levels_info = info["levels"];
+
+            if (levels_info.has(current_level->get_name()))
+            {
+                if (levels_info[current_level->get_name()].get_type() == Variant::DICTIONARY)
+                {
+                    Dictionary current_level_info = levels_info[current_level->get_name()];
+                    current_level->load(current_level_info);
+                }
+            }
+        }
+    }
+
 }
 
 } // namespace godot

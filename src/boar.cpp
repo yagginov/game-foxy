@@ -9,7 +9,6 @@ void Boar::_bind_methods() {
     ClassDB::bind_method(D_METHOD("_hit", "target_pos"), &Boar::_hit);
     
     ClassDB::bind_method(D_METHOD("_damage", "enemy_pos"), &Boar::_damage);
-	ClassDB::bind_method(D_METHOD("_dead"), &Boar::_dead);
 
     ClassDB::bind_method(D_METHOD("_target_spotted", "target_pos"), &Boar::_target_spotted);
 	ClassDB::bind_method(D_METHOD("_target_missed"), &Boar::_target_missed);
@@ -143,4 +142,12 @@ Dictionary Boar::save()
     }
 
     return info;
+}
+
+void Boar::load(const Dictionary& info)
+{
+    if (info.has("hp"))
+    {
+        components->health->set_hp(info["hp"]);
+    }
 }

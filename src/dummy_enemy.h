@@ -32,9 +32,10 @@ public:
     void _physics_process(double delta) override;
 
     void _damage(Vector2 enemy_pos) override;
-    void _dead();
+    void _dead() override;
 
     Dictionary save() override;
+    void load(const Dictionary& info) override;
 };
 
 }
