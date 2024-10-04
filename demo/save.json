@@ -1,16 +1,12 @@
 {
     "MC": {
-        "hp": 6,
+        "hp": 4,
         "inventory": {
             "slot0": {
-                "count": 1,
-                "item_name": "Dagger",
-                "item_resource_path": "res://resources/dagger.tres"
+
             },
             "slot1": {
-                "count": 1,
-                "item_name": "HealingPotion",
-                "item_resource_path": "res://resources/healing_potion.tres"
+
             },
             "slot2": {
 
@@ -22,13 +18,135 @@
 
             },
             "slot5": {
-
+                "count": 2,
+                "item_name": "Dagger",
+                "item_resource_path": "res://resources/dagger.tres"
             }
         },
-        "x_pos": 972.016540527344,
-        "y_pos": 283.323791503906
+        "x_pos": 738.670654296875,
+        "y_pos": 478.597564697266
     },
     "levels": {
+        "Test_Level": {
+            "Bat": {
+                "hp": 4
+            },
+            "Bat2": {
+                "hp": 4
+            },
+            "Bat3": {
+                "hp": 4
+            },
+            "Bat4": {
+                "hp": 4
+            },
+            "Chest": {
+                "slot0": {
 
+                },
+                "slot1": {
+
+                },
+                "slot10": {
+
+                },
+                "slot11": {
+
+                },
+                "slot12": {
+
+                },
+                "slot13": {
+
+                },
+                "slot14": {
+
+                },
+                "slot2": {
+                    "count": 2,
+                    "item_name": "Dagger",
+                    "item_resource_path": "res://resources/dagger.tres"
+                },
+                "slot3": {
+
+                },
+                "slot4": {
+
+                },
+                "slot5": {
+
+                },
+                "slot6": {
+                    "count": 3,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot7": {
+                    "count": 6,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot8": {
+                    "count": 10,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot9": {
+
+                }
+            },
+            "DaggerGoblin": {
+                "hp": 4
+            },
+            "DummyEnemy": {
+                "hp": 50
+            },
+            "DummyEnemy10": {
+                "hp": 60
+            },
+            "DummyEnemy11": {
+                "hp": 60
+            },
+            "DummyEnemy12": {
+                "hp": 60
+            },
+            "DummyEnemy2": {
+                "hp": 49
+            },
+            "DummyEnemy3": {
+                "hp": 60
+            },
+            "DummyEnemy4": {
+                "hp": 60
+            },
+            "DummyEnemy5": {
+                "hp": 60
+            },
+            "DummyEnemy6": {
+                "hp": 60
+            },
+            "DummyEnemy7": {
+                "hp": 60
+            },
+            "DummyEnemy8": {
+                "hp": 60
+            },
+            "DummyEnemy9": {
+                "hp": 60
+            },
+            "boar": {
+                "hp": 6
+            },
+            "boar2": {
+                "hp": 6
+            },
+            "boar3": {
+                "hp": 6
+            },
+            "boar4": {
+                "hp": 6
+            },
+            "scene_path": "res://scenes/test_level.tscn"
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -48,6 +49,14 @@ void PauseMenu::_ready()
     add_to_group("UI");
 
     gm = GameManager::get_singleton();
+    if (!gm)
+    {
+        set_process_mode(PROCESS_MODE_DISABLED);
+    }
+    else
+    {
+        set_process_mode(PROCESS_MODE_ALWAYS);
+    }
 
     if (has_node(resume_path)) 
     {

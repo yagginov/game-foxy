@@ -4,5 +4,5 @@
 
 [resource]
 texture = ExtResource("1_a3l6i")
-max_count = 99
+max_count = 12
 resource_path = "res://resources/healing_potion.tres"
