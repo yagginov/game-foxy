@@ -12,7 +12,8 @@ offset_bottom = 24.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_651i4")
 centered = false
+hframes = 2
 
 [node name="SpriteItem" type="Sprite2D" parent="."]
 centered = false
-offset = Vector2(4, 4)
+offset = Vector2(5, 5)

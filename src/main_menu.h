@@ -15,10 +15,12 @@ protected:
 private:
 
     Button*             play;
+    Button*             load;
     Button*             settings;
     Button*             quit;
 
     NodePath            play_path;
+    NodePath            load_path;
     NodePath            settings_path;
     NodePath            quit_path;
 
@@ -31,12 +33,16 @@ public:
 
     // listeners
     void            _on_play_button_pressed();
+    void            _on_load_button_pressed();
     void            _on_settings_button_pressed();
     void            _on_quit_button_pressed();
 
     // set / get
     void            set_play_button(const NodePath& p_play_button_path);
     NodePath        get_play_button() const;
+
+    void            set_load_button(const NodePath& p_load_button_path);
+    NodePath        get_load_button() const;
 
     void            set_settings_button(const NodePath& p_settings_button_path);
     NodePath        get_settings_button() const;

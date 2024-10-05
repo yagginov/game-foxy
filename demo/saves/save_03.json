@@ -1,14 +1,14 @@
 {
     "MC": {
-        "hp": 4,
+        "hp": 6,
         "inventory": {
             "slot0": {
-                "count": 3,
+                "count": 2,
                 "item_name": "Dagger",
                 "item_resource_path": "res://resources/dagger.tres"
             },
             "slot1": {
-                "count": 4,
+                "count": 2,
                 "item_name": "HealingPotion",
                 "item_resource_path": "res://resources/healing_potion.tres"
             },
@@ -26,8 +26,8 @@
             }
         },
         "level": "res://scenes/test_level.tscn",
-        "x_pos": 867.931701660156,
-        "y_pos": 219.36457824707
+        "x_pos": 979.70361328125,
+        "y_pos": 303.452087402344
     },
     "levels": {
         "Test_Level": {
@@ -108,7 +108,7 @@
                 "hp": 4
             },
             "DummyEnemy": {
-                "hp": 56
+                "hp": 60
             },
             "DummyEnemy10": {
                 "hp": 60
@@ -120,7 +120,7 @@
                 "hp": 60
             },
             "DummyEnemy2": {
-                "hp": 56
+                "hp": 60
             },
             "DummyEnemy3": {
                 "hp": 60

@@ -47,6 +47,8 @@ private:
     Dictionary levels;
     Level* current_level;
 
+    String file_name;
+
 public:
     void _ready() override;
     void _physics_process(double delta) override;
@@ -73,6 +75,7 @@ public:
     Dictionary load_file(const String& file_path);
 
     void load();
+    void _load(const String& file_name);
 
 };
 

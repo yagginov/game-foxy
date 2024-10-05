@@ -36,6 +36,8 @@ void GameManager::_bind_methods()
 {
 	ClassDB::bind_static_method(GameManager::get_class_static(), D_METHOD("get_singleton"), &GameManager::get_singleton, DEFVAL(nullptr));
 	ClassDB::bind_static_method(GameManager::get_class_static(), D_METHOD("set_instance", "p_instance"), &GameManager::set_instance, DEFVAL(nullptr));
+
+    ClassDB::bind_method(D_METHOD("_load", "file_name"), &GameManager::_load);
 }
 
 
@@ -43,7 +45,8 @@ GameManager::GameManager():
 input_allowed(true),
 item(nullptr),
 from_slot(nullptr),
-mouse_item_sprite(memnew(Sprite2D))
+mouse_item_sprite(memnew(Sprite2D)),
+file_name("save.json")
 {
     i = Input::get_singleton();
 }
@@ -212,13 +215,15 @@ void GameManager::save()
 {
     Dictionary info;
 
-    info["MC"] = mc->save();
+    Dictionary temp_info = mc->save();
     
     if (current_level)
     {
         levels[current_level->get_name()] = current_level->save();
     }
     info["levels"] = levels;
+    temp_info["level"] = current_level->get_scene_path();
+    info["MC"] = temp_info;
 
     Ref<FileAccess> file = FileAccess::open(String("save.json"), FileAccess::WRITE);
     if (file.is_valid())
@@ -262,7 +267,7 @@ Dictionary GameManager::load_file(const String& file_path)
 
 void GameManager::load()
 {
-    Dictionary info = load_file("save.json");
+    Dictionary info = load_file(file_name);
 
     if (info.has("MC"))
     {
@@ -286,6 +291,25 @@ void GameManager::load()
                     Dictionary current_level_info = levels_info[current_level->get_name()];
                     current_level->load(current_level_info);
                 }
+            }
+        }
+    }
+
+}
+
+void GameManager::_load(const String& p_file_name)
+{
+    file_name = p_file_name;
+    Dictionary info = load_file(file_name);
+
+    if (info.has("MC"))
+    {
+        if (info["MC"].get_type() == Variant::DICTIONARY)
+        {
+            Dictionary mc_info = info["MC"];
+            if (mc_info.has("level"))
+            {
+                get_tree()->change_scene_to_file(mc_info["level"]);
             }
         }
     }

@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://jpmw45g67mca"]
+[gd_scene load_steps=2 format=3 uid="uid://jpmw45g67mca"]
+
+[ext_resource type="PackedScene" uid="uid://b43v51ikeb5g2" path="res://scenes/load_menu.tscn" id="1_f0v5p"]
 
 [node name="MainMenu" type="MainMenu"]
 play_path = NodePath("MarginContainer/HSplitContainer/VBoxContainer/Play")
+load_path = NodePath("MarginContainer/HSplitContainer/VBoxContainer/Load")
 settings_path = NodePath("MarginContainer/HSplitContainer/VBoxContainer/Settings")
 quit_path = NodePath("MarginContainer/HSplitContainer/VBoxContainer/Quit")
 anchors_preset = 15
@@ -38,6 +41,10 @@ alignment = 1
 layout_mode = 2
 text = "Play"
 
+[node name="Load" type="Button" parent="MarginContainer/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
 [node name="Settings" type="Button" parent="MarginContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
@@ -45,3 +52,14 @@ text = "Settings"
 [node name="Quit" type="Button" parent="MarginContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="LoadMenu" parent="." instance=ExtResource("1_f0v5p")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 202.0
+offset_top = 132.0
+offset_right = -214.0
+offset_bottom = -136.0
