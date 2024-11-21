@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cdmdosx1wpumu"]
+[gd_scene load_steps=2 format=3 uid="uid://cdmdosx1wpumu"]
+
+[ext_resource type="PackedScene" uid="uid://b43v51ikeb5g2" path="res://scenes/load_menu.tscn" id="1_cl56l"]
 
 [node name="PauseMenu" type="PauseMenu"]
 resume_path = NodePath("MarginContainer/VBoxContainer/Resume")
@@ -6,6 +8,7 @@ save_path = NodePath("MarginContainer/VBoxContainer/Save")
 settings_path = NodePath("MarginContainer/VBoxContainer/Settings")
 to_main_menu_path = NodePath("MarginContainer/VBoxContainer/ToMainMenu")
 to_desktop_path = NodePath("MarginContainer/VBoxContainer/ToDesktop")
+load_menu_path = NodePath("LoadMenu")
 process_mode = 4
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,3 +62,15 @@ text = "To Main Menu"
 [node name="ToDesktop" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "To Desktop"
+
+[node name="LoadMenu" parent="." instance=ExtResource("1_cl56l")]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -194.0
+offset_top = -110.0
+offset_right = -75.0
+offset_bottom = 88.0
+scale = Vector2(0.397054, 0.436637)

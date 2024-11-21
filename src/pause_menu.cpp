@@ -159,6 +159,7 @@ void PauseMenu::_on_save_button_pressed()
     if (load_menu)
     {
         load_menu->show();
+        load_menu->initialize_save();
     }
 }
 

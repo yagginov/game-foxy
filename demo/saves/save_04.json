@@ -1,14 +1,14 @@
 {
     "MC": {
-        "hp": 6,
+        "hp": 4,
         "inventory": {
             "slot0": {
-                "count": 2,
+                "count": 3,
                 "item_name": "Dagger",
                 "item_resource_path": "res://resources/dagger.tres"
             },
             "slot1": {
-                "count": 2,
+                "count": 4,
                 "item_name": "HealingPotion",
                 "item_resource_path": "res://resources/healing_potion.tres"
             },
@@ -26,8 +26,8 @@
             }
         },
         "level": "res://scenes/test_level.tscn",
-        "x_pos": 979.70361328125,
-        "y_pos": 303.452087402344
+        "x_pos": 509.038818359375,
+        "y_pos": 498.289825439453
     },
     "levels": {
         "Test_Level": {
@@ -45,10 +45,14 @@
             },
             "Chest": {
                 "slot0": {
-
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
                 },
                 "slot1": {
-
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
                 },
                 "slot10": {
 
@@ -68,9 +72,7 @@
 
                 },
                 "slot2": {
-                    "count": 2,
-                    "item_name": "HealingPotion",
-                    "item_resource_path": "res://resources/healing_potion.tres"
+
                 },
                 "slot3": {
 
@@ -84,9 +86,7 @@
                     "item_resource_path": "res://resources/healing_potion.tres"
                 },
                 "slot6": {
-                    "count": 2,
-                    "item_name": "HealingPotion",
-                    "item_resource_path": "res://resources/healing_potion.tres"
+
                 },
                 "slot7": {
                     "count": 2,
@@ -108,7 +108,7 @@
                 "hp": 4
             },
             "DummyEnemy": {
-                "hp": 60
+                "hp": 46
             },
             "DummyEnemy10": {
                 "hp": 60
@@ -120,7 +120,7 @@
                 "hp": 60
             },
             "DummyEnemy2": {
-                "hp": 60
+                "hp": 48
             },
             "DummyEnemy3": {
                 "hp": 60

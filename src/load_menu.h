@@ -5,6 +5,8 @@
 #include <godot_cpp/classes/control.hpp>
 #include <godot_cpp/classes/button.hpp>
 
+#include <godot_cpp/templates/vector.hpp>
+
 #include "game_manager.h"
 #include "save_button.h"
 
@@ -22,6 +24,8 @@ private:
     Button*             back;
 
     NodePath            back_path;
+
+    Vector<String>      file_names;
 
 public:
     LoadMenu();

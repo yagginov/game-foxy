@@ -1,16 +1,14 @@
 {
     "MC": {
-        "hp": 6,
+        "hp": 2,
         "inventory": {
             "slot0": {
-                "count": 2,
+                "count": 3,
                 "item_name": "Dagger",
                 "item_resource_path": "res://resources/dagger.tres"
             },
             "slot1": {
-                "count": 2,
-                "item_name": "HealingPotion",
-                "item_resource_path": "res://resources/healing_potion.tres"
+
             },
             "slot2": {
 
@@ -22,12 +20,14 @@
 
             },
             "slot5": {
-
+                "count": 5,
+                "item_name": "HealingPotion",
+                "item_resource_path": "res://resources/healing_potion.tres"
             }
         },
         "level": "res://scenes/test_level.tscn",
-        "x_pos": 979.70361328125,
-        "y_pos": 303.452087402344
+        "x_pos": 420.606414794922,
+        "y_pos": 237.34489440918
     },
     "levels": {
         "Test_Level": {
@@ -45,7 +45,9 @@
             },
             "Chest": {
                 "slot0": {
-
+                    "count": 2,
+                    "item_name": "HealingPotion",
+                    "item_resource_path": "res://resources/healing_potion.tres"
                 },
                 "slot1": {
 
@@ -54,12 +56,12 @@
 
                 },
                 "slot11": {
-
-                },
-                "slot12": {
                     "count": 2,
                     "item_name": "HealingPotion",
                     "item_resource_path": "res://resources/healing_potion.tres"
+                },
+                "slot12": {
+
                 },
                 "slot13": {
 
@@ -68,9 +70,7 @@
 
                 },
                 "slot2": {
-                    "count": 2,
-                    "item_name": "HealingPotion",
-                    "item_resource_path": "res://resources/healing_potion.tres"
+
                 },
                 "slot3": {
 
@@ -89,9 +89,7 @@
                     "item_resource_path": "res://resources/healing_potion.tres"
                 },
                 "slot7": {
-                    "count": 2,
-                    "item_name": "HealingPotion",
-                    "item_resource_path": "res://resources/healing_potion.tres"
+
                 },
                 "slot8": {
                     "count": 2,
@@ -108,7 +106,7 @@
                 "hp": 4
             },
             "DummyEnemy": {
-                "hp": 60
+                "hp": 43
             },
             "DummyEnemy10": {
                 "hp": 60
@@ -120,7 +118,7 @@
                 "hp": 60
             },
             "DummyEnemy2": {
-                "hp": 60
+                "hp": 45
             },
             "DummyEnemy3": {
                 "hp": 60

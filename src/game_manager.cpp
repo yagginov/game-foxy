@@ -38,6 +38,7 @@ void GameManager::_bind_methods()
 	ClassDB::bind_static_method(GameManager::get_class_static(), D_METHOD("set_instance", "p_instance"), &GameManager::set_instance, DEFVAL(nullptr));
 
     ClassDB::bind_method(D_METHOD("_load", "file_name"), &GameManager::_load);
+    ClassDB::bind_method(D_METHOD("save", "file_name"), &GameManager::save);
 }
 
 
@@ -84,11 +85,6 @@ void GameManager::_physics_process(double delta)
             mouse_item_sprite->set_texture(nullptr);
             input_allowed = true;
         }
-    }
-    
-    if (i->is_physical_key_pressed(KEY_L))
-    {
-        save();
     }
 }
 
@@ -211,7 +207,7 @@ bool GameManager::is_item_valid() const
     return item.is_valid();
 }
 
-void GameManager::save()
+void GameManager::save(const String& p_file_name)
 {
     Dictionary info;
 
@@ -225,7 +221,7 @@ void GameManager::save()
     temp_info["level"] = current_level->get_scene_path();
     info["MC"] = temp_info;
 
-    Ref<FileAccess> file = FileAccess::open(String("save.json"), FileAccess::WRITE);
+    Ref<FileAccess> file = FileAccess::open(p_file_name, FileAccess::WRITE);
     if (file.is_valid())
     {
         String json_data = JSON::stringify(info, "    ");

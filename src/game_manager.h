@@ -71,9 +71,9 @@ public:
 
     bool is_item_valid() const;
 
-    void save();
+    void save(const String& file_name);
+    
     Dictionary load_file(const String& file_path);
-
     void load();
     void _load(const String& file_name);
 

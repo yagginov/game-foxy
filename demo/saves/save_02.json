@@ -26,8 +26,8 @@
             }
         },
         "level": "res://scenes/test_level.tscn",
-        "x_pos": 400.70361328125,
-        "y_pos": 100.452087402344
+        "x_pos": 397.326202392578,
+        "y_pos": 259.129150390625
     },
     "levels": {
         "Test_Level": {
@@ -153,7 +153,7 @@
                 "hp": 6
             },
             "boar4": {
-                "hp": 6
+                "hp": 5
             },
             "scene_path": "res://scenes/test_level.tscn"
         }

@@ -125,6 +125,15 @@ void LoadMenu::initialize_load()
             }
 
             if (file_name.get_extension() == "json") {
+                if (file_names.count(file_name))
+                {
+                    continue;
+                }
+                else
+                {
+                    file_names.push_back(file_name);
+                }
+
                 SaveButton *save_button_instance = add_new_button();
 
                 String file_name_without_extension = file_name.get_basename();
@@ -141,5 +150,41 @@ void LoadMenu::initialize_load()
 
 void LoadMenu::initialize_save()
 {
+    Ref<DirAccess> dir = DirAccess::open("res://saves");
 
+    if (dir.is_null()) {
+        ERR_PRINT("Could not open directory res://saves");
+        return;
+    }
+
+    if (dir->list_dir_begin() == OK) {
+        String file_name;
+        while (!(file_name = dir->get_next()).is_empty()) {
+            if (dir->current_is_dir() || file_name.begins_with(".")) {
+                continue;
+            }
+
+
+            if (file_name.get_extension() == "json") {
+                if (file_names.count(file_name))
+                {
+                    continue;
+                }
+                else
+                {
+                    file_names.push_back(file_name);
+                }
+
+                SaveButton *save_button_instance = add_new_button();
+
+                String file_name_without_extension = file_name.get_basename();
+                save_button_instance->set_name(file_name_without_extension);
+                save_button_instance->set_function("save");
+                save_button_instance->set_file_path("res://saves/" + file_name);
+
+            }
+        }
+
+        dir->list_dir_end();
+    }
 }
