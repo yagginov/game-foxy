@@ -74,7 +74,7 @@ NodePath LoadMenu::get_back_button() const
     return back_path;
 }
 
-SaveButton* LoadMenu::add_new_button()
+SaveButton* LoadMenu::add_new_button(String p_name, String p_function, String p_file_path)
 {
     VBoxContainer *container = nullptr;
     if (has_node("NinePatchRect/VBoxContainer/MarginContainer2/ScrollContainer/VBoxContainer"))
@@ -101,6 +101,10 @@ SaveButton* LoadMenu::add_new_button()
         ERR_PRINT("Failed to create SaveButton instance");
         return nullptr;
     }
+
+    save_button_instance->set_name(p_name);
+    save_button_instance->set_function(p_function);
+    save_button_instance->set_file_path(p_file_path);
 
     container->add_child(save_button_instance);
 
@@ -134,13 +138,8 @@ void LoadMenu::initialize_load()
                     file_names.push_back(file_name);
                 }
 
-                SaveButton *save_button_instance = add_new_button();
-
-                String file_name_without_extension = file_name.get_basename();
-                save_button_instance->set_name(file_name_without_extension);
-                save_button_instance->set_function("_load");
-                save_button_instance->set_file_path("res://saves/" + file_name);
-
+                String name = file_name.get_basename();
+                SaveButton *save_button_instance = add_new_button(name, "load", "res://saves/" + file_name);
             }
         }
 
@@ -157,13 +156,17 @@ void LoadMenu::initialize_save()
         return;
     }
 
+    if (!new_save_button || new_save_button->get_function() != "new_save")
+    {
+        new_save_button = add_new_button("New Save", "new_save", ""); 
+    }
+
     if (dir->list_dir_begin() == OK) {
         String file_name;
         while (!(file_name = dir->get_next()).is_empty()) {
             if (dir->current_is_dir() || file_name.begins_with(".")) {
                 continue;
             }
-
 
             if (file_name.get_extension() == "json") {
                 if (file_names.count(file_name))
@@ -175,13 +178,8 @@ void LoadMenu::initialize_save()
                     file_names.push_back(file_name);
                 }
 
-                SaveButton *save_button_instance = add_new_button();
-
-                String file_name_without_extension = file_name.get_basename();
-                save_button_instance->set_name(file_name_without_extension);
-                save_button_instance->set_function("save");
-                save_button_instance->set_file_path("res://saves/" + file_name);
-
+                String name = file_name.get_basename();
+                SaveButton *save_button_instance = add_new_button(name, "save", "res://saves/" + file_name);
             }
         }
 

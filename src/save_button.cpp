@@ -59,6 +59,11 @@ void SaveButton::_ready()
 
 void SaveButton::_pressed()
 {
+    if(function == "new_save")
+    {
+        // gm->call_dialog_window(this, "Enter a name for the save file:");
+    }
+
     if (gm->has_method(function))
     {
         gm->call(function, file_path);

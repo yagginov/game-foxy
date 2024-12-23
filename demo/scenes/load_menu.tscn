@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b43v51ikeb5g2"]
+[gd_scene load_steps=4 format=3 uid="uid://b43v51ikeb5g2"]
 
 [ext_resource type="Texture2D" uid="uid://xjcnd26tq414" path="res://assets/sprites/UI_Inventory.png" id="1_6re3q"]
 [ext_resource type="LabelSettings" uid="uid://cxn2ag0wwcnt4" path="res://resources/label_settings.tres" id="1_jhmgu"]
+[ext_resource type="PackedScene" uid="uid://ddwodgxs5d33y" path="res://scenes/dialog_window.tscn" id="3_lxoyb"]
 
 [node name="LoadMenu" type="LoadMenu"]
 back_path = NodePath("NinePatchRect/VBoxContainer/MarginContainer/Button")
@@ -15,9 +16,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-layout_mode = 0
-offset_right = 950.0
-offset_bottom = 500.0
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 954.0
+offset_bottom = 531.0
 texture = ExtResource("1_6re3q")
 patch_margin_left = 4
 patch_margin_top = 4
@@ -58,3 +62,15 @@ theme_override_constants/margin_right = 100
 [node name="Button" type="Button" parent="NinePatchRect/VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "BACK"
+
+[node name="DialogWindow" parent="." instance=ExtResource("3_lxoyb")]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 261.0
+offset_top = 174.0
+offset_right = 261.0
+offset_bottom = 174.0
+scale = Vector2(0.5, 0.5)

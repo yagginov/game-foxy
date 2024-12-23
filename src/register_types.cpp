@@ -36,6 +36,7 @@
 #include "health_ui.h"
 #include "load_menu.h"
 #include "save_button.h"
+#include "dialog_window.h"
 
 // inventory system
 #include "inventory.h"
@@ -90,6 +91,7 @@ void initialize_game_foxy_module(ModuleInitializationLevel p_level) {
 	GDREGISTER_CLASS(HealthUI);
 	GDREGISTER_CLASS(LoadMenu);
 	GDREGISTER_CLASS(SaveButton);
+	GDREGISTER_CLASS(DialogWindow);
 
 	// Inventory System
 	GDREGISTER_CLASS(Inventory);

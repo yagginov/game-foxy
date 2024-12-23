@@ -26,6 +26,7 @@ private:
     NodePath            back_path;
 
     Vector<String>      file_names;
+    SaveButton*         new_save_button;
 
 public:
     LoadMenu();
@@ -40,7 +41,7 @@ public:
     void            set_back_button(const NodePath& p_back_button_path);
     NodePath        get_back_button() const;
 
-    SaveButton* add_new_button();
+    SaveButton* add_new_button(String p_name, String p_function, String p_file_path);
 
     void initialize_load();
     void initialize_save();
